@@ -45,7 +45,6 @@ class HomeTabController: UIViewController {
         addThemeContents()
     }
     
-    
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
     func getTopChart(){
         let url:NSURL = NSURL(string: "http://52.78.101.90/json/song")!
@@ -53,9 +52,9 @@ class HomeTabController: UIViewController {
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
-        print(topChartReadableJSON[0]["id"].type)
-        print(topChartReadableJSON[0]["id"])
-        print(topChartReadableJSON[0]["jacket"])
+//        print(topChartReadableJSON[0]["id"].type)
+//        print(topChartReadableJSON[0]["id"])
+//        print(topChartReadableJSON[0]["jacket"])
     }
     
     // MARK: 화면 상단의 백그라운드 이미지 생성
@@ -117,7 +116,7 @@ class HomeTabController: UIViewController {
         // contentSize가 이미지 뷰의 개수만큼 생기면 된다.
         // UIControl과 Scrollview를 이용해서 앨범 3개씩 넘어가도록 할 수 있다.
         scrollView.contentSize = CGSizeMake(imageViewArray[0].bounds.width*CGFloat(contentNum)+5*CGFloat(contentNum-1), imageViewArray[0].bounds.height + 10 + imageViewArray[0].bounds.height/3)
-
+        
         homeAlbumPageControl.addSubview(scrollView)
         bottomContainerScrollView.addSubview(homeAlbumPageControl)
     }
@@ -151,7 +150,7 @@ class HomeTabController: UIViewController {
             songLabelForAlbum.textColor = UIColor.whiteColor()
             
             // 라벨에 Padding 추가
-//            songLabelForAlbum.drawTextInRect(CGRect(x: 10, y: 0, width: songLabelForAlbum.bounds.width, height: songLabelForAlbum.bounds.height))
+            //            songLabelForAlbum.drawTextInRect(CGRect(x: 10, y: 0, width: songLabelForAlbum.bounds.width, height: songLabelForAlbum.bounds.height))
             
             songLabelForAlbum.font = songLabelForAlbum.font.fontWithSize(14)
             
@@ -208,7 +207,6 @@ class HomeTabController: UIViewController {
             }
         }
     }
-   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
