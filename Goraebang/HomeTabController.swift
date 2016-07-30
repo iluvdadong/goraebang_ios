@@ -7,7 +7,7 @@ class HomeTabController: UIViewController {
     // 아이폰 화면비율 9:16
     // 아이폰 5s 640x1136
     
-    // http://52.78.101.90/json/song , json url
+    // http://52.78.101.90/json/song, top chart json url
     
     // MARK : Variables
     var bottomContainerScrollView: UIScrollView!
@@ -52,9 +52,9 @@ class HomeTabController: UIViewController {
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
-//        print(topChartReadableJSON[0]["id"].type)
-//        print(topChartReadableJSON[0]["id"])
-//        print(topChartReadableJSON[0]["jacket"])
+        print(topChartReadableJSON[0]["id"].type)
+        print(topChartReadableJSON[0]["id"])
+        print(topChartReadableJSON[0]["jacket"])
     }
     
     // MARK: 화면 상단의 백그라운드 이미지 생성
@@ -94,18 +94,18 @@ class HomeTabController: UIViewController {
         view.addSubview(bottomContainerScrollView)
     }
     
-    // 3개씩 넘기 위해서 PageControl을 생성한다.
+    // MARK: 3개씩 넘기 위해서 PageControl을 생성한다.
     func makeAlbumPageControl(){
         homeAlbumPageControl = UIPageControl(frame: CGRectMake(5, 50, view.bounds.width-10, imageViewArray[0].bounds.height + 10))
         view.addSubview(homeAlbumPageControl)
     }
     
-    // Top100을 담을 앨범 ImageView를 생성한다.
+    // MARK: Top100을 담을 앨범 ImageView를 생성한다.
     func makeAlbumImageView(){
         imageViewArray = [UIImageView(image: UIImage(named: "AlbumTest1")), UIImageView(image: UIImage(named: "AlbumTest2")), UIImageView(image: UIImage(named: "AlbumTest3")), UIImageView(image: UIImage(named: "AlbumTest1")), UIImageView(image: UIImage(named: "AlbumTest2")), UIImageView(image: UIImage(named: "AlbumTest3"))]
     }
     
-    // Top100을 담을 ScrollView를 생성한다.
+    // MARK: Top100을 담을 ScrollView를 생성한다.
     func makeAlbumScrollView(){
         scrollView = UIScrollView(frame: CGRectMake(0, 0, view.bounds.width-10, imageViewArray[0].bounds.height + 10 + imageViewArray[0].bounds.height/3))
         // remove scroll indicator
@@ -121,7 +121,7 @@ class HomeTabController: UIViewController {
         bottomContainerScrollView.addSubview(homeAlbumPageControl)
     }
     
-    // Bottom Container에 앨범 추가
+    // MARK: Bottom Container에 앨범 추가
     func addAlbumContents(){
         var x = 0
         
