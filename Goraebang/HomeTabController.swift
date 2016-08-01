@@ -15,6 +15,7 @@ class HomeTabController: UIViewController {
     var imageView: UIImageView!
     var imageViewArray: [UIImageView]!
     var labelForImageViewArray: UILabel!
+    var imageViewForSongTag: UIImageView!
     
     var viewForAlbumTitle: UIView!
     var songLabelForAlbum: UILabel!
@@ -47,6 +48,7 @@ class HomeTabController: UIViewController {
     
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
     func getTopChart(){
+        // 서버 문제있을 때?
         let url:NSURL = NSURL(string: "http://52.78.101.90/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
@@ -129,13 +131,16 @@ class HomeTabController: UIViewController {
             imageViewArray[i].frame = CGRect(x: x, y: 5, width: Int(imageViewArray[i].bounds.width), height: Int(imageViewArray[i].bounds.height))
             scrollView.addSubview(imageViewArray[i])
             
-            // MARK: 노래방 TJ 번호를 담을 라벨
-            labelForImageViewArray = UILabel(frame: CGRect(x: 0, y:15, width:50, height:20))
+            // MARK: 노래방 TJ 번호를 담을 뷰와 라벨
+            imageViewForSongTag = UIImageView(image: UIImage(named: "SongNumberTag"))
+            imageViewForSongTag.frame = CGRectMake(0, 10, 50, 20)
+            imageViewArray[i].addSubview(imageViewForSongTag)
+            
+            labelForImageViewArray = UILabel(frame: CGRect(x: 0, y:0, width:50, height:20))
             labelForImageViewArray.text = String(topChartReadableJSON[i]["song_tjnum"].int!)
             labelForImageViewArray.font = labelForImageViewArray.font.fontWithSize(14)
-            labelForImageViewArray.backgroundColor = UIColor.redColor() // 끝이 삼각형인 이미지로 변경
             labelForImageViewArray.textColor = UIColor.whiteColor()
-            imageViewArray[i].addSubview(labelForImageViewArray)
+            imageViewForSongTag.addSubview(labelForImageViewArray)
             
             // MARK: 노래 제목과, 아티스트명을 담을 UIView
             // CHECK: viewForAlbumTitle UIView frame이 Int로 설정되어있는데 CGFloat으로 바꿀 것

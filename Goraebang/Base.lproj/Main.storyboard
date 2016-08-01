@@ -120,12 +120,13 @@
         <!--LoginVC-->
         <scene sceneID="Mix-tC-vAi">
             <objects>
-                <viewController id="PDV-aw-aRi" customClass="loginVC" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PDV-aw-aRi" customClass="LoginVC" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="r94-eW-A9d"/>
                         <viewControllerLayoutGuide type="bottom" id="XRh-e0-dtL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Fz7-r0-tSy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91R-cF-bzW">
@@ -151,7 +152,7 @@
                                     </mask>
                                 </variation>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UrR-47-GUQ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UrR-47-GUQ">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="251" id="4Fj-sz-LTp"/>
@@ -171,6 +172,9 @@
                                         <include reference="Lx4-UU-eys"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="usernameReturn:" destination="PDV-aw-aRi" eventType="editingDidEndOnExit" id="pBC-Xr-7gJ"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="biv-HW-zHb">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
@@ -192,6 +196,9 @@
                                         <include reference="sUH-7U-IkK"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="passwordReturn:" destination="PDV-aw-aRi" eventType="editingDidEndOnExit" id="mDx-f5-yY2"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f82-sP-OdO">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -300,16 +307,16 @@
                                 <exclude reference="jow-vf-Dwa"/>
                                 <exclude reference="bjZ-vi-xQb"/>
                                 <exclude reference="eio-2Q-RXR"/>
+                                <exclude reference="VNj-wJ-SWi"/>
+                                <exclude reference="dHU-wM-d7G"/>
+                                <exclude reference="fXK-gC-Pv7"/>
+                                <exclude reference="HCd-jv-VBG"/>
+                                <exclude reference="6hY-Aj-d2p"/>
+                                <exclude reference="sFu-DV-ICj"/>
                                 <exclude reference="CAX-xI-cyD"/>
                                 <exclude reference="JqF-3w-Olb"/>
                                 <exclude reference="bXL-Mb-K7D"/>
                                 <exclude reference="hyb-WR-0Gr"/>
-                                <exclude reference="HCd-jv-VBG"/>
-                                <exclude reference="VNj-wJ-SWi"/>
-                                <exclude reference="dHU-wM-d7G"/>
-                                <exclude reference="fXK-gC-Pv7"/>
-                                <exclude reference="6hY-Aj-d2p"/>
-                                <exclude reference="sFu-DV-ICj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -326,19 +333,23 @@
                                 <include reference="jow-vf-Dwa"/>
                                 <include reference="bjZ-vi-xQb"/>
                                 <include reference="eio-2Q-RXR"/>
+                                <include reference="VNj-wJ-SWi"/>
+                                <include reference="dHU-wM-d7G"/>
+                                <include reference="fXK-gC-Pv7"/>
+                                <include reference="HCd-jv-VBG"/>
+                                <include reference="6hY-Aj-d2p"/>
+                                <include reference="sFu-DV-ICj"/>
                                 <include reference="CAX-xI-cyD"/>
                                 <include reference="JqF-3w-Olb"/>
                                 <include reference="bXL-Mb-K7D"/>
                                 <include reference="hyb-WR-0Gr"/>
-                                <include reference="HCd-jv-VBG"/>
-                                <include reference="VNj-wJ-SWi"/>
-                                <include reference="dHU-wM-d7G"/>
-                                <include reference="fXK-gC-Pv7"/>
-                                <include reference="6hY-Aj-d2p"/>
-                                <include reference="sFu-DV-ICj"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="txtPassword" destination="biv-HW-zHb" id="rdl-lB-2xq"/>
+                        <outlet property="txtUserEmail" destination="UrR-47-GUQ" id="ukw-ho-Jj9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKo-1I-iwr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -353,6 +364,7 @@
                         <viewControllerLayoutGuide type="bottom" id="VCb-Qa-xsV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lIg-gm-cAi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVP-6S-HUb">
@@ -381,6 +393,9 @@
                                         <include reference="bfr-k1-NBy"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="emailReturn:" destination="E4s-5c-2Wo" eventType="editingDidEndOnExit" id="nw4-Ka-w6z"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCm-Vh-asY">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
@@ -501,18 +516,18 @@
                                 <exclude reference="gHa-nq-LVS"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="2QZ-Go-FRn"/>
-                                <exclude reference="WRD-cE-ebc"/>
-                                <exclude reference="fgr-6h-rac"/>
-                                <exclude reference="tgd-xx-K2e"/>
-                                <exclude reference="Oo9-wh-zpd"/>
-                                <exclude reference="aae-c7-jPR"/>
                                 <exclude reference="v2z-pd-QCe"/>
                                 <exclude reference="wn8-c3-w98"/>
+                                <exclude reference="Oo9-wh-zpd"/>
+                                <exclude reference="aae-c7-jPR"/>
+                                <exclude reference="fgr-6h-rac"/>
+                                <exclude reference="tgd-xx-K2e"/>
                                 <exclude reference="TgU-fh-SE4"/>
                                 <exclude reference="mkJ-8K-u8n"/>
                                 <exclude reference="mG1-RS-EFm"/>
                                 <exclude reference="otX-f9-Kbs"/>
+                                <exclude reference="2QZ-Go-FRn"/>
+                                <exclude reference="WRD-cE-ebc"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -525,21 +540,26 @@
                                 <include reference="gHa-nq-LVS"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="2QZ-Go-FRn"/>
-                                <include reference="WRD-cE-ebc"/>
-                                <include reference="fgr-6h-rac"/>
-                                <include reference="tgd-xx-K2e"/>
-                                <include reference="Oo9-wh-zpd"/>
-                                <include reference="aae-c7-jPR"/>
                                 <include reference="v2z-pd-QCe"/>
                                 <include reference="wn8-c3-w98"/>
+                                <include reference="Oo9-wh-zpd"/>
+                                <include reference="aae-c7-jPR"/>
+                                <include reference="fgr-6h-rac"/>
+                                <include reference="tgd-xx-K2e"/>
                                 <include reference="TgU-fh-SE4"/>
                                 <include reference="mkJ-8K-u8n"/>
                                 <include reference="mG1-RS-EFm"/>
                                 <include reference="otX-f9-Kbs"/>
+                                <include reference="2QZ-Go-FRn"/>
+                                <include reference="WRD-cE-ebc"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="txtConfirmPassword" destination="aEN-7b-SB9" id="Bha-e4-XAx"/>
+                        <outlet property="txtPassword" destination="bCm-Vh-asY" id="Xle-7k-moT"/>
+                        <outlet property="txtUserEmail" destination="pTJ-fH-CTK" id="pGn-WI-KIg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nZl-sP-VV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
