@@ -248,8 +248,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="loginAction:" destination="PDV-aw-aRi" eventType="touchUpInside" id="bZH-CM-tm8"/>
-                                    <segue destination="0gG-Eg-SQS" kind="presentation" identifier="goto_main" id="vfP-ru-Cbu"/>
+                                    <action selector="loginAction:" destination="PDV-aw-aRi" eventType="touchUpInside" id="sTA-Cc-wM5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bma-RO-CPa">
@@ -349,6 +348,7 @@
                     <connections>
                         <outlet property="txtPassword" destination="biv-HW-zHb" id="rdl-lB-2xq"/>
                         <outlet property="txtUserEmail" destination="UrR-47-GUQ" id="ukw-ho-Jj9"/>
+                        <segue destination="0gG-Eg-SQS" kind="presentation" identifier="goto_main" id="wx5-OV-T2M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKo-1I-iwr" userLabel="First Responder" sceneMemberID="firstResponder"/>

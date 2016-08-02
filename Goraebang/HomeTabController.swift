@@ -77,8 +77,9 @@ class HomeTabController: UIViewController {
         // MARK: 고래방 TOP 100 차트 타이틀 라벨
         let chartLabel = UILabel(frame: CGRectMake(10, 5, 200, 50))
         chartLabel.textAlignment = NSTextAlignment.Left
-        chartLabel.textColor = UIColor.grayColor()
-        chartLabel.text = "TOP 100"
+        chartLabel.textColor = UIColor.init(red: 171/255, green: 171/255, blue: 171/255, alpha: 1.0)
+        chartLabel.text = "고래방 차트"
+        chartLabel.font = UIFont.boldSystemFontOfSize(17)
         bottomContainerScrollView.addSubview(chartLabel)
         
         // MARK: TOP100 차트, 테마 구분선
@@ -87,10 +88,11 @@ class HomeTabController: UIViewController {
         bottomContainerScrollView.addSubview(divisionLine)
         
         // MARK: 고래방 테마 타이틀 라벨
-        let themeLabel = UILabel(frame: CGRectMake(10, 220, 200, 20))
+        let themeLabel = UILabel(frame: CGRectMake(10, 225, 200, 20))
         themeLabel.textAlignment = NSTextAlignment.Left
-        themeLabel.textColor = UIColor.grayColor()
-        themeLabel.text = "Theme"
+        themeLabel.textColor = UIColor.init(red: 171/255, green: 171/255, blue: 171/255, alpha: 1.0)
+        themeLabel.text = "고래방 테마"
+        themeLabel.font = UIFont.boldSystemFontOfSize(17)
         bottomContainerScrollView.addSubview(themeLabel)
         
         view.addSubview(bottomContainerScrollView)
@@ -98,8 +100,8 @@ class HomeTabController: UIViewController {
     
     // MARK: 3개씩 넘기 위해서 PageControl을 생성한다.
     func makeAlbumPageControl(){
-        homeAlbumPageControl = UIPageControl(frame: CGRectMake(5, 50, view.bounds.width-10, imageViewArray[0].bounds.height + 10))
-        view.addSubview(homeAlbumPageControl)
+        homeAlbumPageControl = UIPageControl(frame: CGRectMake(10, 50, view.bounds.width-20, imageViewArray[0].bounds.height + 10))
+        bottomContainerScrollView.addSubview(homeAlbumPageControl)
     }
     
     // MARK: Top100을 담을 앨범 ImageView를 생성한다.
@@ -109,7 +111,7 @@ class HomeTabController: UIViewController {
     
     // MARK: Top100을 담을 ScrollView를 생성한다.
     func makeAlbumScrollView(){
-        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.bounds.width-10, imageViewArray[0].bounds.height + 10 + imageViewArray[0].bounds.height/3))
+        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.bounds.width-20, imageViewArray[0].bounds.height + 10 + imageViewArray[0].bounds.height/3))
         // remove scroll indicator
         
         scrollView.showsHorizontalScrollIndicator = false
@@ -125,21 +127,27 @@ class HomeTabController: UIViewController {
     
     // MARK: Bottom Container에 앨범 추가
     func addAlbumContents(){
+        // 앨범 x 좌표
         var x = 0
         
         for i in 0...contentNum-1 {
-            imageViewArray[i].frame = CGRect(x: x, y: 5, width: Int(imageViewArray[i].bounds.width), height: Int(imageViewArray[i].bounds.height))
+            // 이미지의 크기는 아이폰 가로길이에서 양 옆 패딩 각각 10씩 -20, 그리고 앨범 사이 간격 5*2에서 -10으로 총 -30 나누기 3, 높이는 같아진다.
+            imageViewArray[i].frame = CGRect(x: x, y: 5, width: (Int(view.bounds.width)-30)/3, height: (Int(view.bounds.width)-30)/3)
             scrollView.addSubview(imageViewArray[i])
             
             // MARK: 노래방 TJ 번호를 담을 뷰와 라벨
             imageViewForSongTag = UIImageView(image: UIImage(named: "SongNumberTag"))
-            imageViewForSongTag.frame = CGRectMake(0, 10, 50, 20)
+            imageViewForSongTag.frame = CGRectMake(0, 10, 50, 25)
+            
             imageViewArray[i].addSubview(imageViewForSongTag)
             
-            labelForImageViewArray = UILabel(frame: CGRect(x: 0, y:0, width:50, height:20))
+            labelForImageViewArray = UILabel(frame: CGRect(x: 3, y:0, width:50, height:25))
             labelForImageViewArray.text = String(topChartReadableJSON[i]["song_tjnum"].int!)
-            labelForImageViewArray.font = labelForImageViewArray.font.fontWithSize(14)
+            //            labelForImageViewArray.font = labelForImageViewArray.font.fontWithSize(13)
+            labelForImageViewArray.font = UIFont.boldSystemFontOfSize(12)
             labelForImageViewArray.textColor = UIColor.whiteColor()
+            
+            //            labelForImageViewArray.textAlignment = NSTextAlignment.Center
             imageViewForSongTag.addSubview(labelForImageViewArray)
             
             // MARK: 노래 제목과, 아티스트명을 담을 UIView
@@ -149,22 +157,19 @@ class HomeTabController: UIViewController {
             scrollView.addSubview(viewForAlbumTitle)
             
             // MARK : 노래제목 라벨 추가(textView를 이용하면 Inset 넣을 수 있는지 확인)
-            songLabelForAlbum = UILabel(frame: CGRect(x: 0, y: 5, width:Int(imageViewArray[i].bounds.width), height: 15))
+            songLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 5, width:Int(imageViewArray[i].bounds.width) - 10, height: 15))
             songLabelForAlbum.text = topChartReadableJSON[i]["title"].string
+            songLabelForAlbum.font = UIFont.boldSystemFontOfSize(12)
             songLabelForAlbum.textAlignment = NSTextAlignment.Left
             songLabelForAlbum.textColor = UIColor.whiteColor()
             
-            // 라벨에 Padding 추가
-            //            songLabelForAlbum.drawTextInRect(CGRect(x: 10, y: 0, width: songLabelForAlbum.bounds.width, height: songLabelForAlbum.bounds.height))
-            
-            songLabelForAlbum.font = songLabelForAlbum.font.fontWithSize(14)
-            
             // MARK: artist UILabel
-            artistLabelForAlbum = UILabel(frame: CGRect(x: 0, y: 20, width:Int(imageViewArray[i].bounds.width), height: 15))
-            artistLabelForAlbum.text = topChartReadableJSON[i]["artist"].string
+            artistLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 20, width:Int(imageViewArray[i].bounds.width)-10, height: 15))
+            artistLabelForAlbum.text = "Unknown Artist"
+            //            artistLabelForAlbum.text = topChartReadableJSON[i]["artist"].string
             artistLabelForAlbum.textAlignment = NSTextAlignment.Left
-            artistLabelForAlbum.textColor = UIColor.whiteColor()
-            artistLabelForAlbum.font = artistLabelForAlbum.font.fontWithSize(14)
+            artistLabelForAlbum.textColor = UIColor.darkGrayColor()
+            artistLabelForAlbum.font = artistLabelForAlbum.font.fontWithSize(12)
             
             viewForAlbumTitle.addSubview(songLabelForAlbum)
             viewForAlbumTitle.addSubview(artistLabelForAlbum)

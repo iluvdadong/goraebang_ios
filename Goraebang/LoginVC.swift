@@ -37,8 +37,7 @@ class LoginVC: UIViewController {
         self.performSegueWithIdentifier("goto_main", sender: self)
     }
     
-    
-    @IBAction func loginAction(sender: UIButton) {
+    @IBAction func loginAction(sender: AnyObject) {
         // 로그인 검사
         //        self.performSegueWithIdentifier("goto_main", sender: self)
         let username:NSString = txtUserEmail.text! as NSString
@@ -78,6 +77,8 @@ class LoginVC: UIViewController {
         task.resume()
         
         self.dismissViewControllerAnimated(true, completion: nil)
+        // 로그인 검사 후 다음 segue
+        self.performSegueWithIdentifier("goto_main", sender: self)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
