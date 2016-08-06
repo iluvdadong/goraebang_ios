@@ -13,7 +13,7 @@ class MyListTabController: UIViewController {
     // http://52.78.101.90/json/song , json url
     
     // 임시로 현재 마이리스트의 개수를 저장
-    let temporaryNumberOfSong = 5
+    var temporaryNumberOfSong:Int!
     
     var myListTopBackgroundImageView: UIImageView!
     var myListScrollView: UIScrollView!
@@ -28,15 +28,35 @@ class MyListTabController: UIViewController {
     var songTitleLabelForContent: UILabel!
     var singerNameLabelForContent: UILabel!
     
+    var songPageControlForAction: UIPageControl!
+    
+    // 초기 설정 변수
+    var containerHeight: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setValue(view.bounds.width)
         
         makeMylistFixedTopBackground()
         makeMylistScrollView()
         addContents(temporaryNumberOfSong)
-
+        
     }
-
+    
+    // 이름 바꾸자
+    func setValue(phoneSize:CGFloat){
+        temporaryNumberOfSong = 5
+        
+        if(phoneSize == 320){ // 4inch
+            containerHeight = 80
+        } else if(phoneSize == 375){ // 4.7inch
+            containerHeight = 80
+        } else{ // 5.5inch
+            containerHeight = 80
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,8 +96,13 @@ class MyListTabController: UIViewController {
         var x = 0
         
         for i in 0...numberOfContents - 1 {
-            myListContentView = UIView(frame : CGRectMake(0, CGFloat(x), view.bounds.width-10, 80))
-            myListContentView.backgroundColor = UIColor(red: 41, green: 45, blue: 46, alpha: 0)
+            
+            // MARK: swipeable table view를 추가하자
+            
+            
+            myListContentView = UIView(frame : CGRectMake(0, CGFloat(x), view.bounds.width-10, containerHeight))
+            myListContentView.backgroundColor = UIColor(red: 41/255, green: 45/255, blue: 46/255, alpha: 1.0)
+            
             myListScrollView.addSubview(myListContentView)
             
             // 노래 순서 라벨, 글씨 크기 조절할 것
@@ -140,5 +165,5 @@ class MyListTabController: UIViewController {
     func getJsonFromGoraebang(url: NSURL){
         
     }
-
+    
 }

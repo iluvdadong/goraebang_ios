@@ -43,15 +43,15 @@ class LoginVC: UIViewController {
         let username:NSString = txtUserEmail.text! as NSString
         let password:NSString = txtPassword.text! as NSString
         
-        let post:NSString = "user[email]=\(username)&user[name]=sohn&user[password]=\(password)"
+        let post:NSString = "user[email]=\(username)&user[password]=\(password)"
         
         NSLog("PostData: %@", post)
         
-        let url:NSURL = NSURL(string: "http://web-api-upstream-yhk1038.c9users.io/json/regist")!
+        let url:NSURL = NSURL(string: "http://web-api-upstream-yhk1038.c9users.io/json/login")!
         
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         
-        let postLength:NSString = String(postData.length)
+//        let postLength:NSString = String(postData.length)
         
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"

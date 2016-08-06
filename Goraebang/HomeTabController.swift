@@ -37,6 +37,7 @@ class HomeTabController: UIViewController {
     var albumBigInterval:CGFloat! // 3번째 앨범과 다음 페이지 사이의 큰 간격
     var topChartContainerContentsSizeWidth:CGFloat!
     var topChartContainerContentsSizeHeight:CGFloat!
+    var phoneSizeString:String!
     
     
     // MARK : JSON 읽을 JSON 변수
@@ -64,18 +65,24 @@ class HomeTabController: UIViewController {
         contentNum = 6
         
         if(phoneSize == 320){ // 4inch
+            phoneSizeString = "4inch"
             albumSizeForVariousPhoneWidth = (phoneSize-26)/3
             albumSmallInterval = 3
             albumBigInterval = 20
         } else if(phoneSize == 375){ // 4.7inch
+            phoneSizeString = "4.7inch"
             albumSizeForVariousPhoneWidth = (phoneSize-27)/3
             albumSmallInterval = 3.5
             albumBigInterval = 20
         } else{ // 5.5inch
+            phoneSizeString = "5.5inch"
             albumSizeForVariousPhoneWidth = (phoneSize-27)/3
             albumSmallInterval = 3.5
             albumBigInterval = 20
         }
+        
+        topChartContainerContentsSizeWidth = phoneSize * (CGFloat(contentNum)/3)
+        topChartContainerContentsSizeHeight = albumSizeForVariousPhoneWidth + 45
         // print(albumSizeForVariousPhoneWidth)
     }
     
@@ -95,7 +102,7 @@ class HomeTabController: UIViewController {
     // MARK: 화면 상단의 백그라운드 이미지 생성
     func makeHomeTopBackground(){
         homeTopBackgroundImageView = UIImageView(image: UIImage(named: "HomeTopBackground"))
-        homeTopBackgroundImageView.frame = CGRectMake(0, 64, view.bounds.width, 130)
+        homeTopBackgroundImageView.frame = CGRectMake(0, 64, view.bounds.width, 100)
         
         view.addSubview(homeTopBackgroundImageView)
         // 4, 4.7, 5.5 inch 크기 별로 설정 view.bounds.width(height)의 배율로 하는게 좋을 것 같다.
@@ -103,16 +110,16 @@ class HomeTabController: UIViewController {
     
     // MARK: 화면 하단에 Chart를 표시하는 앨범과, 테마를 담을 Container
     func makeBottomContainer(){
-        bottomContainerScrollView = UIScrollView(frame: CGRectMake(0, 194, view.bounds.width, view.bounds.height - 254))
+        bottomContainerScrollView = UIScrollView(frame: CGRectMake(0, 164, view.bounds.width, view.bounds.height - 214))
         bottomContainerScrollView.showsHorizontalScrollIndicator = true
         bottomContainerScrollView.contentSize = CGSizeMake(view.bounds.width, view.bounds.height + 45)
         
         // MARK: 고래방 TOP 100 차트 타이틀 라벨
-        let chartLabel = UILabel(frame: CGRectMake(10, 5, 200, 50))
+        let chartLabel = UILabel(frame: CGRectMake(10, 0, 200, 50))
         chartLabel.textAlignment = NSTextAlignment.Left
         chartLabel.textColor = UIColor.init(red: 171/255, green: 171/255, blue: 171/255, alpha: 1.0)
         chartLabel.text = "고래방 차트"
-        chartLabel.font = UIFont.boldSystemFontOfSize(17)
+        chartLabel.font = UIFont.boldSystemFontOfSize(15)
         bottomContainerScrollView.addSubview(chartLabel)
         
         // MARK: TOP100 차트, 테마 구분선
@@ -125,7 +132,7 @@ class HomeTabController: UIViewController {
         themeLabel.textAlignment = NSTextAlignment.Left
         themeLabel.textColor = UIColor.init(red: 171/255, green: 171/255, blue: 171/255, alpha: 1.0)
         themeLabel.text = "고래방 테마"
-        themeLabel.font = UIFont.boldSystemFontOfSize(17)
+        themeLabel.font = UIFont.boldSystemFontOfSize(15)
         bottomContainerScrollView.addSubview(themeLabel)
         
         view.addSubview(bottomContainerScrollView)
@@ -134,7 +141,7 @@ class HomeTabController: UIViewController {
     // MARK: 3개씩 넘기 위해서 PageControl을 생성한다.
     func makeAlbumPageControl(){
         
-        homeAlbumPageControl = UIPageControl(frame: CGRectMake(0, 50, view.bounds.width, albumSizeForVariousPhoneWidth + 30))
+        homeAlbumPageControl = UIPageControl(frame: CGRectMake(0, 50, view.bounds.width, topChartContainerContentsSizeHeight))
         bottomContainerScrollView.addSubview(homeAlbumPageControl)
     }
     
@@ -145,14 +152,14 @@ class HomeTabController: UIViewController {
     
     // MARK: Top100을 담을 ScrollView를 생성한다.
     func makeAlbumScrollView(){
-        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.bounds.width, albumSizeForVariousPhoneWidth + 30))
+        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.bounds.width, topChartContainerContentsSizeHeight))
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.pagingEnabled = true
         
         // contentSize가 이미지 뷰의 개수만큼 생기면 된다.
         // UIControl과 Scrollview를 이용해서 앨범 3개씩 넘어가도록 할 수 있다.
-        scrollView.contentSize = CGSizeMake(CGFloat(((view.bounds.width)-40)/3)*CGFloat(contentNum)+40*(CGFloat(contentNum)/3), imageViewArray[0].bounds.height + 10 + imageViewArray[0].bounds.height/3)
+        scrollView.contentSize = CGSizeMake(topChartContainerContentsSizeWidth, topChartContainerContentsSizeHeight)
         
         homeAlbumPageControl.addSubview(scrollView)
         bottomContainerScrollView.addSubview(homeAlbumPageControl)
@@ -161,15 +168,15 @@ class HomeTabController: UIViewController {
     // MARK: Bottom Container에 앨범 추가
     func addAlbumContents(){
         // 앨범 x 좌표
-        var x = 10.0
+        var x:CGFloat = 10
         
         for i in 0...contentNum-1 {
             // 이미지의 크기는 아이폰 가로길이에서 양 옆 패딩 각각 10씩 -20, 그리고 앨범 사이 간격 5*2에서 -10으로 총 -30 나누기 3, 높이는 같아진다.
 //            imageViewArray[i].frame = CGRect(x: x, y: 5, width: (CGFloat(view.bounds.width)-40)/3, height: (CGFloat(view.bounds.width)-40)/3)
-            imageViewArray[i].frame = CGRect(x: CGFloat(x), y: CGFloat(5), width: (CGFloat(view.bounds.width)-40)/3, height: (CGFloat(view.bounds.width)-40)/3)
+            imageViewArray[i].frame = CGRect(x: x, y: 0, width: albumSizeForVariousPhoneWidth, height: albumSizeForVariousPhoneWidth)
             scrollView.addSubview(imageViewArray[i])
             
-            // MARK: 노래방 TJ 번호를 담을 뷰와 라벨
+            // MARK: 노래방 TJ 번호를 표시할 ImageView 태그
             imageViewForSongTag = UIImageView(image: UIImage(named: "SongNumberTag"))
             imageViewForSongTag.frame = CGRectMake(0, 10, 50, 25)
             
@@ -177,28 +184,25 @@ class HomeTabController: UIViewController {
             
             labelForImageViewArray = UILabel(frame: CGRect(x: 3, y:0, width:50, height:25))
             labelForImageViewArray.text = String(topChartReadableJSON[i]["song_tjnum"].int!)
-            // labelForImageViewArray.font = labelForImageViewArray.font.fontWithSize(13)
             labelForImageViewArray.font = UIFont.boldSystemFontOfSize(12)
             labelForImageViewArray.textColor = UIColor.whiteColor()
             
-            // labelForImageViewArray.textAlignment = NSTextAlignment.Center
             imageViewForSongTag.addSubview(labelForImageViewArray)
             
             // MARK: 노래 제목과, 아티스트명을 담을 UIView
-            // CHECK: viewForAlbumTitle UIView frame이 Int로 설정되어있는데 CGFloat으로 바꿀 것
-            viewForAlbumTitle = UIView(frame: CGRect(x: CGFloat(x), y: CGFloat(imageViewArray[i].bounds.height) + 5, width:CGFloat(imageViewArray[i].bounds.width), height: CGFloat(10 + imageViewArray[0].bounds.height/3)))
+            viewForAlbumTitle = UIView(frame: CGRect(x: x, y: albumSizeForVariousPhoneWidth, width:albumSizeForVariousPhoneWidth, height: 40))
             viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 1.0)
             scrollView.addSubview(viewForAlbumTitle)
             
             // MARK : 노래제목 라벨 추가(textView를 이용하면 Inset 넣을 수 있는지 확인)
-            songLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 5, width:Int(imageViewArray[i].bounds.width) - 10, height: 15))
+            songLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 5, width: albumSizeForVariousPhoneWidth - 10, height: 15))
             songLabelForAlbum.text = topChartReadableJSON[i]["title"].string
             songLabelForAlbum.font = UIFont.boldSystemFontOfSize(12)
             songLabelForAlbum.textAlignment = NSTextAlignment.Left
             songLabelForAlbum.textColor = UIColor.whiteColor()
             
             // MARK: artist UILabel
-            artistLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 20, width:Int(imageViewArray[i].bounds.width)-10, height: 15))
+            artistLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 20, width:albumSizeForVariousPhoneWidth - 10, height: 15))
             artistLabelForAlbum.text = "Unknown Artist"
             //            artistLabelForAlbum.text = topChartReadableJSON[i]["artist"].string
             artistLabelForAlbum.textAlignment = NSTextAlignment.Left
@@ -207,13 +211,11 @@ class HomeTabController: UIViewController {
             
             viewForAlbumTitle.addSubview(songLabelForAlbum)
             viewForAlbumTitle.addSubview(artistLabelForAlbum)
-            
-            // IMPORTANT MARK: 양 옆 여백을 없애고 앨범 앞 여백을 넣으면?? 앨범의 사이즈는 (view.bounds.width-40)/3, 그리고 앨범 앞에 간격 10씩 띄우면?
-//            x = x + (Float(view.bounds.width)-30)/3+5
-            x = x + (Double(view.bounds.width)-40.0)/3.0+10.0
-            // 3개째마다 여백을 넣을 필요가 없다.
-            if ((i+1)%3 == 0){
-                x += 10
+        
+            if((i+1)%3 == 0){
+                x += albumBigInterval + albumSizeForVariousPhoneWidth
+            } else{
+                x += albumSmallInterval + albumSizeForVariousPhoneWidth
             }
         }
     }

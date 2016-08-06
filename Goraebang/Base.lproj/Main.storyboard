@@ -578,15 +578,15 @@
                     <connections>
                         <outlet property="myTabBar" destination="jJn-uf-NE8" id="d7d-lN-fqO"/>
                         <segue destination="T8K-8X-hJe" kind="relationship" relationship="viewControllers" id="wmB-8a-rkv"/>
-                        <segue destination="AvL-GN-Ovq" kind="relationship" relationship="viewControllers" id="8tf-uV-pAf"/>
                         <segue destination="pcm-gn-2Z5" kind="relationship" relationship="viewControllers" id="wya-rx-3Fx"/>
+                        <segue destination="AvL-GN-Ovq" kind="relationship" relationship="viewControllers" id="JNh-Eo-IvO"/>
                         <segue destination="NPB-CL-W9g" kind="relationship" relationship="viewControllers" id="QSl-Nl-Nlv"/>
                         <segue destination="qrX-Jj-MnH" kind="relationship" relationship="viewControllers" id="VGz-T8-eFt"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZW-g8-4cY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-81" y="402"/>
+            <point key="canvasLocation" x="168" y="343.5"/>
         </scene>
         <!--Home-->
         <scene sceneID="kRk-ET-Tzs">
