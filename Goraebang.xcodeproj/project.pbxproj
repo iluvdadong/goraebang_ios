@@ -21,6 +21,9 @@
 		497454B71D4CE727000D520B /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454B61D4CE727000D520B /* SignupVC.swift */; };
 		4979E2231D4A17D2003852E6 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49183BBA1D48E8290012DD3C /* SwiftyJSON.framework */; };
 		4979E2241D4A17D2003852E6 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49183BBA1D48E8290012DD3C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */; };
+		498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */; };
+		49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +122,9 @@
 		494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabController.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
 		497454AE1D4CB8B5000D520B /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		497454B61D4CE727000D520B /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
-		49F653CF1D46263200BC0932 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewController.swift; sourceTree = "<group>"; };
+		498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewCell.swift; sourceTree = "<group>"; };
+		49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,15 +156,14 @@
 		491F3E571D42F43B005A2C9D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				498CDFA21D55E18700DA0A1D /* MyListController */,
 				491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */,
 				491F3E4F1D42F38F005A2C9D /* MyListTabController.swift */,
 				491F3E511D42F398005A2C9D /* EvalTabController.swift */,
 				491F3E531D42F3A5005A2C9D /* MyPageTabController.swift */,
 				494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */,
-				49F653CF1D46263200BC0932 /* MyPlayground.playground */,
 				491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */,
-				497454AE1D4CB8B5000D520B /* LoginVC.swift */,
-				497454B61D4CE727000D520B /* SignupVC.swift */,
+				49B834041D56335F004F1AC0 /* UserController */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -201,6 +205,25 @@
 				494F3AA41D42ECAA008B5051 /* Info.plist */,
 			);
 			path = Goraebang;
+			sourceTree = "<group>";
+		};
+		498CDFA21D55E18700DA0A1D /* MyListController */ = {
+			isa = PBXGroup;
+			children = (
+				498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */,
+				498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */,
+				49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */,
+			);
+			name = MyListController;
+			sourceTree = "<group>";
+		};
+		49B834041D56335F004F1AC0 /* UserController */ = {
+			isa = PBXGroup;
+			children = (
+				497454AE1D4CB8B5000D520B /* LoginVC.swift */,
+				497454B61D4CE727000D520B /* SignupVC.swift */,
+			);
+			name = UserController;
 			sourceTree = "<group>";
 		};
 		49B90CBA1D448FF00007D76B /* Models */ = {
@@ -343,13 +366,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */,
 				491F3E541D42F3A5005A2C9D /* MyPageTabController.swift in Sources */,
 				494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */,
 				491F3E501D42F38F005A2C9D /* MyListTabController.swift in Sources */,
 				491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */,
 				491F3E521D42F398005A2C9D /* EvalTabController.swift in Sources */,
+				49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */,
 				497454B71D4CE727000D520B /* SignupVC.swift in Sources */,
 				494F3A991D42ECAA008B5051 /* AppDelegate.swift in Sources */,
+				498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */,
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
 			);

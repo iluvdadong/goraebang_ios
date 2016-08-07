@@ -4,6 +4,9 @@
         <deployment identifier="iOS"/>
         <development version="7000" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Eval-->
@@ -69,6 +72,177 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wUR-cD-Qn6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1774.5" y="2148"/>
+        </scene>
+        <!--My List-->
+        <scene sceneID="lA2-VJ-USr">
+            <objects>
+                <tableViewController id="Yzq-Py-Z6D" customClass="MyListTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8hS-lp-6gZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.46266937818681408" green="0.44262769321982703" blue="0.46736778846153848" alpha="1" colorSpace="calibratedRGB"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                        <color key="sectionIndexBackgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="MyListTableCell" rowHeight="90" id="8p6-Qv-qaF" customClass="MyListTableViewCell" customModule="Goraebang" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8p6-Qv-qaF" id="qQN-NW-qp8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHI-Lr-DuD">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="fG6-Jh-zWg"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="fG6-Jh-zWg"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="fG6-Jh-zWg"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
+                                        <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iM2-dH-BuT">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="deviceRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="iM2-dH-BuT" secondAttribute="height" multiplier="1:1" id="r2X-9v-Nlt"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="r2X-9v-Nlt"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="r2X-9v-Nlt"/>
+                                                </mask>
+                                            </variation>
+                                        </webView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daE-oV-3Y1">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUw-kF-mjO">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="daE-oV-3Y1" firstAttribute="leading" secondItem="iM2-dH-BuT" secondAttribute="trailing" constant="29" id="80c-ob-j5n">
+                                            <variation key="heightClass=regular-widthClass=compact" constant="35.5"/>
+                                        </constraint>
+                                        <constraint firstAttribute="bottomMargin" secondItem="nUw-kF-mjO" secondAttribute="bottom" constant="20" id="Ahv-IZ-7GP"/>
+                                        <constraint firstItem="VHI-Lr-DuD" firstAttribute="centerY" secondItem="qQN-NW-qp8" secondAttribute="centerY" id="S02-Sd-rNx"/>
+                                        <constraint firstItem="iM2-dH-BuT" firstAttribute="centerY" secondItem="qQN-NW-qp8" secondAttribute="centerY" id="dIU-Wm-C23"/>
+                                        <constraint firstItem="nUw-kF-mjO" firstAttribute="leading" secondItem="iM2-dH-BuT" secondAttribute="trailing" constant="29" id="eUi-a1-MgJ">
+                                            <variation key="heightClass=regular-widthClass=compact" constant="35.5"/>
+                                        </constraint>
+                                        <constraint firstAttribute="leadingMargin" secondItem="VHI-Lr-DuD" secondAttribute="leading" id="fAh-5c-qlr"/>
+                                        <constraint firstItem="iM2-dH-BuT" firstAttribute="leading" secondItem="VHI-Lr-DuD" secondAttribute="trailing" constant="15" id="gah-o3-pDO">
+                                            <variation key="heightClass=regular-widthClass=compact" constant="15"/>
+                                        </constraint>
+                                        <constraint firstAttribute="bottomMargin" secondItem="iM2-dH-BuT" secondAttribute="bottom" constant="5" id="lXF-Dd-zok"/>
+                                        <constraint firstItem="iM2-dH-BuT" firstAttribute="top" secondItem="qQN-NW-qp8" secondAttribute="topMargin" constant="5" id="t3e-eH-p2F"/>
+                                        <constraint firstItem="daE-oV-3Y1" firstAttribute="top" secondItem="qQN-NW-qp8" secondAttribute="topMargin" constant="20" id="t8D-LG-A9f"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="VHI-Lr-DuD"/>
+                                            <exclude reference="iM2-dH-BuT"/>
+                                            <exclude reference="daE-oV-3Y1"/>
+                                            <exclude reference="nUw-kF-mjO"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <exclude reference="S02-Sd-rNx"/>
+                                            <exclude reference="fAh-5c-qlr"/>
+                                            <exclude reference="80c-ob-j5n"/>
+                                            <exclude reference="t8D-LG-A9f"/>
+                                            <exclude reference="Ahv-IZ-7GP"/>
+                                            <exclude reference="eUi-a1-MgJ"/>
+                                            <exclude reference="dIU-Wm-C23"/>
+                                            <exclude reference="gah-o3-pDO"/>
+                                            <exclude reference="lXF-Dd-zok"/>
+                                            <exclude reference="t3e-eH-p2F"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="VHI-Lr-DuD"/>
+                                            <include reference="iM2-dH-BuT"/>
+                                            <include reference="daE-oV-3Y1"/>
+                                            <include reference="nUw-kF-mjO"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <include reference="S02-Sd-rNx"/>
+                                            <include reference="fAh-5c-qlr"/>
+                                            <include reference="80c-ob-j5n"/>
+                                            <include reference="t8D-LG-A9f"/>
+                                            <include reference="Ahv-IZ-7GP"/>
+                                            <include reference="eUi-a1-MgJ"/>
+                                            <include reference="dIU-Wm-C23"/>
+                                            <include reference="gah-o3-pDO"/>
+                                            <include reference="lXF-Dd-zok"/>
+                                            <include reference="t3e-eH-p2F"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="songArtistLabel" destination="nUw-kF-mjO" id="s83-8K-Atv"/>
+                                    <outlet property="songImageWebView" destination="iM2-dH-BuT" id="DfN-FB-qdv"/>
+                                    <outlet property="songNumberLabel" destination="VHI-Lr-DuD" id="2l8-bd-ccs"/>
+                                    <outlet property="songTitleLabel" destination="daE-oV-3Y1" id="h87-qt-ilH"/>
+                                    <segue destination="2Gb-oa-1Mb" kind="show" identifier="ShowMyListDetails" id="KAv-nw-za0"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Yzq-Py-Z6D" id="eO6-hs-CjV"/>
+                            <outlet property="delegate" destination="Yzq-Py-Z6D" id="1Jg-Es-Rne"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="My List" id="Pjw-95-xMv"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3fT-V0-FoB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2697" y="2796.75"/>
+        </scene>
+        <!--Song Title-->
+        <scene sceneID="JUd-6Q-58Z">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="2Gb-oa-1Mb" customClass="MyListDetailViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aqn-LR-eDv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ygn-vF-WpQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="T0B-LT-aOn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Song Title" id="TaT-tk-Wgk"/>
+                    <connections>
+                        <outlet property="songTitleLabel" destination="TaT-tk-Wgk" id="MLC-aj-cKu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b6x-HC-lzr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3438" y="2796.75"/>
         </scene>
         <!--고래방-->
         <scene sceneID="24r-1G-4op">
@@ -580,13 +754,14 @@
                         <segue destination="T8K-8X-hJe" kind="relationship" relationship="viewControllers" id="wmB-8a-rkv"/>
                         <segue destination="pcm-gn-2Z5" kind="relationship" relationship="viewControllers" id="wya-rx-3Fx"/>
                         <segue destination="AvL-GN-Ovq" kind="relationship" relationship="viewControllers" id="JNh-Eo-IvO"/>
+                        <segue destination="pRf-J4-SG2" kind="relationship" relationship="viewControllers" id="lWu-7s-YLD"/>
                         <segue destination="NPB-CL-W9g" kind="relationship" relationship="viewControllers" id="QSl-Nl-Nlv"/>
                         <segue destination="qrX-Jj-MnH" kind="relationship" relationship="viewControllers" id="VGz-T8-eFt"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZW-g8-4cY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="168" y="343.5"/>
+            <point key="canvasLocation" x="315" y="334.5"/>
         </scene>
         <!--Home-->
         <scene sceneID="kRk-ET-Tzs">
@@ -636,6 +811,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="512-sb-Ivu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1783" y="1459"/>
+        </scene>
+        <!--Real MyList-->
+        <scene sceneID="I5q-ym-Tml">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pRf-J4-SG2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Real MyList" image="MylistIcon" id="67V-ax-XKr"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mRd-Ju-9iv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Yzq-Py-Z6D" kind="relationship" relationship="rootViewController" id="qlW-Bb-lsm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VWC-8Z-hbi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1779" y="2796.75"/>
         </scene>
     </scenes>
     <resources>

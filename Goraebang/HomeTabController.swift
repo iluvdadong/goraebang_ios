@@ -94,6 +94,7 @@ class HomeTabController: UIViewController {
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
+        print(topChartReadableJSON.count)
         print(topChartReadableJSON[0]["id"].type)
         print(topChartReadableJSON[0]["id"])
         print(topChartReadableJSON[0]["jacket"])
