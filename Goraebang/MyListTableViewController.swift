@@ -100,6 +100,7 @@ class MyListTableViewController: UITableViewController {
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
             detailViewController.songTitleLabel.title = myListReadableJSON[row!]["title"].string
+            detailViewController.songTitle = myListReadableJSON[row!]["title"].string
             detailViewController.artist = "Unknown Artist"
             detailViewController.genre1 = myListReadableJSON[row!]["genre1"].string
             detailViewController.genre2 = myListReadableJSON[row!]["genre2"].string
