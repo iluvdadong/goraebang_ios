@@ -44,22 +44,43 @@ class MyListDetailViewController: UIViewController {
     var FCFrameWidth: CGFloat!
     var FCFrameHeight: CGFloat!
     
+    // secondContainer 변수
+    var SCFrameXPoint: CGFloat!
+    var SCFrameYPoint: CGFloat!
+    var SCFrameWidth: CGFloat!
+    var SCFrameHeight: CGFloat!
+    
+    // thirdContainer 변수
+    var TCFrameXPoint: CGFloat!
+    var TCFrameYPoint: CGFloat!
+    var TCFrameWidth: CGFloat!
+    var TCFrameHeight: CGFloat!
+    
     // Navigation Var 때문에 생기는 Top padding
     var fixedTopPadding: CGFloat!
     
+    var phoneSize:CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false;
-        let phoneSize:CGFloat = view.bounds.width
+        phoneSize = view.bounds.width
+        
         fixedTopPadding = 65.0
         
         setMyAlbum(phoneSize)
         setMyFirstContainer(phoneSize)
+        setMySecondContainer(phoneSize)
+        setMyThirdContainer(phoneSize)
         
-        makeAlbumWebView()
-        makeFirstContainer()
+        makeMyAlbumWebView()
+        makeMyFirstContainer()
+        makeMySecondContainer()
+        makeMyThirdContainer()
+        
+        print(view.bounds.width)
+        print(view.bounds.height)
         // Do any additional setup after loading the view.
     }
     
@@ -79,7 +100,7 @@ class MyListDetailViewController: UIViewController {
         }
     }
     
-    func makeAlbumWebView(){
+    func makeMyAlbumWebView(){
         albumWebView.frame = CGRect(x: albumStartingXPoint, y: albumStartingYPoint, width: albumSize, height: albumSize)
         albumWebView.userInteractionEnabled = false
         albumWebView.scalesPageToFit = true
@@ -100,9 +121,9 @@ class MyListDetailViewController: UIViewController {
         }
     }
     
-    func makeFirstContainer(){
+    func makeMyFirstContainer(){
         firstContainer = UIView(frame: CGRect(x: FCFrameXPoint, y: FCFrameYPoint, width: FCFrameWidth, height: FCFrameHeight))
-//        firstContainer.backgroundColor = UIColor.whiteColor()
+        //        firstContainer.backgroundColor = UIColor.whiteColor()
         super.view.addSubview(firstContainer)
         
         // MARK: Song Title
@@ -125,6 +146,68 @@ class MyListDetailViewController: UIViewController {
         FCAddButton.backgroundColor = UIColor.blueColor()
         FCAddButton.setTitle("Add", forState: UIControlState.Normal)
         firstContainer.addSubview(FCAddButton)
+        
+    }
+    
+    // MARK: 두번째 컨테이너 설정
+    func setMySecondContainer(phoneSize: CGFloat){
+        SCFrameXPoint = 10
+        SCFrameYPoint = FCFrameYPoint + FCFrameHeight + 10
+        SCFrameWidth = phoneSize - 20
+        SCFrameHeight = 120
+    }
+    
+    // MARK: 두번째 컨테이너 생성
+    func makeMySecondContainer(){
+        secondContainer = UIView(frame: CGRect(x: SCFrameXPoint, y: SCFrameYPoint, width: SCFrameWidth, height: SCFrameHeight))
+        secondContainer.backgroundColor = UIColor.whiteColor()
+        super.view.addSubview(secondContainer)
+    }
+    
+    // MARK: 세번째 컨테이너 설정
+    func setMyThirdContainer(phoneSize: CGFloat){
+        TCFrameXPoint = 10
+        TCFrameYPoint = SCFrameYPoint + SCFrameHeight + 10
+        TCFrameWidth = phoneSize - 20
+        TCFrameHeight = view.bounds.height - TCFrameYPoint - 10
+    }
+    
+    func makeMyThirdContainer(){
+        thirdContainer = UIView(frame: CGRect(x: TCFrameXPoint, y: TCFrameYPoint, width: TCFrameWidth, height: TCFrameHeight))
+        thirdContainer.backgroundColor = UIColor.whiteColor()
+        super.view.addSubview(thirdContainer)
+        
+        print(lyrics)
+        
+        // UITextView 사용하는 방법
+        let lyricsTextView = UITextView(frame: CGRect(x: 10, y:10, width:TCFrameWidth - 20, height: TCFrameHeight - 20))
+        lyricsTextView.showsVerticalScrollIndicator = false
+        
+        let  attrStr: NSAttributedString = try! NSAttributedString(data: lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+        
+        lyricsTextView.attributedText = attrStr
+        lyricsTextView.editable = false
+        lyricsTextView.selectable = false // make text can`t selectable
+        
+        thirdContainer.addSubview(lyricsTextView)
+        
+        
+        // MARK: webView사용하는 방식
+        //        var lyricsWebView = UIWebView(frame: CGRect(x: 10, y:10, width:TCFrameWidth - 20, height: TCFrameHeight - 20))
+        //
+        //        lyricsWebView.userInteractionEnabled = true
+        //        lyricsWebView.scalesPageToFit = true
+        //        lyricsWebView.loadHTMLString(lyrics, baseURL: nil)
+        //        thirdContainer.addSubview(lyricsWebView)
+        
+        
+        
+        
+        
+        
+        //        var lyricsTextField = UITextField(frame: CGRect(x: 10, y:10, width:TCFrameWidth - 20, height: TCFrameHeight - 20))
+        //        lyricsTextField = lyrics.dataUsingEncoding(NSUTF8StringEncoding)
+        //        thirdContainer.addSubview(lyricsTextField)
         
     }
     

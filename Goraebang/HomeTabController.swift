@@ -94,10 +94,11 @@ class HomeTabController: UIViewController {
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
-        print(topChartReadableJSON.count)
-        print(topChartReadableJSON[0]["id"].type)
-        print(topChartReadableJSON[0]["id"])
-        print(topChartReadableJSON[0]["jacket"])
+//        print(topChartReadableJSON.count)
+//        print(topChartReadableJSON[0]["id"].type)
+//        print(topChartReadableJSON[0]["id"])
+//        print(topChartReadableJSON[0]["jacket"])
+//        print(topChartReadableJSON[0]["lyrics"])
     }
     
     // MARK: 화면 상단의 백그라운드 이미지 생성

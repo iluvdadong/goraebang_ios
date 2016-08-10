@@ -14,12 +14,14 @@ class MyListTableViewController: UITableViewController {
     var myListReadableJSON: JSON!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         getMyList()
         
         // 테이블 뷰 행 높이 설정
         tableView.rowHeight = 90.0
+        tableView.sectionHeaderHeight = 120
         
         // table cell gesture recognizer 추가
         
@@ -37,6 +39,7 @@ class MyListTableViewController: UITableViewController {
         
         myListReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
+        print(myListReadableJSON[0]["lyrics"])
 //        print(myListReadableJSON.count)
 //        print(myListReadableJSON[0]["jacket"])
     }
@@ -77,8 +80,8 @@ class MyListTableViewController: UITableViewController {
         cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListReadableJSON[row]["jacket"].string!)!))
         cell.songImageWebView.frame.size.height = 63.5
         cell.songImageWebView.frame.size.width = 63.5
-        print(cell.songImageWebView.frame.size.height)
         cell.songImageWebView.scalesPageToFit = true
+        cell.songImageWebView.userInteractionEnabled = false
         
         // cell gesture recognizer
         
@@ -87,6 +90,36 @@ class MyListTableViewController: UITableViewController {
         // Configure the cell...
 
         return cell
+    }
+    
+//    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "Section"
+//    }
+    
+    // MARK: Section Header
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let userInfoView = UIView()
+        userInfoView.backgroundColor = UIColor.whiteColor()
+        userInfoView.layer.masksToBounds = false
+        userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
+        userInfoView.layer.shadowRadius = 5
+        userInfoView.layer.shadowOpacity = 0.6
+        
+        let userTitleLabel = UILabel(frame: CGRect(x: 0, y: 70, width: view.bounds.width, height: 20))
+        userTitleLabel.text = "고래"
+        userTitleLabel.textAlignment = NSTextAlignment.Center
+        userInfoView.addSubview(userTitleLabel)
+        
+        let userSongCountLabel = UILabel(frame: CGRect(x: 0, y: 90, width: view.bounds.width, height: 20))
+        userSongCountLabel.text = "저장된 곡 개수  \(myListReadableJSON.count)"
+        userSongCountLabel.textAlignment = NSTextAlignment.Center
+        userSongCountLabel.font = userSongCountLabel.font.fontWithSize(12)
+        userInfoView.addSubview(userSongCountLabel)
+        
+        
+        
+        
+        return userInfoView
     }
     
     // MARK: - Navigation
@@ -112,7 +145,7 @@ class MyListTableViewController: UITableViewController {
             var albumImageWebView:UIWebView = UIWebView()
             albumImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListReadableJSON[row!]["jacket"].string!)!))
             detailViewController.albumWebView = albumImageWebView
-            print(detailViewController.lyrics)
+            
         }
     }
     

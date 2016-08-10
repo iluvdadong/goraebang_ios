@@ -9,7 +9,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Eval-->
+        <!--Search-->
         <scene sceneID="JDh-Sx-EQe">
             <objects>
                 <viewController id="pcm-gn-2Z5" customClass="EvalTabController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Eval" image="EvalIcon" id="MkS-Il-qAt"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="EvalIcon" id="MkS-Il-qAt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcN-cy-Ara" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -73,7 +73,7 @@
             </objects>
             <point key="canvasLocation" x="1774.5" y="2148"/>
         </scene>
-        <!--My List-->
+        <!--마이리스트-->
         <scene sceneID="lA2-VJ-USr">
             <objects>
                 <tableViewController id="Yzq-Py-Z6D" customClass="MyListTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
@@ -216,7 +216,7 @@
                             <outlet property="delegate" destination="Yzq-Py-Z6D" id="1Jg-Es-Rne"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My List" id="Pjw-95-xMv"/>
+                    <navigationItem key="navigationItem" title="마이리스트" id="Pjw-95-xMv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fT-V0-FoB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -821,6 +821,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mRd-Ju-9iv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.7725490196" green="0.2274509804" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
