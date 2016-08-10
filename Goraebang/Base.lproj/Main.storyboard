@@ -202,6 +202,7 @@
                                     </variation>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="songArtistLabel" destination="nUw-kF-mjO" id="s83-8K-Atv"/>
                                     <outlet property="songImageWebView" destination="iM2-dH-BuT" id="DfN-FB-qdv"/>
