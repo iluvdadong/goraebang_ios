@@ -57,7 +57,7 @@ class HomeTabController: UIViewController {
         addAlbumContents()
         addThemeContents()
         
-        print("iPhone width : \(view.bounds.width)")
+//        print("iPhone width : \(view.bounds.width)")
     }
     
     // MARK: 아이폰 사이즈 마다 변수 값 세팅
@@ -89,10 +89,12 @@ class HomeTabController: UIViewController {
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
     func getTopChart(){
         // 서버 문제있을 때?
-        let url:NSURL = NSURL(string: "http://52.78.101.90/json/song")!
+        let url:NSURL = NSURL(string: "http://52.78.113.43//json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+//        print(topChartReadableJSON)
+        
         
 //        print(topChartReadableJSON.count)
 //        print(topChartReadableJSON[0]["id"].type)

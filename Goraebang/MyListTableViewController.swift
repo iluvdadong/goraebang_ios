@@ -38,7 +38,7 @@ class MyListTableViewController: UITableViewController {
     
     
     func getMyList(){
-        let url:NSURL = NSURL(string: "http://52.78.101.90/json/song")!
+        let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         myListReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)

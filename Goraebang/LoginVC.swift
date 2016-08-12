@@ -47,7 +47,7 @@ class LoginVC: UIViewController {
         
         NSLog("PostData: %@", post)
         
-        let url:NSURL = NSURL(string: "http://web-api-upstream-yhk1038.c9users.io/json/login")!
+        let url:NSURL = NSURL(string: "http://52.78.113.43/json/login")!
         
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         
