@@ -86,23 +86,6 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iM2-dH-BuT">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                            <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="deviceRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="iM2-dH-BuT" secondAttribute="height" multiplier="1:1" id="r2X-9v-Nlt"/>
-                                            </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="r2X-9v-Nlt"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <mask key="constraints">
-                                                    <include reference="r2X-9v-Nlt"/>
-                                                </mask>
-                                            </variation>
-                                        </webView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daE-oV-3Y1">
                                             <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -115,6 +98,24 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iM2-dH-BuT">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="deviceRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="iM2-dH-BuT" secondAttribute="height" multiplier="1:1" id="r2X-9v-Nlt"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="r2X-9v-Nlt"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="83" y="12" width="63.5" height="63.5"/>
+                                                <mask key="constraints">
+                                                    <include reference="r2X-9v-Nlt"/>
+                                                </mask>
+                                            </variation>
+                                        </webView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="daE-oV-3Y1" firstAttribute="leading" secondItem="iM2-dH-BuT" secondAttribute="trailing" constant="29" id="80c-ob-j5n">
@@ -137,9 +138,9 @@
                                     <variation key="default">
                                         <mask key="subviews">
                                             <exclude reference="VHI-Lr-DuD"/>
-                                            <exclude reference="iM2-dH-BuT"/>
                                             <exclude reference="daE-oV-3Y1"/>
                                             <exclude reference="nUw-kF-mjO"/>
+                                            <exclude reference="iM2-dH-BuT"/>
                                         </mask>
                                         <mask key="constraints">
                                             <exclude reference="S02-Sd-rNx"/>
@@ -157,9 +158,9 @@
                                     <variation key="heightClass=regular-widthClass=compact">
                                         <mask key="subviews">
                                             <include reference="VHI-Lr-DuD"/>
-                                            <include reference="iM2-dH-BuT"/>
                                             <include reference="daE-oV-3Y1"/>
                                             <include reference="nUw-kF-mjO"/>
+                                            <include reference="iM2-dH-BuT"/>
                                         </mask>
                                         <mask key="constraints">
                                             <include reference="S02-Sd-rNx"/>
@@ -255,15 +256,129 @@
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="h3o-Mg-gIv" customClass="HomeChartDetailTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="JPY-Fc-hEh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.19215686269999999" green="0.1960784314" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.12156862745098039" green="0.13333333333333333" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="39f-9n-lV8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopChartTableCell" rowHeight="90" id="39f-9n-lV8" customClass="HomeChartDetailTableViewCell" customModule="Goraebang" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="39f-9n-lV8" id="UrI-zG-ve8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oN6-1x-WHR">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="5ku-Zj-xVG"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="5ku-Zj-xVG"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="5ku-Zj-xVG"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGN-KH-Y1n">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJr-8E-vld">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="eJr-8E-vld" secondAttribute="height" multiplier="1:1" id="eF4-O1-gRg"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="eF4-O1-gRg"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="eF4-O1-gRg"/>
+                                                </mask>
+                                            </variation>
+                                        </webView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReV-05-zic">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ReV-05-zic" secondAttribute="bottom" constant="19.5" id="4oa-7m-kOc"/>
+                                        <constraint firstItem="eJr-8E-vld" firstAttribute="centerY" secondItem="UrI-zG-ve8" secondAttribute="centerY" id="7Tx-UN-Cpv"/>
+                                        <constraint firstItem="aGN-KH-Y1n" firstAttribute="leading" secondItem="eJr-8E-vld" secondAttribute="trailing" constant="35.5" id="FpC-KA-RNh"/>
+                                        <constraint firstItem="oN6-1x-WHR" firstAttribute="centerY" secondItem="UrI-zG-ve8" secondAttribute="centerY" id="S60-YZ-Vd3"/>
+                                        <constraint firstItem="aGN-KH-Y1n" firstAttribute="top" secondItem="UrI-zG-ve8" secondAttribute="topMargin" constant="20" id="V15-ze-sTT"/>
+                                        <constraint firstItem="eJr-8E-vld" firstAttribute="leading" secondItem="oN6-1x-WHR" secondAttribute="trailing" constant="15" id="bg9-eB-Od7"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="oN6-1x-WHR" secondAttribute="leading" id="g0r-Ly-zKT"/>
+                                        <constraint firstItem="eJr-8E-vld" firstAttribute="top" secondItem="UrI-zG-ve8" secondAttribute="topMargin" constant="5" id="p3l-Lm-4II"/>
+                                        <constraint firstItem="ReV-05-zic" firstAttribute="leading" secondItem="eJr-8E-vld" secondAttribute="trailing" constant="35.5" id="ueQ-3G-ZMs"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eJr-8E-vld" secondAttribute="bottom" constant="5" id="ygZ-Ul-leb"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="oN6-1x-WHR"/>
+                                            <exclude reference="aGN-KH-Y1n"/>
+                                            <exclude reference="eJr-8E-vld"/>
+                                            <exclude reference="ReV-05-zic"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <exclude reference="S60-YZ-Vd3"/>
+                                            <exclude reference="g0r-Ly-zKT"/>
+                                            <exclude reference="7Tx-UN-Cpv"/>
+                                            <exclude reference="bg9-eB-Od7"/>
+                                            <exclude reference="p3l-Lm-4II"/>
+                                            <exclude reference="ygZ-Ul-leb"/>
+                                            <exclude reference="FpC-KA-RNh"/>
+                                            <exclude reference="V15-ze-sTT"/>
+                                            <exclude reference="4oa-7m-kOc"/>
+                                            <exclude reference="ueQ-3G-ZMs"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="oN6-1x-WHR"/>
+                                            <include reference="aGN-KH-Y1n"/>
+                                            <include reference="eJr-8E-vld"/>
+                                            <include reference="ReV-05-zic"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <include reference="S60-YZ-Vd3"/>
+                                            <include reference="g0r-Ly-zKT"/>
+                                            <include reference="7Tx-UN-Cpv"/>
+                                            <include reference="bg9-eB-Od7"/>
+                                            <include reference="p3l-Lm-4II"/>
+                                            <include reference="ygZ-Ul-leb"/>
+                                            <include reference="FpC-KA-RNh"/>
+                                            <include reference="V15-ze-sTT"/>
+                                            <include reference="4oa-7m-kOc"/>
+                                            <include reference="ueQ-3G-ZMs"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="albumWebView" destination="eJr-8E-vld" id="Kzc-dm-RLJ"/>
+                                    <outlet property="artistLabel" destination="ReV-05-zic" id="61R-70-gpu"/>
+                                    <outlet property="songNumberLabel" destination="oN6-1x-WHR" id="gob-ga-9ZD"/>
+                                    <outlet property="songTitleLabel" destination="ReV-05-zic" id="lGW-gD-T3U"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

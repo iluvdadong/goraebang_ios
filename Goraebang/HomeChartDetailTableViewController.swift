@@ -17,7 +17,8 @@ class HomeChartDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 90.0
-
+        
+        getTopChart()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,7 +34,6 @@ class HomeChartDetailTableViewController: UITableViewController {
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
         print(topChartReadableJSON)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +51,32 @@ class HomeChartDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return topChartReadableJSON.count
+    }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TopChartTableCell", forIndexPath: indexPath) as! HomeChartDetailTableViewCell
+        
+        let row = indexPath.row
+        //        cell.songNumberLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
+        cell.songNumberLabel.text = String(topChartReadableJSON[row]["song_tjnum"])
+        //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
+        cell.songTitleLabel.text = topChartReadableJSON[row]["title"].string
+        print(topChartReadableJSON[row]["title"].string)
+        print(cell.songTitleLabel.text)
+        //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
+        cell.artistLabel.text = "Unkown Artist" // artist명 추가
+        
+        // MARK: jacket_middle 맞는지 확인
+        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row]["jacket"].string!)!))
+        cell.albumWebView.frame.size.height = 63.5
+        cell.albumWebView.frame.size.width = 63.5
+        cell.albumWebView.scalesPageToFit = true
+        cell.albumWebView.userInteractionEnabled = false
+        
+        return cell
     }
 
     /*
