@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */; };
 		491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */; };
-		491F3E501D42F38F005A2C9D /* MyListTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E4F1D42F38F005A2C9D /* MyListTabController.swift */; };
 		491F3E521D42F398005A2C9D /* EvalTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E511D42F398005A2C9D /* EvalTabController.swift */; };
 		491F3E541D42F3A5005A2C9D /* MyPageTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E531D42F3A5005A2C9D /* MyPageTabController.swift */; };
 		491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */; };
@@ -111,7 +110,6 @@
 		4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewController.swift; sourceTree = "<group>"; };
 		49183BAF1D48E8290012DD3C /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
 		491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendTabController.swift; sourceTree = "<group>"; };
-		491F3E4F1D42F38F005A2C9D /* MyListTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTabController.swift; sourceTree = "<group>"; };
 		491F3E511D42F398005A2C9D /* EvalTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvalTabController.swift; sourceTree = "<group>"; };
 		491F3E531D42F3A5005A2C9D /* MyPageTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageTabController.swift; sourceTree = "<group>"; };
 		491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 			children = (
 				498CDFA21D55E18700DA0A1D /* MyListController */,
 				491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */,
-				491F3E4F1D42F38F005A2C9D /* MyListTabController.swift */,
 				491F3E511D42F398005A2C9D /* EvalTabController.swift */,
 				491F3E531D42F3A5005A2C9D /* MyPageTabController.swift */,
 				4914EF321D5DD751007D150A /* HomeController */,
@@ -380,7 +377,6 @@
 				498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */,
 				491F3E541D42F3A5005A2C9D /* MyPageTabController.swift in Sources */,
 				494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */,
-				491F3E501D42F38F005A2C9D /* MyListTabController.swift in Sources */,
 				491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */,
 				491F3E521D42F398005A2C9D /* EvalTabController.swift in Sources */,
 				49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */,

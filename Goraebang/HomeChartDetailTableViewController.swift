@@ -7,17 +7,33 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class HomeChartDetailTableViewController: UITableViewController {
+    
+    // MARK : JSON 읽을 JSON 변수
+    var topChartReadableJSON: JSON!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = 90.0
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func getTopChart(){
+        // Top 100 read
+        let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
+        let jsonData = NSData(contentsOfURL: url) as NSData!
+        
+        topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        
+        print(topChartReadableJSON)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,12 +45,12 @@ class HomeChartDetailTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return topChartReadableJSON.count
     }
 
     /*

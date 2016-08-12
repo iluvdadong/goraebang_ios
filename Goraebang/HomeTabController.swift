@@ -9,7 +9,7 @@ class HomeTabController: UIViewController {
     // width, 4inch :320, 4.7inch :375, 5.5inch: 414
     // 각 크기마다 따로 설정해야 하는지?
     
-    // http://52.78.101.90/json/song, top chart json url
+    // http://52.78.113.43, top chart json url
     
     // MARK : Variables
     var bottomContainerScrollView: UIScrollView!
@@ -100,7 +100,7 @@ class HomeTabController: UIViewController {
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
     func getTopChart(){
         // 서버 문제있을 때?
-        let url:NSURL = NSURL(string: "http://52.78.113.43//json/song")!
+        let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
