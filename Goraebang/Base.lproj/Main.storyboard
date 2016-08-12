@@ -268,10 +268,40 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="h3o-Mg-gIv" kind="show" identifier="ShowChartDetail" id="mgl-ra-ofF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Ib-0X-TBx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2679" y="-606"/>
+        </scene>
+        <!--Top 100-->
+        <scene sceneID="reR-gD-9hq">
+            <objects>
+                <tableViewController hidesBottomBarWhenPushed="YES" id="h3o-Mg-gIv" customClass="HomeChartDetailTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="JPY-Fc-hEh">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="0.12156862745098039" green="0.13333333333333333" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="39f-9n-lV8">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="39f-9n-lV8" id="UrI-zG-ve8">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="h3o-Mg-gIv" id="8Wc-Jg-PoZ"/>
+                            <outlet property="delegate" destination="h3o-Mg-gIv" id="GCj-Ty-4ML"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Top 100" id="xuf-B9-Hz2"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sg8-et-7CP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3531" y="-606"/>
         </scene>
         <!--Recommend-->
         <scene sceneID="cd0-q3-Thd">

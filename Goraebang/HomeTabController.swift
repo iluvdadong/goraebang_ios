@@ -39,6 +39,11 @@ class HomeTabController: UIViewController {
     var topChartContainerContentsSizeHeight:CGFloat!
     var phoneSizeString:String!
     
+    // MARK: TOP100 Detail View 위치 변수
+    var showTop100DetailButtonStartingXPoint:CGFloat!
+    var showTop100DetailButtonStartingYPoint:CGFloat!
+    var showTop100DetailButtonWidth:CGFloat!
+    var showTop100DetailButtonHeight:CGFloat!
     
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
@@ -84,6 +89,12 @@ class HomeTabController: UIViewController {
         topChartContainerContentsSizeWidth = phoneSize * (CGFloat(contentNum)/3)
         topChartContainerContentsSizeHeight = albumSizeForVariousPhoneWidth + 45
         // print(albumSizeForVariousPhoneWidth)
+        
+        // ShowTop100DetailView 설정
+        showTop100DetailButtonStartingXPoint = phoneSize - 30
+        showTop100DetailButtonStartingYPoint = 20
+        showTop100DetailButtonWidth = 20
+        showTop100DetailButtonHeight = 20
     }
     
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
@@ -126,6 +137,15 @@ class HomeTabController: UIViewController {
         chartLabel.font = UIFont.boldSystemFontOfSize(15)
         bottomContainerScrollView.addSubview(chartLabel)
         
+        // MARK: 고래방 Top 100 Detail View 버튼
+        
+        let showTop100DetailButton = UIButton(frame: CGRectMake(showTop100DetailButtonStartingXPoint, showTop100DetailButtonStartingYPoint, showTop100DetailButtonWidth, showTop100DetailButtonHeight))
+        showTop100DetailButton.backgroundColor = UIColor.whiteColor()
+        showTop100DetailButton.tintColor = UIColor.redColor()
+        showTop100DetailButton.setTitle("Test Button", forState: .Normal)
+        showTop100DetailButton.addTarget(self, action: #selector(showTopDetailButtonAction), forControlEvents: .TouchUpInside)
+        bottomContainerScrollView.addSubview(showTop100DetailButton)
+        
         // MARK: TOP100 차트, 테마 구분선
         let divisionLine:UIView = UIView(frame: CGRectMake(15, 210, view.bounds.width-30, 1))
         divisionLine.backgroundColor = UIColor.init(red: 61/255, green: 63/255, blue: 62/255, alpha: 1.0)
@@ -140,6 +160,11 @@ class HomeTabController: UIViewController {
         bottomContainerScrollView.addSubview(themeLabel)
         
         view.addSubview(bottomContainerScrollView)
+    }
+    
+    func showTopDetailButtonAction(sender: UIButton!){
+        print("button tapped")
+        self.performSegueWithIdentifier("ShowChartDetail", sender: self)
     }
     
     // MARK: 3개씩 넘기 위해서 PageControl을 생성한다.

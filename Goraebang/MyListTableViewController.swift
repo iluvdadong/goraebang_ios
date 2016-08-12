@@ -12,6 +12,8 @@ import SwiftyJSON
 class MyListTableViewController: UITableViewController {
     
     var myListReadableJSON: JSON!
+    var myListSongs: JSON!
+    var myLists: JSON!
     
     override func viewDidLoad() {
         
@@ -33,20 +35,116 @@ class MyListTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    
-    
-    
-    
     func getMyList(){
+        // Mylist read api
+        let tmpUserId = 1
+        let post:NSString = "id=\(tmpUserId)"
+        
+        //        let post:NSString = "id=\(tmpUserId)&user[name]=sohn&user[password]=\(password)&user[password_confirmation]=\(confirm_password)&user[gender]=0"
+        
+        //        NSLog("PostData: %@", post)
+        
+        let turl:NSURL = NSURL(string: "http://52.78.113.43/json/myList_read")!
+        print("Watch Here\n\n\n")
+        print(turl)
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: turl)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        //            request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
+        //            request.setValue("application/x-www-0form-urlencoded", forHTTPHeaderField: "Content-Type")
+        //            request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        print(request)
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            let myListsJsonData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
+            print(response)
+            myLists = JSON(data: myListsJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+        print(myLists[0]["id"]) // 내 리스트의 아이디 출력
+        getMyListSong(myLists[0]["id"].int!)
+        
+        // 마이리스트 내부 노래 read
+        
+        
+        //            var responseError: NSError?
+        //            var response: NSURLResponse?
+        
+//        let mySession = NSURLSession.sharedSession()
+//        
+//        // NSURLDataSessionTask Retrun 한다
+//        let task = mySession.dataTaskWithRequest(request){
+//            (let data, let response, let error) in
+//            
+//            guard let _:NSData = data, let _: NSURLResponse = response where error == nil else{
+//                print("error")
+//                return
+//            }
+//            
+//            self.myLists = JSON(data: data!)
+//            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+//            print(dataString)
+//            print(self.myLists)
+//        }
+//        
+//        task.resume()
+        
+        
+        
+        
+        // Top 100 read
         let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         myListReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
         
-        print(myListReadableJSON[0]["lyrics"])
+//        print(myListReadableJSON[0]["lyrics"])
         //        print(myListReadableJSON.count)
         //        print(myListReadableJSON[0]["jacket"])
+    }
+    
+    func getMyListSong(id: Int){
+        let tmpUserId = 1
+        let post:NSString = "id=\(tmpUserId)&myList_id=\(id)"
+        
+        let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_read")!
+        print("Watch Here\n")
+        print(url)
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        print(request)
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            let myListsJsonData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
+            print(response)
+            myListSongs = JSON(data: myListsJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+        print("Print my list songs")
+        print(myListSongs)
+
     }
     
     override func didReceiveMemoryWarning() {
