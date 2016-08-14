@@ -80,12 +80,12 @@ class HomeChartDetailTableViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
         if segue.identifier == "ShowSongDetailFromChart" {
             let detailViewController =  segue.destinationViewController as! MyListDetailViewController
             
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
+            detailViewController.songId = topChartReadableJSON[row!]["id"].int
             detailViewController.songTitleLabel.title = topChartReadableJSON[row!]["title"].string
             detailViewController.songTitle = topChartReadableJSON[row!]["title"].string
             detailViewController.artist = "Unknown Artist"

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class MyListDetailViewController: UIViewController {
     
@@ -17,6 +18,7 @@ class MyListDetailViewController: UIViewController {
     @IBOutlet weak var songTitleLabel: UINavigationItem! // title
     
     // 넘어오기전에 받는 정보
+    var songId: Int! // MyList에 추가할 때 서버에 song id를 넘기기 위해
     var songTitle: String! // title
     var artist: String! // none
     var lyrics: String! // lyrics
@@ -68,6 +70,7 @@ class MyListDetailViewController: UIViewController {
         phoneSize = view.bounds.width
         
         fixedTopPadding = 65.0
+        print(songId)
         
         setMyAlbum(phoneSize)
         setMyFirstContainer(phoneSize)
@@ -79,8 +82,6 @@ class MyListDetailViewController: UIViewController {
         makeMySecondContainer()
         makeMyThirdContainer()
         
-        print(view.bounds.width)
-        print(view.bounds.height)
         // Do any additional setup after loading the view.
     }
     
@@ -145,9 +146,11 @@ class MyListDetailViewController: UIViewController {
         let FCAddButton: UIButton = UIButton(frame: CGRect(x: firstContainer.bounds.width-80, y: firstContainer.bounds.height - 30, width: 80, height: 30))
         FCAddButton.backgroundColor = UIColor.blueColor()
         FCAddButton.setTitle("Add", forState: UIControlState.Normal)
-        firstContainer.addSubview(FCAddButton)
+        FCAddButton.addTarget(self, action: #selector(addSong), forControlEvents: .TouchUpInside)
         
+        firstContainer.addSubview(FCAddButton)
     }
+    
     
     // MARK: 두번째 컨테이너 설정
     func setMySecondContainer(phoneSize: CGFloat){
@@ -176,8 +179,6 @@ class MyListDetailViewController: UIViewController {
         thirdContainer = UIView(frame: CGRect(x: TCFrameXPoint, y: TCFrameYPoint, width: TCFrameWidth, height: TCFrameHeight))
         thirdContainer.backgroundColor = UIColor.whiteColor()
         super.view.addSubview(thirdContainer)
-        
-        print(lyrics)
         
         // UITextView 사용하는 방법
         let lyricsTextView = UITextView(frame: CGRect(x: 10, y:10, width:TCFrameWidth - 20, height: TCFrameHeight - 20))
@@ -208,6 +209,47 @@ class MyListDetailViewController: UIViewController {
         //        var lyricsTextField = UITextField(frame: CGRect(x: 10, y:10, width:TCFrameWidth - 20, height: TCFrameHeight - 20))
         //        lyricsTextField = lyrics.dataUsingEncoding(NSUTF8StringEncoding)
         //        thirdContainer.addSubview(lyricsTextField)
+        
+    }
+    
+    func addSong(sender: UIButton!){
+        print("button tapped")
+        let tmpUserId = 1
+        let tmpMyListId = 1
+        let post:NSString = "id=\(tmpUserId)&myList_id=\(tmpMyListId)&song_id=\(songId)"
+        
+        let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_create")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
+            
+            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
+            if(result["message"] == "SUCCESS"){
+                let alertView:UIAlertView = UIAlertView()
+                
+                alertView.title = "Success"
+                alertView.message = "추가되었습니다."
+                alertView.delegate = self
+                
+                alertView.addButtonWithTitle("OK")
+                alertView.show()
+            }
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
         
     }
     

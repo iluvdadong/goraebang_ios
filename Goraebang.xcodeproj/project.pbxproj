@@ -166,11 +166,11 @@
 		491F3E571D42F43B005A2C9D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */,
 				498CDFA21D55E18700DA0A1D /* MyListController */,
 				491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */,
 				491F3E511D42F398005A2C9D /* EvalTabController.swift */,
 				4914EF321D5DD751007D150A /* HomeController */,
-				491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */,
 				49B834041D56335F004F1AC0 /* UserController */,
 			);
 			name = ViewControllers;
@@ -207,8 +207,8 @@
 				49B90CBA1D448FF00007D76B /* Models */,
 				491F3E5A1D42F4E6005A2C9D /* Views */,
 				491F3E571D42F43B005A2C9D /* ViewControllers */,
-				494F3A981D42ECAA008B5051 /* AppDelegate.swift */,
 				494F3A9F1D42ECAA008B5051 /* Assets.xcassets */,
+				494F3A981D42ECAA008B5051 /* AppDelegate.swift */,
 				494F3AA11D42ECAA008B5051 /* LaunchScreen.storyboard */,
 				494F3AA41D42ECAA008B5051 /* Info.plist */,
 			);
