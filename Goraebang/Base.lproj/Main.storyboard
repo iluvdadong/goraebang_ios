@@ -26,26 +26,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcN-cy-Ara" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783.5" y="756"/>
-        </scene>
-        <!--Mypage-->
-        <scene sceneID="XQe-Ig-LnK">
-            <objects>
-                <viewController id="qrX-Jj-MnH" customClass="MyPageTabController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BMr-bR-hkf"/>
-                        <viewControllerLayoutGuide type="bottom" id="znr-Mx-MUp"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Sf3-K7-f3Y">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Mypage" image="MypageIcon" id="ggG-PQ-WAn"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wUR-cD-Qn6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1774.5" y="2148"/>
+            <point key="canvasLocation" x="2227.5" y="1428"/>
         </scene>
         <!--마이리스트-->
         <scene sceneID="lA2-VJ-USr">
@@ -109,8 +90,7 @@
                                                     <exclude reference="r2X-9v-Nlt"/>
                                                 </mask>
                                             </variation>
-                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="83" y="12" width="63.5" height="63.5"/>
+                                            <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="r2X-9v-Nlt"/>
                                                 </mask>
@@ -218,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6x-HC-lzr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3438" y="2796.75"/>
+            <point key="canvasLocation" x="4686" y="1002.75"/>
         </scene>
         <!--고래방-->
         <scene sceneID="24r-1G-4op">
@@ -339,16 +319,16 @@
                                             <exclude reference="ReV-05-zic"/>
                                         </mask>
                                         <mask key="constraints">
+                                            <exclude reference="4oa-7m-kOc"/>
+                                            <exclude reference="ueQ-3G-ZMs"/>
+                                            <exclude reference="FpC-KA-RNh"/>
+                                            <exclude reference="V15-ze-sTT"/>
                                             <exclude reference="S60-YZ-Vd3"/>
                                             <exclude reference="g0r-Ly-zKT"/>
                                             <exclude reference="7Tx-UN-Cpv"/>
                                             <exclude reference="bg9-eB-Od7"/>
                                             <exclude reference="p3l-Lm-4II"/>
                                             <exclude reference="ygZ-Ul-leb"/>
-                                            <exclude reference="FpC-KA-RNh"/>
-                                            <exclude reference="V15-ze-sTT"/>
-                                            <exclude reference="4oa-7m-kOc"/>
-                                            <exclude reference="ueQ-3G-ZMs"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -359,16 +339,16 @@
                                             <include reference="ReV-05-zic"/>
                                         </mask>
                                         <mask key="constraints">
+                                            <include reference="4oa-7m-kOc"/>
+                                            <include reference="ueQ-3G-ZMs"/>
+                                            <include reference="FpC-KA-RNh"/>
+                                            <include reference="V15-ze-sTT"/>
                                             <include reference="S60-YZ-Vd3"/>
                                             <include reference="g0r-Ly-zKT"/>
                                             <include reference="7Tx-UN-Cpv"/>
                                             <include reference="bg9-eB-Od7"/>
                                             <include reference="p3l-Lm-4II"/>
                                             <include reference="ygZ-Ul-leb"/>
-                                            <include reference="FpC-KA-RNh"/>
-                                            <include reference="V15-ze-sTT"/>
-                                            <include reference="4oa-7m-kOc"/>
-                                            <include reference="ueQ-3G-ZMs"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -377,7 +357,8 @@
                                     <outlet property="albumWebView" destination="eJr-8E-vld" id="Kzc-dm-RLJ"/>
                                     <outlet property="artistLabel" destination="ReV-05-zic" id="61R-70-gpu"/>
                                     <outlet property="songNumberLabel" destination="oN6-1x-WHR" id="gob-ga-9ZD"/>
-                                    <outlet property="songTitleLabel" destination="ReV-05-zic" id="lGW-gD-T3U"/>
+                                    <outlet property="songTitleLabel" destination="aGN-KH-Y1n" id="dsd-eK-LCw"/>
+                                    <segue destination="2Gb-oa-1Mb" kind="show" identifier="ShowSongDetailFromChart" id="Vhg-f1-jZU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -409,7 +390,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELw-Ge-pUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783.5" y="94.5"/>
+            <point key="canvasLocation" x="2227.5" y="442.5"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="Mix-tC-vAi">
@@ -875,7 +856,6 @@
                         <segue destination="pcm-gn-2Z5" kind="relationship" relationship="viewControllers" id="wya-rx-3Fx"/>
                         <segue destination="AvL-GN-Ovq" kind="relationship" relationship="viewControllers" id="JNh-Eo-IvO"/>
                         <segue destination="pRf-J4-SG2" kind="relationship" relationship="viewControllers" id="lWu-7s-YLD"/>
-                        <segue destination="qrX-Jj-MnH" kind="relationship" relationship="viewControllers" id="VGz-T8-eFt"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZW-g8-4cY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -935,7 +915,9 @@
         <image name="EvalIcon" width="25" height="25"/>
         <image name="HomeIcon" width="25" height="25"/>
         <image name="MylistIcon" width="25" height="25"/>
-        <image name="MypageIcon" width="25" height="25"/>
         <image name="RecommendIcon" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Vhg-f1-jZU"/>
+    </inferredMetricsTieBreakers>
 </document>

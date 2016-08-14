@@ -72,7 +72,7 @@ class MyListTableViewController: UITableViewController {
         }
         
         print(myLists[0]["id"]) // 내 리스트의 아이디 출력
-        getMyListSong(myLists[0]["id"].int!)
+//        getMyListSong(myLists[0]["id"].int!)
         
         // 마이리스트 내부 노래 read
         

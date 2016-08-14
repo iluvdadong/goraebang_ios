@@ -91,9 +91,9 @@ class HomeTabController: UIViewController {
         // print(albumSizeForVariousPhoneWidth)
         
         // ShowTop100DetailView 설정
-        showTop100DetailButtonStartingXPoint = phoneSize - 30
+        showTop100DetailButtonStartingXPoint = phoneSize - 90
         showTop100DetailButtonStartingYPoint = 20
-        showTop100DetailButtonWidth = 20
+        showTop100DetailButtonWidth = 80
         showTop100DetailButtonHeight = 20
     }
     
@@ -140,9 +140,17 @@ class HomeTabController: UIViewController {
         // MARK: 고래방 Top 100 Detail View 버튼
         
         let showTop100DetailButton = UIButton(frame: CGRectMake(showTop100DetailButtonStartingXPoint, showTop100DetailButtonStartingYPoint, showTop100DetailButtonWidth, showTop100DetailButtonHeight))
-        showTop100DetailButton.backgroundColor = UIColor.whiteColor()
+//        showTop100DetailButton.backgroundColor = UIColor.whiteColor()
         showTop100DetailButton.tintColor = UIColor.redColor()
-        showTop100DetailButton.setTitle("Test Button", forState: .Normal)
+        showTop100DetailButton.setTitle("전체보기 >", forState: .Normal)
+        showTop100DetailButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        
+//        let showTop100AllLabel = UILabel()
+//        showTop100AllLabel.text = "전체보기 >"
+//        showTop100AllLabel.font = showTop100AllLabel.font.fontWithSize(13)
+//        
+//        showTop100DetailButton.setTitle(showTop100AllLabel.text, forState: .Normal)
+        
         showTop100DetailButton.addTarget(self, action: #selector(showTopDetailButtonAction), forControlEvents: .TouchUpInside)
         bottomContainerScrollView.addSubview(showTop100DetailButton)
         

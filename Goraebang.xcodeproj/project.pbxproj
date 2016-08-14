@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */; };
+		4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */; };
 		491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */; };
 		491F3E521D42F398005A2C9D /* EvalTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E511D42F398005A2C9D /* EvalTabController.swift */; };
-		491F3E541D42F3A5005A2C9D /* MyPageTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E531D42F3A5005A2C9D /* MyPageTabController.swift */; };
 		491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */; };
 		494F3A991D42ECAA008B5051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F3A981D42ECAA008B5051 /* AppDelegate.swift */; };
 		494F3A9E1D42ECAA008B5051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494F3A9C1D42ECAA008B5051 /* Main.storyboard */; };
@@ -108,10 +108,10 @@
 
 /* Begin PBXFileReference section */
 		4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewController.swift; sourceTree = "<group>"; };
+		4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewCell.swift; sourceTree = "<group>"; };
 		49183BAF1D48E8290012DD3C /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
 		491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendTabController.swift; sourceTree = "<group>"; };
 		491F3E511D42F398005A2C9D /* EvalTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvalTabController.swift; sourceTree = "<group>"; };
-		491F3E531D42F3A5005A2C9D /* MyPageTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageTabController.swift; sourceTree = "<group>"; };
 		491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		494F3A951D42ECAA008B5051 /* Goraebang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goraebang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F3A981D42ECAA008B5051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +144,7 @@
 			children = (
 				494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */,
 				4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */,
+				4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */,
 			);
 			name = HomeController;
 			sourceTree = "<group>";
@@ -168,7 +169,6 @@
 				498CDFA21D55E18700DA0A1D /* MyListController */,
 				491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */,
 				491F3E511D42F398005A2C9D /* EvalTabController.swift */,
-				491F3E531D42F3A5005A2C9D /* MyPageTabController.swift */,
 				4914EF321D5DD751007D150A /* HomeController */,
 				491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */,
 				49B834041D56335F004F1AC0 /* UserController */,
@@ -375,7 +375,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */,
-				491F3E541D42F3A5005A2C9D /* MyPageTabController.swift in Sources */,
 				494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */,
 				491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */,
 				491F3E521D42F398005A2C9D /* EvalTabController.swift in Sources */,
@@ -385,6 +384,7 @@
 				498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */,
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
+				4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */,
 				4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
