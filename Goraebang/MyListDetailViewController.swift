@@ -199,11 +199,6 @@ class MyListDetailViewController: UIViewController {
         //        lyricsWebView.userInteractionEnabled = true
         //        lyricsWebView.scalesPageToFit = true
         //        lyricsWebView.loadHTMLString(lyrics, baseURL: nil)
-        //        thirdContainer.addSubview(lyricsWebView)
-        
-        
-        
-        
         
         
         //        var lyricsTextField = UITextField(frame: CGRect(x: 10, y:10, width:TCFrameWidth - 20, height: TCFrameHeight - 20))
@@ -237,20 +232,29 @@ class MyListDetailViewController: UIViewController {
             
             // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
             if(result["message"] == "SUCCESS"){
-                let alertView:UIAlertView = UIAlertView()
-                
-                alertView.title = "Success"
-                alertView.message = "추가되었습니다."
-                alertView.delegate = self
-                
-                alertView.addButtonWithTitle("OK")
-                alertView.show()
+                alertWithMyMessage("추가되었습니다")
             }
             
         } catch let error as NSError{
             print(error.localizedDescription)
         }
         
+    }
+    
+    // MARK*: UIAlertController로 변경할 것
+    // MARK: 사이즈 조절 방법 찾을 것
+    func alertWithMyMessage(message: String){
+        let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
+        
+        alertView.message = message
+        alertView.delegate = self
+        alertView.show()
+        
+        let delay = 0.7 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue(), {
+            alertView.dismissWithClickedButtonIndex(-1, animated: true)
+        })
     }
     
     override func didReceiveMemoryWarning() {
