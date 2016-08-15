@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class MyListTableViewController: UITableViewController {
     
+    let tmpMyListId = 1
+    let tmpUserId = 2
     var myListReadableJSON: JSON!
     var myListSongs: JSON!
     var myLists: JSON!
@@ -18,7 +20,6 @@ class MyListTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         getMyList()
         
         // 테이블 뷰 행 높이 설정
@@ -37,12 +38,10 @@ class MyListTableViewController: UITableViewController {
     
     func getMyList(){
         // Mylist read api
-        let tmpUserId = 1
+        
         let post:NSString = "id=\(tmpUserId)"
         
         //        let post:NSString = "id=\(tmpUserId)&user[name]=sohn&user[password]=\(password)&user[password_confirmation]=\(confirm_password)&user[gender]=0"
-        
-        //        NSLog("PostData: %@", post)
         
         let turl:NSURL = NSURL(string: "http://52.78.113.43/json/myList_read")!
         print("Watch Here\n\n\n")
@@ -65,14 +64,21 @@ class MyListTableViewController: UITableViewController {
             let myListsJsonData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
             
             print(response)
+            
+            
             myLists = JSON(data: myListsJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
             
         } catch let error as NSError{
             print(error.localizedDescription)
         }
         
-        print(myLists[0]["id"]) // 내 리스트의 아이디 출력
-//        getMyListSong(myLists[0]["id"].int!)
+        if((myLists) != nil){
+            print("watch this shit")
+            print(myLists)
+            print(myLists[0]["id"]) // 내 리스트의 아이디 출력
+            getMyListSong(1)
+        }
+        
         
         // 마이리스트 내부 노래 read
         
@@ -80,27 +86,24 @@ class MyListTableViewController: UITableViewController {
         //            var responseError: NSError?
         //            var response: NSURLResponse?
         
-//        let mySession = NSURLSession.sharedSession()
-//        
-//        // NSURLDataSessionTask Retrun 한다
-//        let task = mySession.dataTaskWithRequest(request){
-//            (let data, let response, let error) in
-//            
-//            guard let _:NSData = data, let _: NSURLResponse = response where error == nil else{
-//                print("error")
-//                return
-//            }
-//            
-//            self.myLists = JSON(data: data!)
-//            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-//            print(dataString)
-//            print(self.myLists)
-//        }
-//        
-//        task.resume()
-        
-        
-        
+        //        let mySession = NSURLSession.sharedSession()
+        //
+        //        // NSURLDataSessionTask Retrun 한다
+        //        let task = mySession.dataTaskWithRequest(request){
+        //            (let data, let response, let error) in
+        //
+        //            guard let _:NSData = data, let _: NSURLResponse = response where error == nil else{
+        //                print("error")
+        //                return
+        //            }
+        //
+        //            self.myLists = JSON(data: data!)
+        //            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+        //            print(dataString)
+        //            print(self.myLists)
+        //        }
+        //
+        //        task.resume()
         
         // Top 100 read
         let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
@@ -109,13 +112,12 @@ class MyListTableViewController: UITableViewController {
         myListReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
         
-//        print(myListReadableJSON[0]["lyrics"])
+        //        print(myListReadableJSON[0]["lyrics"])
         //        print(myListReadableJSON.count)
         //        print(myListReadableJSON[0]["jacket"])
     }
     
     func getMyListSong(id: Int){
-        let tmpUserId = 1
         let post:NSString = "id=\(tmpUserId)&myList_id=\(id)"
         
         let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_read")!
@@ -144,7 +146,7 @@ class MyListTableViewController: UITableViewController {
         
         print("Print my list songs")
         print(myListSongs)
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -162,6 +164,7 @@ class MyListTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         // 행의 개수는 JSON을 count한 것과 같다.
         return myListReadableJSON.count
+        //        return myListSongs.count
     }
     
     
@@ -219,9 +222,6 @@ class MyListTableViewController: UITableViewController {
         userSongCountLabel.font = userSongCountLabel.font.fontWithSize(12)
         userInfoView.addSubview(userSongCountLabel)
         
-        
-        
-        
         return userInfoView
     }
     
@@ -229,7 +229,6 @@ class MyListTableViewController: UITableViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
         if segue.identifier == "ShowMyListDetails" {
             let detailViewController =  segue.destinationViewController as! MyListDetailViewController
             

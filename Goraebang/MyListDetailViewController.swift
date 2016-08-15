@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class MyListDetailViewController: UIViewController {
     
+    let tmpUserId = 2
+    let tmpMyListId = 1
     // Configure: Hide bottom bar on push
     
     // 필요한 정보
@@ -199,10 +201,11 @@ class MyListDetailViewController: UIViewController {
         
     }
     
+    // MARK*: addSong 후에는 마이리스트 리로드 해야한다.(추가)
     func addSong(sender: UIButton!){
         print("button tapped")
-        let tmpUserId = 1
-        let tmpMyListId = 1
+        
+        
         let post:NSString = "id=\(tmpUserId)&myList_id=\(tmpMyListId)&song_id=\(songInfo.id)"
         
         let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_create")!
@@ -221,6 +224,8 @@ class MyListDetailViewController: UIViewController {
             
             
             let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+            print(result)
             
             // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
             if(result["message"] == "SUCCESS"){
@@ -242,7 +247,7 @@ class MyListDetailViewController: UIViewController {
         alertView.delegate = self
         alertView.show()
         
-        let delay = 0.7 * Double(NSEC_PER_SEC)
+        let delay = 0.5 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue(), {
             alertView.dismissWithClickedButtonIndex(-1, animated: true)
