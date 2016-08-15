@@ -235,21 +235,9 @@ class MyListTableViewController: UITableViewController {
             
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
-            detailViewController.songId = myListReadableJSON[row!]["id"].int
-            detailViewController.songTitleLabel.title = myListReadableJSON[row!]["title"].string
-            detailViewController.songTitle = myListReadableJSON[row!]["title"].string
-            detailViewController.artist = "Unknown Artist"
-            detailViewController.genre1 = myListReadableJSON[row!]["genre1"].string
-            detailViewController.genre2 = myListReadableJSON[row!]["genre2"].string
-            detailViewController.highKey = myListReadableJSON[row!]["highkey"].string
-            detailViewController.lowKey = myListReadableJSON[row!]["lowkey"].string
-            detailViewController.lyrics = myListReadableJSON[row!]["lyrics"].string
-            detailViewController.runtime = myListReadableJSON[row!]["runtime"].string
-            detailViewController.song_tjnum = myListReadableJSON[row!]["song_tjnum"].string
-            let albumImageWebView:UIWebView = UIWebView()
-            albumImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListReadableJSON[row!]["jacket"].string!)!))
-            detailViewController.albumWebView = albumImageWebView
             
+            detailViewController.songInfo = Song()
+            detailViewController.songInfo.set(myListReadableJSON, row: row!)
         }
     }
     

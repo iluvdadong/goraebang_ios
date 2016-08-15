@@ -18,17 +18,7 @@ class MyListDetailViewController: UIViewController {
     @IBOutlet weak var songTitleLabel: UINavigationItem! // title
     
     // 넘어오기전에 받는 정보
-    var songId: Int! // MyList에 추가할 때 서버에 song id를 넘기기 위해
-    var songTitle: String! // title
-    var artist: String! // none
-    var lyrics: String! // lyrics
-    var genre1: String! // ganre1
-    var genre2: String! // ganre2
-    var runtime: String! // runtime
-    var song_tjnum:String! // song_tjnum
-    var lowKey: String! // lowkey
-    var highKey: String! // highkey
-    var albumWebView: UIWebView!
+    var songInfo:Song!
     
     // 받은 정보로 View, Label 생성
     var firstContainer: UIView!
@@ -70,7 +60,7 @@ class MyListDetailViewController: UIViewController {
         phoneSize = view.bounds.width
         
         fixedTopPadding = 65.0
-        print(songId)
+        
         
         setMyAlbum(phoneSize)
         setMyFirstContainer(phoneSize)
@@ -102,10 +92,10 @@ class MyListDetailViewController: UIViewController {
     }
     
     func makeMyAlbumWebView(){
-        albumWebView.frame = CGRect(x: albumStartingXPoint, y: albumStartingYPoint, width: albumSize, height: albumSize)
-        albumWebView.userInteractionEnabled = false
-        albumWebView.scalesPageToFit = true
-        super.view.addSubview(albumWebView)
+        songInfo.albumWebView.frame = CGRect(x: albumStartingXPoint, y: albumStartingYPoint, width: albumSize, height: albumSize)
+        songInfo.albumWebView.userInteractionEnabled = false
+        songInfo.albumWebView.scalesPageToFit = true
+        super.view.addSubview(songInfo.albumWebView)
     }
     
     func setMyFirstContainer(phoneSize: CGFloat){
@@ -129,14 +119,14 @@ class MyListDetailViewController: UIViewController {
         
         // MARK: Song Title
         let FCTitle: UILabel = UILabel(frame: CGRect(x: 0, y: 10, width: firstContainer.bounds.width, height: 20))
-        FCTitle.text = songTitle
+        FCTitle.text = songInfo.title
         FCTitle.font = FCTitle.font.fontWithSize(16)
         FCTitle.textColor = UIColor.whiteColor()
         firstContainer.addSubview(FCTitle)
         
         // MARK: Song Artist
         let FCArtist: UILabel = UILabel(frame: CGRect(x: 0, y: 30, width: firstContainer.bounds.width, height: 20))
-        FCArtist.text = artist
+        FCArtist.text = songInfo.artist
         FCArtist.font = FCArtist.font.fontWithSize(12)
         FCArtist.textColor = UIColor.whiteColor()
         firstContainer.addSubview(FCArtist)
@@ -168,7 +158,7 @@ class MyListDetailViewController: UIViewController {
     }
     
     // MARK: 세번째 컨테이너 설정
-    func setMyThirdContainer(phoneSize: CGFloat){
+    func setMyThirdContainer(phoneSize1: CGFloat){
         TCFrameXPoint = 10
         TCFrameYPoint = SCFrameYPoint + SCFrameHeight + 10
         TCFrameWidth = phoneSize - 20
@@ -184,7 +174,9 @@ class MyListDetailViewController: UIViewController {
         let lyricsTextView = UITextView(frame: CGRect(x: 10, y:10, width:TCFrameWidth - 20, height: TCFrameHeight - 20))
         lyricsTextView.showsVerticalScrollIndicator = false
         
-        let  attrStr: NSAttributedString = try! NSAttributedString(data: lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+        let  attrStr: NSAttributedString = try! NSAttributedString(data: songInfo.lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+
+//        let  attrStr: NSAttributedString = try! NSAttributedString(data: lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
         
         lyricsTextView.attributedText = attrStr
         lyricsTextView.editable = false
@@ -211,7 +203,7 @@ class MyListDetailViewController: UIViewController {
         print("button tapped")
         let tmpUserId = 1
         let tmpMyListId = 1
-        let post:NSString = "id=\(tmpUserId)&myList_id=\(tmpMyListId)&song_id=\(songId)"
+        let post:NSString = "id=\(tmpUserId)&myList_id=\(tmpMyListId)&song_id=\(songInfo.id)"
         
         let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_create")!
         
@@ -232,7 +224,7 @@ class MyListDetailViewController: UIViewController {
             
             // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
             if(result["message"] == "SUCCESS"){
-                alertWithMyMessage("추가되었습니다")
+                alertWithWarningMessage("추가되었습니다")
             }
             
         } catch let error as NSError{
@@ -243,7 +235,7 @@ class MyListDetailViewController: UIViewController {
     
     // MARK*: UIAlertController로 변경할 것
     // MARK: 사이즈 조절 방법 찾을 것
-    func alertWithMyMessage(message: String){
+    func alertWithWarningMessage(message: String){
         let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
         
         alertView.message = message

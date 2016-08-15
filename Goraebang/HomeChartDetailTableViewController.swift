@@ -85,20 +85,9 @@ class HomeChartDetailTableViewController: UITableViewController {
             
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
-            detailViewController.songId = topChartReadableJSON[row!]["id"].int
-            detailViewController.songTitleLabel.title = topChartReadableJSON[row!]["title"].string
-            detailViewController.songTitle = topChartReadableJSON[row!]["title"].string
-            detailViewController.artist = "Unknown Artist"
-            detailViewController.genre1 = topChartReadableJSON[row!]["genre1"].string
-            detailViewController.genre2 = topChartReadableJSON[row!]["genre2"].string
-            detailViewController.highKey = topChartReadableJSON[row!]["highkey"].string
-            detailViewController.lowKey = topChartReadableJSON[row!]["lowkey"].string
-            detailViewController.lyrics = topChartReadableJSON[row!]["lyrics"].string
-            detailViewController.runtime = topChartReadableJSON[row!]["runtime"].string
-            detailViewController.song_tjnum = topChartReadableJSON[row!]["song_tjnum"].string
-            let albumImageWebView:UIWebView = UIWebView()
-            albumImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row!]["jacket"].string!)!))
-            detailViewController.albumWebView = albumImageWebView
+            
+            detailViewController.songInfo = Song()
+            detailViewController.songInfo.set(topChartReadableJSON, row: row!)
         }
     }
 
