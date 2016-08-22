@@ -139,6 +139,8 @@ class MyListTableViewController: UITableViewController {
             
             print(response)
             myListSongs = JSON(data: myListsJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            print(myListSongs)
+            
             
         } catch let error as NSError{
             print(error.localizedDescription)

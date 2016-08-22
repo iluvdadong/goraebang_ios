@@ -24,6 +24,7 @@
 		4979E2241D4A17D2003852E6 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49183BBA1D48E8290012DD3C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */; };
 		498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */; };
+		49B04B841D6ABF0E00AC4934 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B04B831D6ABF0E00AC4934 /* SWRevealViewController.m */; };
 		49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,9 @@
 		497454B61D4CE727000D520B /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewController.swift; sourceTree = "<group>"; };
 		498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewCell.swift; sourceTree = "<group>"; };
+		49B04B811D6ABF0D00AC4934 /* Goraebang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goraebang-Bridging-Header.h"; sourceTree = "<group>"; };
+		49B04B821D6ABF0E00AC4934 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		49B04B831D6ABF0E00AC4934 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,6 +210,7 @@
 		494F3A971D42ECAA008B5051 /* Goraebang */ = {
 			isa = PBXGroup;
 			children = (
+				49B04B7A1D6ABEE200AC4934 /* SWRevealViewController */,
 				49B90CBA1D448FF00007D76B /* Models */,
 				491F3E5A1D42F4E6005A2C9D /* Views */,
 				491F3E571D42F43B005A2C9D /* ViewControllers */,
@@ -225,6 +230,16 @@
 				49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */,
 			);
 			name = MyListController;
+			sourceTree = "<group>";
+		};
+		49B04B7A1D6ABEE200AC4934 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				49B04B821D6ABF0E00AC4934 /* SWRevealViewController.h */,
+				49B04B831D6ABF0E00AC4934 /* SWRevealViewController.m */,
+				49B04B811D6ABF0D00AC4934 /* Goraebang-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 		49B834041D56335F004F1AC0 /* UserController */ = {
@@ -384,6 +399,7 @@
 				49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */,
 				497454B71D4CE727000D520B /* SignupVC.swift in Sources */,
 				494F3A991D42ECAA008B5051 /* AppDelegate.swift in Sources */,
+				49B04B841D6ABF0E00AC4934 /* SWRevealViewController.m in Sources */,
 				498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */,
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
@@ -515,11 +531,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Goraebang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Goraebang/Goraebang-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -527,11 +546,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Goraebang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Goraebang/Goraebang-Bridging-Header.h";
 			};
 			name = Release;
 		};

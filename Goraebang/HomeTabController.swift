@@ -11,6 +11,7 @@ class HomeTabController: UIViewController {
     
     // http://52.78.113.43, top chart json url
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     // MARK : Variables
     var bottomContainerScrollView: UIScrollView!
     var scrollView: UIScrollView!
@@ -50,6 +51,14 @@ class HomeTabController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Hi")
+        if self.revealViewController() != nil {
+            print("Cool")
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         
         setSize(view.bounds.width) // 초기설정
         
