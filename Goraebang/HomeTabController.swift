@@ -58,6 +58,7 @@ class HomeTabController: UIViewController {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
         setSize(view.bounds.width) // 초기설정

@@ -25,6 +25,7 @@
 		498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */; };
 		498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */; };
 		49B04B841D6ABF0E00AC4934 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B04B831D6ABF0E00AC4934 /* SWRevealViewController.m */; };
+		49B04B8B1D6ACD1100AC4934 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B04B8A1D6ACD1100AC4934 /* SideMenuViewController.swift */; };
 		49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,7 @@
 		49B04B811D6ABF0D00AC4934 /* Goraebang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goraebang-Bridging-Header.h"; sourceTree = "<group>"; };
 		49B04B821D6ABF0E00AC4934 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		49B04B831D6ABF0E00AC4934 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		49B04B8A1D6ACD1100AC4934 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +174,7 @@
 		491F3E571D42F43B005A2C9D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				49B04B851D6ACAA600AC4934 /* SideMenuBar */,
 				491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */,
 				498CDFA21D55E18700DA0A1D /* MyListController */,
 				491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */,
@@ -240,6 +243,14 @@
 				49B04B811D6ABF0D00AC4934 /* Goraebang-Bridging-Header.h */,
 			);
 			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		49B04B851D6ACAA600AC4934 /* SideMenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				49B04B8A1D6ACD1100AC4934 /* SideMenuViewController.swift */,
+			);
+			name = SideMenuBar;
 			sourceTree = "<group>";
 		};
 		49B834041D56335F004F1AC0 /* UserController */ = {
@@ -405,6 +416,7 @@
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
 				4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */,
 				492F62FB1D617F9100F270BA /* Song.swift in Sources */,
+				49B04B8B1D6ACD1100AC4934 /* SideMenuViewController.swift in Sources */,
 				4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
