@@ -52,12 +52,13 @@ class HomeTabController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(tabBarController?.selectedIndex)
         print("Hi")
         if self.revealViewController() != nil {
             print("Cool")
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+//            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         

@@ -1405,6 +1405,7 @@ const int FrontViewPositionNone = 0xff;
     void (^animations)() = ^()
     {
         // Calling this in the animation block causes the status bar to appear/dissapear in sync with our own animation
+        
         [self setNeedsStatusBarAppearanceUpdate];
         
         // We call the layoutSubviews method on the contentView view and send a delegate, which will

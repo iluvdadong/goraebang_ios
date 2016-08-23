@@ -21,6 +21,10 @@ class MyTabBarController: UITabBarController {
 
         // Do any additional setup after loading the view.
     }
+    
+    func changeIndex(num: Int){
+        self.selectedIndex = num
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

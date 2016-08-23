@@ -17,9 +17,20 @@ class MyListTableViewController: UITableViewController {
     var myListSongs: JSON!
     var myLists: JSON!
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        if self.revealViewController() != nil {
+            print("Cool")
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
+        
         getMyList()
         
         // 테이블 뷰 행 높이 설정

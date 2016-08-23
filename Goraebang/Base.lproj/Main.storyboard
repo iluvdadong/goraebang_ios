@@ -172,7 +172,14 @@
                             <outlet property="delegate" destination="Yzq-Py-Z6D" id="1Jg-Es-Rne"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="마이리스트" id="Pjw-95-xMv"/>
+                    <navigationItem key="navigationItem" title="마이리스트" id="Pjw-95-xMv">
+                        <barButtonItem key="leftBarButtonItem" image="MylistIcon" id="l2m-g9-Uta">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="l2m-g9-Uta" id="akv-Ki-0vF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fT-V0-FoB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -203,7 +210,6 @@
         <!--고래방-->
         <scene sceneID="24r-1G-4op">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Ib-0X-TBx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="hRM-6O-OxK" customClass="HomeTabController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Lk-zC-Xyd"/>
@@ -229,6 +235,7 @@
                         <segue destination="h3o-Mg-gIv" kind="show" identifier="ShowChartDetail" id="mgl-ra-ofF"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Ib-0X-TBx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2679" y="-606"/>
         </scene>
@@ -383,6 +390,7 @@
                         <viewControllerLayoutGuide type="bottom" id="IYR-EY-dct"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="O2S-MC-kqj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -404,6 +412,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4lX-sh-dri"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GRm-1c-qe5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -882,7 +891,7 @@
         <!--My Tab Bar Controller-->
         <scene sceneID="aYp-O1-jnE">
             <objects>
-                <tabBarController id="0gG-Eg-SQS" customClass="MyTabBarController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" id="0gG-Eg-SQS" customClass="MyTabBarController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Wf2-cj-S2V"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="jJn-uf-NE8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -904,7 +913,7 @@
         <!--Home-->
         <scene sceneID="kRk-ET-Tzs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="T8K-8X-hJe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeTab" automaticallyAdjustsScrollViewInsets="NO" id="T8K-8X-hJe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="HomeIcon" id="sdO-Vt-y4a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t24-1j-tDE">
@@ -957,6 +966,6 @@
         <image name="RecommendIcon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vhg-f1-jZU"/>
+        <segue reference="KAv-nw-za0"/>
     </inferredMetricsTieBreakers>
 </document>
