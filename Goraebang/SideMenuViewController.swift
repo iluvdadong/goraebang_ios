@@ -102,6 +102,8 @@ class SideMenuViewController: UIViewController {
         fourthContainer = UIView(frame: CGRect(x: fourthContainerStartingXPoint, y: fourthContainerStarintgYPoint, width: fourthContainerWidth, height: fourthContainerHeight))
         view.addSubview(fourthContainer)
         
+        fillFourthContainer()
+        
         makeDivisionLine()
     }
     
@@ -160,7 +162,7 @@ class SideMenuViewController: UIViewController {
         searchButton.addTarget(self, action: #selector(switchTab), forControlEvents: .TouchUpInside)
         secondContainer.addSubview(searchButton)
         
-        let recommendButton = UIButton(frame: CGRect(x: 40, y: 75, width: 140, height: 20))
+        let recommendButton = UIButton(frame: CGRect(x: 40, y: 80, width: 140, height: 20))
         recommendButton.setTitle("노래 추천받으러 가기", forState: .Normal)
         recommendButton.userInteractionEnabled = true
         recommendButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -183,10 +185,47 @@ class SideMenuViewController: UIViewController {
         myListButton.tag = 3
         myListButton.addTarget(self, action: #selector(switchTab), forControlEvents: .TouchUpInside)
         thirdContainer.addSubview(myListButton)
+        
+        let statisticButton = UIButton(frame: CGRect(x: 40, y: 40, width: 140, height: 20))
+        statisticButton.setTitle("취향통계 분석", forState: .Normal)
+        statisticButton.userInteractionEnabled = true
+        statisticButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        statisticButton.tag = 3  // 테이블 뷰의 다른 섹션으로 넘어가야 해서 매개변수가 두개 필요하다.
+        statisticButton.addTarget(self, action: #selector(switchTab), forControlEvents: .TouchUpInside)
+        thirdContainer.addSubview(statisticButton)
+        
+        let blacklistButton = UIButton(frame: CGRect(x: 40, y: 70, width: 140, height: 20))
+        blacklistButton.setTitle("차단한 노래", forState: .Normal)
+        blacklistButton.userInteractionEnabled = true
+        blacklistButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        blacklistButton.tag = 3
+        blacklistButton.addTarget(self, action: #selector(switchTab), forControlEvents: .TouchUpInside)
+        thirdContainer.addSubview(blacklistButton)
+        
+        let settingsButton = UIButton(frame: CGRect(x: 40, y: 100, width: 140, height: 20))
+        settingsButton.setTitle("Settings", forState: .Normal)
+        settingsButton.userInteractionEnabled = true
+        settingsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        settingsButton.tag = 3
+        settingsButton.addTarget(self, action: #selector(switchTab), forControlEvents: .TouchUpInside)
+        thirdContainer.addSubview(settingsButton)
     }
     
     func fillFourthContainer(){
+        let helpButton = UIButton(frame: CGRect(x: 40, y: 20, width: 140, height: 20))
+        helpButton.setTitle("도움말", forState: .Normal)
+        helpButton.userInteractionEnabled = true
+        helpButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        // tag 4번으로 하나 더 생성
         
+        fourthContainer.addSubview(helpButton)
+        
+        let logoutButton = UIButton(frame: CGRect(x: 40, y: 50, width: 140, height: 20))
+        logoutButton.setTitle("로그아웃", forState: .Normal)
+        logoutButton.userInteractionEnabled = true
+        // 로그인 화면으로 돌아가는 코드 추가 (새로운 액션 함수)
+        
+        fourthContainer.addSubview(logoutButton)
     }
 
     override func didReceiveMemoryWarning() {

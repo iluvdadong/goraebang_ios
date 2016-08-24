@@ -24,6 +24,7 @@ class MyTabBarController: UITabBarController {
     
     func changeIndex(num: Int){
         self.selectedIndex = num
+        self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
     }
 
     override func didReceiveMemoryWarning() {
