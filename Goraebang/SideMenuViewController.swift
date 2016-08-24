@@ -171,11 +171,7 @@ class SideMenuViewController: UIViewController {
         secondContainer.addSubview(recommendButton)
     }
     
-    func switchTab(sender: UIButton){
-        print("home button tapped")
-        let tab = self.revealViewController().frontViewController as! MyTabBarController
-        tab.changeIndex(sender.tag)
-    }
+    
     
     func fillThirdContainer(){
         let myListButton = UIButton(frame: CGRect(x: 40, y: 10, width: 140, height: 20))
@@ -223,9 +219,20 @@ class SideMenuViewController: UIViewController {
         let logoutButton = UIButton(frame: CGRect(x: 40, y: 50, width: 140, height: 20))
         logoutButton.setTitle("로그아웃", forState: .Normal)
         logoutButton.userInteractionEnabled = true
+        logoutButton.addTarget(self, action: #selector(logout), forControlEvents: .TouchUpInside)
         // 로그인 화면으로 돌아가는 코드 추가 (새로운 액션 함수)
         
         fourthContainer.addSubview(logoutButton)
+    }
+    
+    func switchTab(sender: UIButton){
+        print("home button tapped")
+        let tab = self.revealViewController().frontViewController as! MyTabBarController
+        tab.changeIndex(sender.tag)
+    }
+    
+    func logout(sender: UIButton){
+        self.performSegueWithIdentifier("unwindToLoginView", sender: self)
     }
 
     override func didReceiveMemoryWarning() {

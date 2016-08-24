@@ -19,6 +19,11 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // MARK: Logout 버튼 클릭 후 첫 화면으로 돌아오기 위한 코드
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
+        
+    }
+    
     // MARK: Email 입력후 Return 키 누를 시
     @IBAction func usernameReturn(sender: AnyObject) {
         sender.resignFirstResponder()

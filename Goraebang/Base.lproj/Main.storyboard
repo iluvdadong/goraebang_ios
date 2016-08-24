@@ -421,8 +421,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="nyc-ny-FZN" kind="unwind" identifier="unwindToLoginView" unwindAction="prepareForUnwind:" id="GOU-Pn-QO9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKR-0N-AhV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="nyc-ny-FZN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="39" y="-801.75"/>
         </scene>
