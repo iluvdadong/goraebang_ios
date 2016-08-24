@@ -20,13 +20,18 @@
                     <view key="view" contentMode="scaleToFill" id="Xzh-wB-iJU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.16078431369999999" green="0.1764705882" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" image="EvalIcon" id="MkS-Il-qAt"/>
+                    <navigationItem key="navigationItem" title="Search" id="xrT-dk-7IS">
+                        <barButtonItem key="leftBarButtonItem" image="MylistIcon" id="kTH-HT-fuC"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="kTH-HT-fuC" id="eH0-UV-Wcl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcN-cy-Ara" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2227.5" y="1428"/>
+            <point key="canvasLocation" x="3145.5" y="1428"/>
         </scene>
         <!--마이리스트-->
         <scene sceneID="lA2-VJ-USr">
@@ -205,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6x-HC-lzr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4686" y="1002.75"/>
+            <point key="canvasLocation" x="6522" y="1002.75"/>
         </scene>
         <!--고래방-->
         <scene sceneID="24r-1G-4op">
@@ -432,13 +437,18 @@
                     <view key="view" contentMode="scaleToFill" id="pi9-9e-RnF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.16078431369999999" green="0.1764705882" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Recommend" image="RecommendIcon" id="0Jl-jT-yMF"/>
+                    <navigationItem key="navigationItem" title="Recommend" id="mbG-jz-kFB">
+                        <barButtonItem key="leftBarButtonItem" image="MylistIcon" id="yxc-6y-gpL"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="yxc-6y-gpL" id="Jix-Mc-0a4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELw-Ge-pUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2227.5" y="442.5"/>
+            <point key="canvasLocation" x="3145.5" y="442.5"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="Mix-tC-vAi">
@@ -901,8 +911,8 @@
                     <connections>
                         <outlet property="myTabBar" destination="jJn-uf-NE8" id="d7d-lN-fqO"/>
                         <segue destination="T8K-8X-hJe" kind="relationship" relationship="viewControllers" id="wmB-8a-rkv"/>
-                        <segue destination="pcm-gn-2Z5" kind="relationship" relationship="viewControllers" id="wya-rx-3Fx"/>
-                        <segue destination="AvL-GN-Ovq" kind="relationship" relationship="viewControllers" id="JNh-Eo-IvO"/>
+                        <segue destination="fdF-J5-oA5" kind="relationship" relationship="viewControllers" id="wya-rx-3Fx"/>
+                        <segue destination="gy9-nB-Rtt" kind="relationship" relationship="viewControllers" id="JNh-Eo-IvO"/>
                         <segue destination="pRf-J4-SG2" kind="relationship" relationship="viewControllers" id="lWu-7s-YLD"/>
                     </connections>
                 </tabBarController>
@@ -957,6 +967,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VWC-8Z-hbi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1779" y="2796.75"/>
+        </scene>
+        <!--Recommend-->
+        <scene sceneID="tKE-Kr-f8v">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gy9-nB-Rtt" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recommend" image="RecommendIcon" id="0Jl-jT-yMF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="afV-q1-4Fi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.037429042760000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AvL-GN-Ovq" kind="relationship" relationship="rootViewController" id="LJV-CV-Gm0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JM4-pa-715" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2227.5" y="442.5"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="D5c-H1-g6V">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fdF-J5-oA5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="EvalIcon" id="MkS-Il-qAt"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lOu-t8-p1b">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.037429042760000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pcm-gn-2Z5" kind="relationship" relationship="rootViewController" id="P1Z-j9-pMq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="veM-hC-x3t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2227.5" y="1428"/>
         </scene>
     </scenes>
     <resources>
