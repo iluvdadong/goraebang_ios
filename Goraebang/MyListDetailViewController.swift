@@ -230,6 +230,10 @@ class MyListDetailViewController: UIViewController {
             // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
             if(result["message"] == "SUCCESS"){
                 alertWithWarningMessage("추가되었습니다")
+                
+//                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
+//                self.performSegueWithIdentifier("AddSong", sender: self)
+                
             }
             
         } catch let error as NSError{
@@ -258,6 +262,18 @@ class MyListDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "AddSong" {
+//            let controller = segue.destinationViewController as! MyListTableViewController
+//            
+//            
+//            
+//            
+////            controller.removeFromParentViewController()
+//            
+//        }
+//    }
     
     
     /*

@@ -130,8 +130,11 @@ class MyListTableViewController: UITableViewController {
     
     func getMyListSong(id: Int){
         let post:NSString = "id=\(tmpUserId)&myList_id=\(id)"
+//        let post:NSString = "id=\(3)&myList_id=\(1)&autnNum="
         
         let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_read")!
+//        let url:NSURL = NSURL(string: "https://whaaale-likelionsunwoo.c9users.io/json/mySong_read")!
+        
         print("Watch Here\n")
         print(url)
         
@@ -142,6 +145,7 @@ class MyListTableViewController: UITableViewController {
         request.HTTPBody = postData
         
         print(request)
+        
         let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
         
         do {
@@ -176,8 +180,8 @@ class MyListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         // 행의 개수는 JSON을 count한 것과 같다.
-        return myListReadableJSON.count
-        //        return myListSongs.count
+        return myListSongs["song"].count
+        //        return myListSongs[0].count
     }
     
     
@@ -187,24 +191,22 @@ class MyListTableViewController: UITableViewController {
         let row = indexPath.row
         //        cell.songNumberLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
-        cell.songNumberLabel.text = String(myListReadableJSON[row]["song_tjnum"])
+        cell.songNumberLabel.text = String(myListSongs["song"][row]["song_tjnum"])
         //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
-        cell.songTitleLabel.text = myListReadableJSON[row]["title"].string
+        cell.songTitleLabel.text = myListSongs["song"][row]["title"].string
         //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
-        cell.songArtistLabel.text = "Unkown Artist"
+        cell.songArtistLabel.text = myListSongs["artistName"][row].string
         
         
-        cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListReadableJSON[row]["jacket"].string!)!))
+        cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListSongs["song"][row]["jacket_small"].string!)!))
         cell.songImageWebView.frame.size.height = 63.5
         cell.songImageWebView.frame.size.width = 63.5
         cell.songImageWebView.scalesPageToFit = true
         cell.songImageWebView.userInteractionEnabled = false
         
         // cell gesture recognizer
-        
-        
         
         // Configure the cell...
         
@@ -261,6 +263,39 @@ class MyListTableViewController: UITableViewController {
         if (editingStyle == UITableViewCellEditingStyle.Delete){
             // json으로 삭제 요청하고
             // mylistReadable json 다시 받은 뒤에 reload dAta
+            
+            // MARK ****: JSON 파일에 mySong_id가 필요하다. 삭제하려면 *************
+            
+            let row = indexPath.row
+            let post:NSString = "id=\(tmpUserId)&mySong_id=\(myListSongs["mylistSongId"][row])"
+            let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_delete")!
+            print("MySong Delete Start!!\n\n")
+            
+            let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+            
+            let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+            request.HTTPMethod = "POST"
+            request.HTTPBody = postData
+            
+//            print(request)
+            
+            let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+            
+            do {
+                // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+                let mySongDeleteResult = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+                
+                print(response)
+                print(mySongDeleteResult)
+                let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                print(mySongDeleteResultJSON)
+                
+                
+            } catch let error as NSError{
+                print(error.localizedDescription)
+            }
+
+            getMyListSong(1)
             
             self.tableView.reloadData()
             

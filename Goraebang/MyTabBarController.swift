@@ -18,7 +18,8 @@ class MyTabBarController: UITabBarController {
         
         myTabBar.tintColor = UIColor.redColor()
         myTabBar.barTintColor = UIColor.blackColor()
-
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -26,6 +27,8 @@ class MyTabBarController: UITabBarController {
         self.selectedIndex = num
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

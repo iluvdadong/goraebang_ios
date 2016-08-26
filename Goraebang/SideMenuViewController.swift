@@ -171,8 +171,6 @@ class SideMenuViewController: UIViewController {
         secondContainer.addSubview(recommendButton)
     }
     
-    
-    
     func fillThirdContainer(){
         let myListButton = UIButton(frame: CGRect(x: 40, y: 10, width: 140, height: 20))
         myListButton.setTitle("마이리스트", forState: .Normal)

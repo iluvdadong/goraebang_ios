@@ -108,6 +108,7 @@
                                         </constraint>
                                         <constraint firstAttribute="bottomMargin" secondItem="nUw-kF-mjO" secondAttribute="bottom" constant="20" id="Ahv-IZ-7GP"/>
                                         <constraint firstItem="VHI-Lr-DuD" firstAttribute="centerY" secondItem="qQN-NW-qp8" secondAttribute="centerY" id="S02-Sd-rNx"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="nUw-kF-mjO" secondAttribute="trailing" constant="20" id="WFC-lX-1LQ"/>
                                         <constraint firstItem="iM2-dH-BuT" firstAttribute="centerY" secondItem="qQN-NW-qp8" secondAttribute="centerY" id="dIU-Wm-C23"/>
                                         <constraint firstItem="nUw-kF-mjO" firstAttribute="leading" secondItem="iM2-dH-BuT" secondAttribute="trailing" constant="29" id="eUi-a1-MgJ">
                                             <variation key="heightClass=regular-widthClass=compact" constant="35.5"/>
@@ -116,6 +117,7 @@
                                         <constraint firstItem="iM2-dH-BuT" firstAttribute="leading" secondItem="VHI-Lr-DuD" secondAttribute="trailing" constant="15" id="gah-o3-pDO">
                                             <variation key="heightClass=regular-widthClass=compact" constant="15"/>
                                         </constraint>
+                                        <constraint firstAttribute="trailingMargin" secondItem="daE-oV-3Y1" secondAttribute="trailing" constant="20" id="k00-hy-LKV"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="iM2-dH-BuT" secondAttribute="bottom" constant="5" id="lXF-Dd-zok"/>
                                         <constraint firstItem="iM2-dH-BuT" firstAttribute="top" secondItem="qQN-NW-qp8" secondAttribute="topMargin" constant="5" id="t3e-eH-p2F"/>
                                         <constraint firstItem="daE-oV-3Y1" firstAttribute="top" secondItem="qQN-NW-qp8" secondAttribute="topMargin" constant="20" id="t8D-LG-A9f"/>
@@ -131,8 +133,10 @@
                                             <exclude reference="S02-Sd-rNx"/>
                                             <exclude reference="fAh-5c-qlr"/>
                                             <exclude reference="80c-ob-j5n"/>
+                                            <exclude reference="k00-hy-LKV"/>
                                             <exclude reference="t8D-LG-A9f"/>
                                             <exclude reference="Ahv-IZ-7GP"/>
+                                            <exclude reference="WFC-lX-1LQ"/>
                                             <exclude reference="eUi-a1-MgJ"/>
                                             <exclude reference="dIU-Wm-C23"/>
                                             <exclude reference="gah-o3-pDO"/>
@@ -151,8 +155,10 @@
                                             <include reference="S02-Sd-rNx"/>
                                             <include reference="fAh-5c-qlr"/>
                                             <include reference="80c-ob-j5n"/>
+                                            <include reference="k00-hy-LKV"/>
                                             <include reference="t8D-LG-A9f"/>
                                             <include reference="Ahv-IZ-7GP"/>
+                                            <include reference="WFC-lX-1LQ"/>
                                             <include reference="eUi-a1-MgJ"/>
                                             <include reference="dIU-Wm-C23"/>
                                             <include reference="gah-o3-pDO"/>
@@ -206,6 +212,7 @@
                     <navigationItem key="navigationItem" title="Song Title" id="TaT-tk-Wgk"/>
                     <connections>
                         <outlet property="songTitleLabel" destination="TaT-tk-Wgk" id="MLC-aj-cKu"/>
+                        <segue destination="Yzq-Py-Z6D" kind="custom" identifier="AddSong" id="bDQ-6p-aMb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6x-HC-lzr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -315,6 +322,7 @@
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="ReV-05-zic" secondAttribute="bottom" constant="19.5" id="4oa-7m-kOc"/>
                                         <constraint firstItem="eJr-8E-vld" firstAttribute="centerY" secondItem="UrI-zG-ve8" secondAttribute="centerY" id="7Tx-UN-Cpv"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ReV-05-zic" secondAttribute="trailing" constant="20" id="DQs-Hs-a9v"/>
                                         <constraint firstItem="aGN-KH-Y1n" firstAttribute="leading" secondItem="eJr-8E-vld" secondAttribute="trailing" constant="35.5" id="FpC-KA-RNh"/>
                                         <constraint firstItem="oN6-1x-WHR" firstAttribute="centerY" secondItem="UrI-zG-ve8" secondAttribute="centerY" id="S60-YZ-Vd3"/>
                                         <constraint firstItem="aGN-KH-Y1n" firstAttribute="top" secondItem="UrI-zG-ve8" secondAttribute="topMargin" constant="20" id="V15-ze-sTT"/>
@@ -333,6 +341,7 @@
                                         </mask>
                                         <mask key="constraints">
                                             <exclude reference="4oa-7m-kOc"/>
+                                            <exclude reference="DQs-Hs-a9v"/>
                                             <exclude reference="ueQ-3G-ZMs"/>
                                             <exclude reference="FpC-KA-RNh"/>
                                             <exclude reference="V15-ze-sTT"/>
@@ -353,6 +362,7 @@
                                         </mask>
                                         <mask key="constraints">
                                             <include reference="4oa-7m-kOc"/>
+                                            <include reference="DQs-Hs-a9v"/>
                                             <include reference="ueQ-3G-ZMs"/>
                                             <include reference="FpC-KA-RNh"/>
                                             <include reference="V15-ze-sTT"/>
@@ -1021,5 +1031,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="KAv-nw-za0"/>
+        <segue reference="bDQ-6p-aMb"/>
     </inferredMetricsTieBreakers>
 </document>
