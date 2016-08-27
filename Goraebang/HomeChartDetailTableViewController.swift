@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class HomeChartDetailTableViewController: UITableViewController {
     
+    let goraebang_url = globalSetting.getGoraebangURL()
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
 
@@ -28,7 +29,7 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     func getTopChart(){
         // Top 100 read
-        let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
@@ -70,11 +71,12 @@ class HomeChartDetailTableViewController: UITableViewController {
         cell.artistLabel.text = "Unkown Artist" // artist명 추가
         
         // MARK: jacket_middle 맞는지 확인
-        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row]["jacket"].string!)!))
+        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row]["jacket_small"].string!)!))
         cell.albumWebView.frame.size.height = 63.5
         cell.albumWebView.frame.size.width = 63.5
         cell.albumWebView.scalesPageToFit = true
         cell.albumWebView.userInteractionEnabled = false
+        
         
         return cell
     }
@@ -88,6 +90,7 @@ class HomeChartDetailTableViewController: UITableViewController {
             
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(topChartReadableJSON, row: row!)
+            
         }
     }
 

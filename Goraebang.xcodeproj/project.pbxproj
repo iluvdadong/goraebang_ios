@@ -24,6 +24,7 @@
 		4979E2241D4A17D2003852E6 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49183BBA1D48E8290012DD3C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */; };
 		498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */; };
+		498E0D811D71598D00CCEFF1 /* globalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E0D801D71598D00CCEFF1 /* globalSetting.swift */; };
 		49B04B841D6ABF0E00AC4934 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B04B831D6ABF0E00AC4934 /* SWRevealViewController.m */; };
 		49B04B8B1D6ACD1100AC4934 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B04B8A1D6ACD1100AC4934 /* SideMenuViewController.swift */; };
 		49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */; };
@@ -128,6 +129,7 @@
 		497454B61D4CE727000D520B /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewController.swift; sourceTree = "<group>"; };
 		498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewCell.swift; sourceTree = "<group>"; };
+		498E0D801D71598D00CCEFF1 /* globalSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = globalSetting.swift; sourceTree = "<group>"; };
 		49B04B811D6ABF0D00AC4934 /* Goraebang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goraebang-Bridging-Header.h"; sourceTree = "<group>"; };
 		49B04B821D6ABF0E00AC4934 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		49B04B831D6ABF0E00AC4934 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				492F62FA1D617F9100F270BA /* Song.swift */,
+				498E0D801D71598D00CCEFF1 /* globalSetting.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
 				4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */,
 				492F62FB1D617F9100F270BA /* Song.swift in Sources */,
+				498E0D811D71598D00CCEFF1 /* globalSetting.swift in Sources */,
 				49B04B8B1D6ACD1100AC4934 /* SideMenuViewController.swift in Sources */,
 				4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */,
 			);

@@ -12,9 +12,9 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
+    let goraebang_url = globalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // txtPassword.delegate = self.txtPassword.delegate
         // Do any additional setup after loading the view.
     }
@@ -52,7 +52,7 @@ class LoginVC: UIViewController {
         
         NSLog("PostData: %@", post)
         
-        let url:NSURL = NSURL(string: "http://52.78.113.43/json/login")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/login")!
         
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         

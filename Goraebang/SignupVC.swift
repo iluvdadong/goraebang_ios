@@ -13,6 +13,7 @@ class SignupVC: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtConfirmPassword: UITextField!
     
+    let goraebang_url = globalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -51,7 +52,7 @@ class SignupVC: UIViewController {
             
             NSLog("PostData: %@", post)
             
-            let url:NSURL = NSURL(string: "http://52.78.113.43/json/regist")!
+            let url:NSURL = NSURL(string: "\(goraebang_url)/json/regist")!
             
             let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
             

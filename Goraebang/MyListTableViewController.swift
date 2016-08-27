@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class MyListTableViewController: UITableViewController {
     
+    
+    let goraebang_url = globalSetting.getGoraebangURL()
     let tmpMyListId = 1
     let tmpUserId = 2
     var myListReadableJSON: JSON!
@@ -19,10 +21,8 @@ class MyListTableViewController: UITableViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         if self.revealViewController() != nil {
             print("Cool")
             menuButton.target = self.revealViewController()
@@ -37,15 +37,35 @@ class MyListTableViewController: UITableViewController {
         tableView.rowHeight = 90.0
         tableView.sectionHeaderHeight = 120
         
-        // table cell gesture recognizer 추가
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+//    override func viewDidLoad() {
+//        
+//        super.viewDidLoad()
+//        
+//        if self.revealViewController() != nil {
+//            print("Cool")
+//            menuButton.target = self.revealViewController()
+//            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+//            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+//            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+//        }
+//        
+//        getMyList()
+//        
+//        // 테이블 뷰 행 높이 설정
+//        tableView.rowHeight = 90.0
+//        tableView.sectionHeaderHeight = 120
+//        
+//        // table cell gesture recognizer 추가
+//        
+//        
+//        // Uncomment the following line to preserve selection between presentations
+//        // self.clearsSelectionOnViewWillAppear = false
+//        
+//        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+//        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+//    }
     
     func getMyList(){
         // Mylist read api
@@ -54,7 +74,7 @@ class MyListTableViewController: UITableViewController {
         
         //        let post:NSString = "id=\(tmpUserId)&user[name]=sohn&user[password]=\(password)&user[password_confirmation]=\(confirm_password)&user[gender]=0"
         
-        let turl:NSURL = NSURL(string: "http://52.78.113.43/json/myList_read")!
+        let turl:NSURL = NSURL(string: "\(goraebang_url)/json/myList_read")!
         print("Watch Here\n\n\n")
         print(turl)
         
@@ -117,7 +137,7 @@ class MyListTableViewController: UITableViewController {
         //        task.resume()
         
         // Top 100 read
-        let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         myListReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
@@ -132,7 +152,7 @@ class MyListTableViewController: UITableViewController {
         let post:NSString = "id=\(tmpUserId)&myList_id=\(id)"
 //        let post:NSString = "id=\(3)&myList_id=\(1)&autnNum="
         
-        let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_read")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_read")!
 //        let url:NSURL = NSURL(string: "https://whaaale-likelionsunwoo.c9users.io/json/mySong_read")!
         
         print("Watch Here\n")
@@ -206,6 +226,8 @@ class MyListTableViewController: UITableViewController {
         cell.songImageWebView.scalesPageToFit = true
         cell.songImageWebView.userInteractionEnabled = false
         
+        
+        
         // cell gesture recognizer
         
         // Configure the cell...
@@ -252,6 +274,7 @@ class MyListTableViewController: UITableViewController {
             
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(myListReadableJSON, row: row!)
+            detailViewController.isMylist = true
         }
     }
     
@@ -268,7 +291,7 @@ class MyListTableViewController: UITableViewController {
             
             let row = indexPath.row
             let post:NSString = "id=\(tmpUserId)&mySong_id=\(myListSongs["mylistSongId"][row])"
-            let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_delete")!
+            let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
             print("MySong Delete Start!!\n\n")
             
             let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!

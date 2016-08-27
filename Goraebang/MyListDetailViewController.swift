@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class MyListDetailViewController: UIViewController {
     
+    let goraebang_url = globalSetting.getGoraebangURL()
     let tmpUserId = 2
     let tmpMyListId = 1
     // Configure: Hide bottom bar on push
@@ -54,6 +55,8 @@ class MyListDetailViewController: UIViewController {
     var fixedTopPadding: CGFloat!
     
     var phoneSize:CGFloat!
+    
+    var isMylist:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,12 +138,15 @@ class MyListDetailViewController: UIViewController {
         
         // MARK: Add Button
         
-        let FCAddButton: UIButton = UIButton(frame: CGRect(x: firstContainer.bounds.width-80, y: firstContainer.bounds.height - 30, width: 80, height: 30))
-        FCAddButton.backgroundColor = UIColor.blueColor()
-        FCAddButton.setTitle("Add", forState: UIControlState.Normal)
-        FCAddButton.addTarget(self, action: #selector(addSong), forControlEvents: .TouchUpInside)
-        
-        firstContainer.addSubview(FCAddButton)
+        // 마이리스트인 경우는 Add Button없도록
+        if(isMylist == false){
+            let FCAddButton: UIButton = UIButton(frame: CGRect(x: firstContainer.bounds.width-80, y: firstContainer.bounds.height - 30, width: 80, height: 30))
+            FCAddButton.backgroundColor = UIColor.blueColor()
+            FCAddButton.setTitle("Add", forState: UIControlState.Normal)
+            FCAddButton.addTarget(self, action: #selector(addSong), forControlEvents: .TouchUpInside)
+            
+            firstContainer.addSubview(FCAddButton)
+        }
     }
     
     
@@ -177,8 +183,8 @@ class MyListDetailViewController: UIViewController {
         lyricsTextView.showsVerticalScrollIndicator = false
         
         let  attrStr: NSAttributedString = try! NSAttributedString(data: songInfo.lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-
-//        let  attrStr: NSAttributedString = try! NSAttributedString(data: lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+        
+        //        let  attrStr: NSAttributedString = try! NSAttributedString(data: lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
         
         lyricsTextView.attributedText = attrStr
         lyricsTextView.editable = false
@@ -208,7 +214,7 @@ class MyListDetailViewController: UIViewController {
         
         let post:NSString = "id=\(tmpUserId)&myList_id=\(tmpMyListId)&song_id=\(songInfo.id)"
         
-        let url:NSURL = NSURL(string: "http://52.78.113.43/json/mySong_create")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
         
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         
@@ -231,8 +237,8 @@ class MyListDetailViewController: UIViewController {
             if(result["message"] == "SUCCESS"){
                 alertWithWarningMessage("추가되었습니다")
                 
-//                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
-//                self.performSegueWithIdentifier("AddSong", sender: self)
+                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
+                //                self.performSegueWithIdentifier("AddSong", sender: self)
                 
             }
             
@@ -263,17 +269,17 @@ class MyListDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "AddSong" {
-//            let controller = segue.destinationViewController as! MyListTableViewController
-//            
-//            
-//            
-//            
-////            controller.removeFromParentViewController()
-//            
-//        }
-//    }
+    //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    //        if segue.identifier == "AddSong" {
+    //            let controller = segue.destinationViewController as! MyListTableViewController
+    //
+    //
+    //
+    //
+    ////            controller.removeFromParentViewController()
+    //
+    //        }
+    //    }
     
     
     /*

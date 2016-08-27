@@ -10,6 +10,7 @@ class HomeTabController: UIViewController {
     // 각 크기마다 따로 설정해야 하는지?
     
     // http://52.78.113.43, top chart json url
+    let goraebang_url = globalSetting.getGoraebangURL()
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     // MARK : Variables
@@ -108,7 +109,7 @@ class HomeTabController: UIViewController {
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
     func getTopChart(){
         // 서버 문제있을 때?
-        let url:NSURL = NSURL(string: "http://52.78.113.43/json/song")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
