@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class MyListDetailViewController: UIViewController {
     
-    let goraebang_url = globalSetting.getGoraebangURL()
+    let goraebang_url = GlobalSetting.getGoraebangURL()
     let tmpUserId = 2
     let tmpMyListId = 1
     // Configure: Hide bottom bar on push

@@ -10,7 +10,7 @@ class HomeTabController: UIViewController {
     // 각 크기마다 따로 설정해야 하는지?
     
     // http://52.78.113.43, top chart json url
-    let goraebang_url = globalSetting.getGoraebangURL()
+    let goraebang_url = GlobalSetting.getGoraebangURL()
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     // MARK : Variables
@@ -286,6 +286,7 @@ class HomeTabController: UIViewController {
             themeContainer.addSubview(themeContentsContainer)
             
             imageViewArray[i].frame = CGRect(x: 0, y: 0, width: themeContentsContainer.bounds.width, height: 80)
+//            imageViewArray[i].sizeToFit()
             themeContentsContainer.addSubview(imageViewArray[i])
             
             let themeLabel: UILabel = UILabel(frame: CGRectMake(0, 80, themeContainer.bounds.width/2 - 5, 30))

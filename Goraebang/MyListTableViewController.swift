@@ -12,9 +12,10 @@ import SwiftyJSON
 class MyListTableViewController: UITableViewController {
     
     
-    let goraebang_url = globalSetting.getGoraebangURL()
-    let tmpMyListId = 1
+    let goraebang_url = GlobalSetting.getGoraebangURL()
     let tmpUserId = 2
+    let tmpMyListId = 1
+    
     var myListReadableJSON: JSON!
     var myListSongs: JSON!
     var myLists: JSON!
@@ -22,7 +23,16 @@ class MyListTableViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        getMyList()
+        self.tableView.reloadData()
+        
+        
+    }
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
         if self.revealViewController() != nil {
             print("Cool")
             menuButton.target = self.revealViewController()
@@ -37,35 +47,15 @@ class MyListTableViewController: UITableViewController {
         tableView.rowHeight = 90.0
         tableView.sectionHeaderHeight = 120
         
+        // table cell gesture recognizer 추가
+        
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    
-//    override func viewDidLoad() {
-//        
-//        super.viewDidLoad()
-//        
-//        if self.revealViewController() != nil {
-//            print("Cool")
-//            menuButton.target = self.revealViewController()
-//            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-//            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-//            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-//        }
-//        
-//        getMyList()
-//        
-//        // 테이블 뷰 행 높이 설정
-//        tableView.rowHeight = 90.0
-//        tableView.sectionHeaderHeight = 120
-//        
-//        // table cell gesture recognizer 추가
-//        
-//        
-//        // Uncomment the following line to preserve selection between presentations
-//        // self.clearsSelectionOnViewWillAppear = false
-//        
-//        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-//    }
     
     func getMyList(){
         // Mylist read api
@@ -200,6 +190,7 @@ class MyListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         // 행의 개수는 JSON을 count한 것과 같다.
+        print(myListSongs)
         return myListSongs["song"].count
         //        return myListSongs[0].count
     }
@@ -242,18 +233,32 @@ class MyListTableViewController: UITableViewController {
     // MARK: Section Header
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let userInfoView = UIView()
-        userInfoView.backgroundColor = UIColor.whiteColor()
+//        userInfoView.backgroundColor = UIColor.whiteColor()
+        
         userInfoView.layer.masksToBounds = false
         userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
         userInfoView.layer.shadowRadius = 5
         userInfoView.layer.shadowOpacity = 0.6
         
+        let userInfoBackground = UIImageView()
+        userInfoBackground.frame = CGRect(x: 0, y: 0, width: 322, height: 120)
+        userInfoBackground.image = UIImage(named: "Park")
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = userInfoBackground.bounds
+        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        userInfoBackground.addSubview(blurEffectView)
+        userInfoView.addSubview(userInfoBackground)
+        
+        
         let userTitleLabel = UILabel(frame: CGRect(x: 0, y: 70, width: view.bounds.width, height: 20))
         userTitleLabel.text = "고래"
+        userTitleLabel.textColor = UIColor.whiteColor()
         userTitleLabel.textAlignment = NSTextAlignment.Center
         userInfoView.addSubview(userTitleLabel)
         
         let userSongCountLabel = UILabel(frame: CGRect(x: 0, y: 90, width: view.bounds.width, height: 20))
+        userSongCountLabel.textColor = UIColor.whiteColor()
         userSongCountLabel.text = "저장된 곡 개수  \(myListReadableJSON.count)"
         userSongCountLabel.textAlignment = NSTextAlignment.Center
         userSongCountLabel.font = userSongCountLabel.font.fontWithSize(12)

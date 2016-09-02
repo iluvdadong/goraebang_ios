@@ -12,7 +12,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
-    let goraebang_url = globalSetting.getGoraebangURL()
+    let goraebang_url = GlobalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
         // txtPassword.delegate = self.txtPassword.delegate

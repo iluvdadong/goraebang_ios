@@ -13,7 +13,7 @@ class SignupVC: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtConfirmPassword: UITextField!
     
-    let goraebang_url = globalSetting.getGoraebangURL()
+    let goraebang_url = GlobalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
