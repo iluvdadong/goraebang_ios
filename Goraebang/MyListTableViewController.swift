@@ -101,31 +101,6 @@ class MyListTableViewController: UITableViewController {
         }
         
         
-        // 마이리스트 내부 노래 read
-        
-        
-        //            var responseError: NSError?
-        //            var response: NSURLResponse?
-        
-        //        let mySession = NSURLSession.sharedSession()
-        //
-        //        // NSURLDataSessionTask Retrun 한다
-        //        let task = mySession.dataTaskWithRequest(request){
-        //            (let data, let response, let error) in
-        //
-        //            guard let _:NSData = data, let _: NSURLResponse = response where error == nil else{
-        //                print("error")
-        //                return
-        //            }
-        //
-        //            self.myLists = JSON(data: data!)
-        //            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-        //            print(dataString)
-        //            print(self.myLists)
-        //        }
-        //
-        //        task.resume()
-        
         // Top 100 read
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/song")!
         let jsonData = NSData(contentsOfURL: url) as NSData!

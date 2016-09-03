@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PDV-aw-aRi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PDV-aw-aRi">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="7000" identifier="xcode"/>
@@ -9,30 +9,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Search-->
-        <scene sceneID="JDh-Sx-EQe">
-            <objects>
-                <viewController id="pcm-gn-2Z5" customClass="SearchViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Bio-nG-noW"/>
-                        <viewControllerLayoutGuide type="bottom" id="3bH-EG-etQ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Xzh-wB-iJU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.16078431369999999" green="0.1764705882" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Search" id="xrT-dk-7IS">
-                        <barButtonItem key="leftBarButtonItem" image="MylistIcon" id="kTH-HT-fuC"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="menuButton" destination="kTH-HT-fuC" id="3Be-9s-N9w"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bcN-cy-Ara" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3145.5" y="1428"/>
-        </scene>
         <!--마이리스트-->
         <scene sceneID="lA2-VJ-USr">
             <objects>
@@ -217,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6x-HC-lzr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6522" y="1002.75"/>
+            <point key="canvasLocation" x="7440" y="1002.75"/>
         </scene>
         <!--고래방-->
         <scene sceneID="24r-1G-4op">
@@ -1044,7 +1020,7 @@
                     <connections>
                         <outlet property="myTabBar" destination="jJn-uf-NE8" id="d7d-lN-fqO"/>
                         <segue destination="T8K-8X-hJe" kind="relationship" relationship="viewControllers" id="wmB-8a-rkv"/>
-                        <segue destination="fdF-J5-oA5" kind="relationship" relationship="viewControllers" id="wya-rx-3Fx"/>
+                        <segue destination="F80-Sh-rLD" kind="relationship" relationship="viewControllers" id="XNo-Wd-ilg"/>
                         <segue destination="gy9-nB-Rtt" kind="relationship" relationship="viewControllers" id="JNh-Eo-IvO"/>
                         <segue destination="pRf-J4-SG2" kind="relationship" relationship="viewControllers" id="lWu-7s-YLD"/>
                         <segue destination="f4C-yY-Mim" kind="relationship" relationship="viewControllers" id="9JK-G1-ehF"/>
@@ -1122,31 +1098,45 @@
             </objects>
             <point key="canvasLocation" x="2227.5" y="442.5"/>
         </scene>
-        <!--Search-->
-        <scene sceneID="D5c-H1-g6V">
+        <!--검색-->
+        <scene sceneID="svu-9H-eJo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fdF-J5-oA5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="EvalIcon" id="MkS-Il-qAt"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lOu-t8-p1b">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.037429042760000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <tableViewController id="S69-wd-T9T" customClass="SearchTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cxG-xH-Z5Y">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ses-YK-3Ir">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ses-YK-3Ir" id="BLt-f3-mR3">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="S69-wd-T9T" id="eXO-jj-IbY"/>
+                            <outlet property="delegate" destination="S69-wd-T9T" id="L8Z-vU-FsV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="검색" id="JjP-YO-sch">
+                        <barButtonItem key="leftBarButtonItem" image="SideMenuIcon" id="66d-oQ-Mow"/>
+                    </navigationItem>
                     <connections>
-                        <segue destination="pcm-gn-2Z5" kind="relationship" relationship="rootViewController" id="P1Z-j9-pMq"/>
+                        <outlet property="menuButton" destination="66d-oQ-Mow" id="Lk1-8L-hH4"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="veM-hC-x3t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5wI-33-FtV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2227.5" y="1428"/>
+            <point key="canvasLocation" x="3072" y="1172.25"/>
         </scene>
         <!--Home Table-->
         <scene sceneID="XRS-Va-w8N">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f4C-yY-Mim" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home Table" id="Yux-yz-nSN"/>
+                    <tabBarItem key="tabBarItem" title="Home Table" image="HomeIcon" id="Yux-yz-nSN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tJK-VZ-Gcv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1161,6 +1151,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGf-EF-4lO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2697" y="-210.75"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="BAy-Q6-pLV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F80-Sh-rLD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="EvalIcon" id="fkR-VU-Ugi"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7DS-aZ-JTW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="S69-wd-T9T" kind="relationship" relationship="rootViewController" id="Uh4-uO-H77"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sBl-2N-zgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2154" y="1172.25"/>
         </scene>
     </scenes>
     <resources>
