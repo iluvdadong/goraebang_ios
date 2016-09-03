@@ -10,6 +10,11 @@ import UIKit
 
 class SearchTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var songNumberLabel: UILabel!
+    @IBOutlet weak var songImageWebView: UIWebView!
+    @IBOutlet weak var songTitleLabel: UILabel!
+    @IBOutlet weak var songArtistLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

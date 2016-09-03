@@ -168,6 +168,8 @@ class SearchTableViewController: UITableViewController {
         print(searchResult["lyrics"])
         print(searchResult["lyrics"].count)
         
+        self.tableView.reloadData()
+        
 //        if let search_text = searchBar.text {
 //            print(search_text)
 ////            let url:NSURL = NSURL(string: "\(goraebang_url)/json/search?query=\(search_text)")!
@@ -190,18 +192,42 @@ class SearchTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        if(searchResult != nil){
+            return searchResult["title"].count
+        }
+        else {
+            return 0
+        }
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("SearchTableCell", forIndexPath: indexPath) as! SearchTableViewCell
+        
+        let row = indexPath.row
+        
+        cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
+        cell.songNumberLabel.text = String(searchResult["title"][row]["song_tjnum"])
+        //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
+        cell.songTitleLabel.text = searchResult["title"][row]["title"].string
+        //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
+//        cell.songArtistLabel.text = myListSongs["artistName"][row].string
+        cell.songArtistLabel.text = searchResult["title"][row]["artist_name"].string
+        
+        cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["title"][row]["jacket_small"].string!)!))
+        cell.songImageWebView.frame.size.height = 63.5
+        cell.songImageWebView.frame.size.width = 63.5
+        cell.songImageWebView.scalesPageToFit = true
+        cell.songImageWebView.userInteractionEnabled = false
 
+        
         // Configure the cell...
 
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.
