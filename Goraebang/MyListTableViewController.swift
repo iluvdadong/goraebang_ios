@@ -253,7 +253,7 @@ class MyListTableViewController: UITableViewController {
             let row = myIndexPath?.row
             
             detailViewController.songInfo = Song()
-            detailViewController.songInfo.set(myListReadableJSON, row: row!)
+            detailViewController.songInfo.set(myListReadableJSON, row: row!, type: 1)
             detailViewController.isMylist = true
         }
     }

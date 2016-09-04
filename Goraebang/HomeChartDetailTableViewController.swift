@@ -89,7 +89,7 @@ class HomeChartDetailTableViewController: UITableViewController {
             let row = myIndexPath?.row
             
             detailViewController.songInfo = Song()
-            detailViewController.songInfo.set(topChartReadableJSON, row: row!)
+            detailViewController.songInfo.set(topChartReadableJSON, row: row!, type: 0)
             
         }
     }

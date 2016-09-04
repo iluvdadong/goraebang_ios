@@ -36,17 +36,49 @@ class Song{
         self.albumWebView = UIWebView()
     }
     
-    func set(json: JSON, row: Int){
-        self.id = json[row]["id"].int
-        self.title = json[row]["title"].string
-        self.artist = "Unknown Artist"
-        self.genre1 = json[row]["genre1"].string
-        self.genre2 = json[row]["genre2"].string
-        self.highKey = json[row]["highKey"].string
-        self.lowKey = json[row]["lowKey"].string
-        self.lyrics = json[row]["lyrics"].string
-        self.runtime = json[row]["runtime"].string
-        self.song_tjnum = json[row]["song_tjnum"].string
-        self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket"].string!)!))
+    // MARK: prepare detail view
+    // type 0: Top100 Chart, type 1: MyList, type 2: Search, Type 3: Main Page
+    func set(json: JSON, row: Int, type: Int){
+        if(type == 2){ // SearchResult인 경우
+            self.id = json["title"][row]["id"].int
+            self.title = json["title"][row]["title"].string
+            self.artist = json["title"][row]["artist_name"].string
+            self.genre1 = json["title"][row]["genre1"].string
+            self.genre2 = json["title"][row]["genre2"].string
+            self.highKey = json["title"][row]["highKey"].string
+            self.lowKey = json["title"][row]["lowKey"].string
+            self.lyrics = json["title"][row]["lyrics"].string
+            self.runtime = json["title"][row]["runtime"].string
+            self.song_tjnum = json["title"][row]["song_tjnum"].string
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["title"][row]["jacket"].string!)!))
+        }
+        else if(type == 3){
+            self.id = json[row]["id"].int
+            self.title = json[row]["title"].string
+            self.artist = "Unknown Artist"
+            self.genre1 = json[row]["genre1"].string
+            self.genre2 = json[row]["genre2"].string
+            self.highKey = json[row]["highKey"].string
+            self.lowKey = json[row]["lowKey"].string
+            self.lyrics = json[row]["lyrics"].string
+            self.runtime = json[row]["runtime"].string
+            self.song_tjnum = json[row]["song_tjnum"].string
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket_small"].string!)!))
+        }
+        else {
+            self.id = json[row]["id"].int
+            self.title = json[row]["title"].string
+            self.artist = "Unknown Artist"
+            self.genre1 = json[row]["genre1"].string
+            self.genre2 = json[row]["genre2"].string
+            self.highKey = json[row]["highKey"].string
+            self.lowKey = json[row]["lowKey"].string
+            self.lyrics = json[row]["lyrics"].string
+            self.runtime = json[row]["runtime"].string
+            self.song_tjnum = json[row]["song_tjnum"].string
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket"].string!)!))
+            
+        }
+        
     }
 }
