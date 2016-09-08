@@ -12,12 +12,14 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     // http://52.78.113.43, top chart json url
     let goraebang_url = GlobalSetting.getGoraebangURL()
     
-    
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    // MARK : Variables
+    // MARK: Variables
     var bottomContainerScrollView: UIScrollView!
     var bottomTopChartContainer: UIView!
     var bottomNewSongContainer: UIView!
+    
+    //MARK: bottomContainerScrollView variables
+    var bottomContainerContentsHeight:CGFloat!
     
     // MARK: bottomTopChartContainer variables
     var bottomTopChartContainerX:CGFloat!
@@ -155,11 +157,13 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         topChartContainerContentsSizeHeight = albumSizeForVariousPhoneWidth*2 + 20
         // print(albumSizeForVariousPhoneWidth)
         
+        // 아래 tab 사이즈 만큼 +70 해줬다.
+        bottomContainerContentsHeight = bottomTopChartHeight + bottomNewSongHeight + 70
         // ShowTop100DetailView 설정
         showTop100DetailButtonStartingXPoint = phoneSize - 100
         showTop100DetailButtonStartingYPoint = 20
         showTop100DetailButtonWidth = 80
-        showTop100DetailButtonHeight = 20
+        showTop100DetailButtonHeight = 50
     }
     
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
@@ -184,7 +188,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     func makeBottomContainer(){
         bottomContainerScrollView = UIScrollView(frame: CGRectMake(0, bottomContainerStartingYPoint, view.bounds.width, bottomContainerHeight))
         bottomContainerScrollView.showsHorizontalScrollIndicator = true
-        bottomContainerScrollView.contentSize = CGSizeMake(view.bounds.width, view.bounds.height + 85)
+        bottomContainerScrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
         
         // MARK: 고래방 TOP 100 차트 타이틀 라벨
         makeTopChartContainer()
@@ -205,16 +209,16 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         // MARK: 고래방 Top 100 Detail View 버튼
         
-        let showTop100DetailButton = UIButton(frame: CGRectMake(showTop100DetailButtonStartingXPoint, showTop100DetailButtonStartingYPoint, showTop100DetailButtonWidth, showTop100DetailButtonHeight))
+        let showTop100DetailButton = UIButton(frame: CGRectMake(showTop100DetailButtonStartingXPoint, 0, showTop100DetailButtonWidth, showTop100DetailButtonHeight))
+//        showTop100DetailButton.backgroundColor = UIColor.blueColor()
         
-        let titleForTop100DetailButton = UILabel(frame: CGRect(x: 0, y: 0, width:showTop100DetailButtonWidth, height: showTop100DetailButtonHeight))
+        let titleForTop100DetailButton = UILabel(frame: CGRect(x: 0, y: 0, width:showTop100DetailButtonWidth, height: 50))
         titleForTop100DetailButton.text = "전체보기 >"
         titleForTop100DetailButton.textColor = UIColor.whiteColor()
         titleForTop100DetailButton.font = titleForTop100DetailButton.font.fontWithSize(13)
         
         titleForTop100DetailButton.textAlignment = NSTextAlignment.Right
         showTop100DetailButton.addSubview(titleForTop100DetailButton)
-        
         
         showTop100DetailButton.titleLabel?.textColor = UIColor.whiteColor()
         showTop100DetailButton.addTarget(self, action: #selector(showTopDetailButtonAction), forControlEvents: .TouchUpInside)
@@ -226,7 +230,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     
     // MARK: 3개씩 넘기 위해서 PageControl을 생성한다.
     func makeAlbumPageControl(){
-        homeAlbumPageControl = UIPageControl(frame: CGRectMake(0, 50, view.bounds.width, topChartContainerContentsSizeHeight))
+        homeAlbumPageControl = UIPageControl(frame: CGRectMake(0, 50, view.bounds.width, topChartContainerContentsSizeHeight*2 + 30))
         homeAlbumPageControl.numberOfPages = 3
         homeAlbumPageControl.currentPage = 0
         homeAlbumPageControl.pageIndicatorTintColor = UIColor.darkGrayColor()
@@ -262,16 +266,34 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         newSongLabel.font = UIFont.boldSystemFontOfSize(15)
         bottomNewSongContainer.addSubview(newSongLabel)
         
+        // MARK: 고래방 Top 100 Detail View 버튼
+        
+        let showNewSongDetailButton = UIButton(frame: CGRectMake(showTop100DetailButtonStartingXPoint, 0, showTop100DetailButtonWidth, showTop100DetailButtonHeight))
+        
+        let titleForNewSongDetailButton = UILabel(frame: CGRect(x: 0, y: 0, width:showTop100DetailButtonWidth, height: 50))
+        titleForNewSongDetailButton.text = "전체보기 >"
+        titleForNewSongDetailButton.textColor = UIColor.whiteColor()
+        titleForNewSongDetailButton.font = titleForNewSongDetailButton.font.fontWithSize(13)
+        
+        titleForNewSongDetailButton.textAlignment = NSTextAlignment.Right
+        showNewSongDetailButton.addSubview(titleForNewSongDetailButton)
+        
+        
+        showNewSongDetailButton.titleLabel?.textColor = UIColor.whiteColor()
+        showNewSongDetailButton.addTarget(self, action: #selector(showTopDetailButtonAction), forControlEvents: .TouchUpInside)
+        bottomNewSongContainer.addSubview(showNewSongDetailButton)
+        
         makeNewSongPageControl()
         bottomContainerScrollView.addSubview(bottomNewSongContainer)
     }
     
     func makeNewSongPageControl(){
-        newSongPageControl = UIPageControl(frame: CGRectMake(0, 50, view.bounds.width, topChartContainerContentsSizeHeight/2-10))
+        newSongPageControl = UIPageControl(frame: CGRectMake(0, 50, view.bounds.width, (topChartContainerContentsSizeHeight/2-10)*2 + 30))
         newSongPageControl.numberOfPages = 3
         newSongPageControl.currentPage = 0
         newSongPageControl.pageIndicatorTintColor = UIColor.darkGrayColor()
         newSongPageControl.currentPageIndicatorTintColor = UIColor.redColor()
+        
         
         makeNewSongScrollView()
         

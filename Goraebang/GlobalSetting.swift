@@ -15,7 +15,10 @@ class GlobalSetting{
 //            static var goraebang_url = "https://whale-likelionsunwoo.c9users.io"
 //            static var goraebang_url = "http://localhost:3000"
 //            static var goraebang_url = "http://52.78.113.43"
-            static var goraebang_url = "http://52.78.127.110"
+//            static var goraebang_url = "http://52.78.127.110"
+            static var goraebang_url = "http://52.78.160.188"
+            
+            
         }
         return Holder.goraebang_url
     }

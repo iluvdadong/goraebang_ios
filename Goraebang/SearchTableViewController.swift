@@ -37,16 +37,19 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchTableViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         searchType = 0
         
-        let items = ["title", "artist", "lyrics"]
+        let items = ["제목", "가수", "가사"]
         segmentedController = UISegmentedControl(items: items)
         segmentedController.selectedSegmentIndex = 0
         
-        
-        
         segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .ValueChanged)
         segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .TouchUpInside)
+        
+        
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -70,6 +73,11 @@ class SearchTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     // MARK: 아이폰 사이즈 마다 변수 값 세팅
@@ -104,7 +112,6 @@ class SearchTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let userInfoView = UIView()
         userInfoView.backgroundColor = UIColor.grayColor()
-        //        userInfoView.backgroundColor = UIColor.whiteColor()
         
         userInfoView.layer.masksToBounds = false
         userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
@@ -128,21 +135,14 @@ class SearchTableViewController: UITableViewController {
         searchButton.addTarget(self, action: #selector(searchSong), forControlEvents: .TouchUpInside)
         userInfoView.addSubview(searchButton)
         
-        //        segmentedController = UISegmentedControl(frame: CGRect(x: searchBarStartingXPoint, y: searchBarStartingYPoint + 40, width: searchBarWidth, height: 20))
-//        let items = ["title", "artist", "lyrics"]
-//        segmentedController = UISegmentedControl(items: items)
-//        segmentedController.selectedSegmentIndex = 0
-//        segmentedController.frame = CGRect(x: searchBarStartingXPoint, y: searchBarStartingYPoint + 45, width: searchBarWidth, height: 20)
-////        segmentedController.selectedSegmentIndex = 0
-//        segmentedController.tintColor = UIColor.blueColor()
-//        
-//        
-//        segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .ValueChanged)
-//        segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .TouchUpInside)
-        //        segmentedController.backgroundColor = UIColor.blueColor()
-        segmentedController.frame = CGRect(x: searchBarStartingXPoint, y: searchBarStartingYPoint + 45, width: searchBarWidth, height: 20)
-        //        segmentedController.selectedSegmentIndex = 0
-        segmentedController.tintColor = UIColor.blueColor()
+        segmentedController.frame = CGRect(x: 0, y: searchBarStartingYPoint + 45, width: view.bounds.width, height: 25)
+        segmentedController.tintColor = UIColor.whiteColor()
+        segmentedController.backgroundColor = UIColor.darkGrayColor()
+        //        segmentedController.layer.masksToBounds = true
+        segmentedController.layer.cornerRadius = 0
+        segmentedController.layer.borderColor = UIColor.darkGrayColor().CGColor
+        segmentedController.layer.borderWidth = 2.0
+        
         userInfoView.addSubview(segmentedController)
         
         return userInfoView
@@ -158,36 +158,39 @@ class SearchTableViewController: UITableViewController {
     func searchSong(sender: UIButton!){
         searchBar.endEditing(true)
         
-        let search_text_UTF8 = searchBar.text?.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-        
-        let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
-        
-        //        let url = NSURL(string: "\(goraebang_url)/json/song")
-        
-        let url = NSURL(string: urlStr)
-        
-        //        let url:NSURL = NSURL(string: "http://52.78.127.110/json/search?query=연가")!
-        //        print(url)
-        
-        var request: NSMutableURLRequest = NSMutableURLRequest()
-        request.URL = NSURL(string: "\(urlStr)")
-        
-        request.HTTPMethod = "GET"
-        //        print(request)
-        
-        //        let jsonData = NSData(contentsOfURL: url!) as NSData!
-        
-        if let jsonData = NSData(contentsOfURL: url!) as NSData!{
-            searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-            print(searchResult.count)
+        if(searchBar.text != ""){
+            let search_text_UTF8 = searchBar.text?.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+            
+            let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
+            
+            //        let url = NSURL(string: "\(goraebang_url)/json/song")
+            
+            let url = NSURL(string: urlStr)
+            
+            //        let url:NSURL = NSURL(string: "http://52.78.127.110/json/search?query=연가")!
+            //        print(url)
+            
+            let request: NSMutableURLRequest = NSMutableURLRequest()
+            request.URL = NSURL(string: "\(urlStr)")
+            
+            request.HTTPMethod = "GET"
+            //        print(request)
+            
+            //        let jsonData = NSData(contentsOfURL: url!) as NSData!
+            
+            if let jsonData = NSData(contentsOfURL: url!) as NSData!{
+                searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                print(searchResult.count)
+                
+            }
+            else{
+                searchResult = nil
+                print("jsonData 없는 경우")
+                print("검색결과가 없습니다")
+            }
+            
+            self.tableView.reloadData()
         }
-        else{
-            searchResult = nil
-            print("jsonData 없는 경우")
-            print("검색결과가 없습니다")
-        }
-        
-        self.tableView.reloadData()
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class SignupVC: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
@@ -19,7 +20,7 @@ class SignupVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-  
+    
     
     // MARK: Sign up 터치
     @IBAction func signupTapped(sender: AnyObject) {
@@ -61,31 +62,142 @@ class SignupVC: UIViewController {
             let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
             request.HTTPMethod = "POST"
             request.HTTPBody = postData
-//            request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
-//            request.setValue("application/x-www-0form-urlencoded", forHTTPHeaderField: "Content-Type")
-//            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            //            request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
+            //            request.setValue("application/x-www-0form-urlencoded", forHTTPHeaderField: "Content-Type")
+            //            request.setValue("application/json", forHTTPHeaderField: "Accept")
             
             print(request)
             
             //            var responseError: NSError?
             //            var response: NSURLResponse?
+            // 새로운 코드
+            let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
             
-            let mySession = NSURLSession.sharedSession()
-            
-            // NSURLDataSessionTask Retrun 한다
-            let task = mySession.dataTaskWithRequest(request){
-                (let data, let response, let error) in
+            do {
+                // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+                let signUpJsonData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
                 
-                guard let _:NSData = data, let _: NSURLResponse = response where error == nil else{
-                    print("error")
-                    return
+                print(response)
+                
+                let signUpResult = JSON(data: signUpJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                print(signUpResult)
+                if(signUpResult["result"].string! == "SUCCESS"){
+                    
+                    let filemgr = NSFileManager.defaultManager()
+                    
+                    let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+                    
+                    let dataPath = documentPath.URLByAppendingPathComponent("data")
+                    let emailPath = dataPath.URLByAppendingPathComponent("email.txt")
+                    let passwordPath = dataPath.URLByAppendingPathComponent("password.txt")
+                    let tokenPath = dataPath.URLByAppendingPathComponent("token.txt")
+                    
+                    if filemgr.fileExistsAtPath(emailPath.path!){
+                        // 이미 이메일 파일이 존재하는 경우 삭제
+                        do{
+                            try filemgr.removeItemAtPath(emailPath.path!)
+                        } catch let error as NSError{
+                            print("Error = \(error.debugDescription)")
+                        }
+                        filemgr.createFileAtPath(emailPath.path!, contents: nil, attributes: nil)
+                        
+                    } else { // 이메일 파일이 없는 경우, 생성하면서 파일 쓰기가 가능한지 확인**
+                        filemgr.createFileAtPath(emailPath.path!, contents: nil, attributes: nil)
+                    }
+                    
+                    if filemgr.fileExistsAtPath(passwordPath.path!){
+                        do{
+                            try filemgr.removeItemAtPath(passwordPath.path!)
+                        } catch let error as NSError{
+                            print("Error = \(error.debugDescription)")
+                        }
+                        filemgr.createFileAtPath(passwordPath.path!, contents: nil, attributes: nil)
+                        // 이미 이메일 파일이 존재하는 경우 삭제
+                    } else { // 이메일 파일이 없는 경우, 생성하면서 파일 쓰기가 가능한지 확인**
+                        filemgr.createFileAtPath(passwordPath.path!, contents: nil, attributes: nil)
+                    }
+                    
+                    if filemgr.fileExistsAtPath(tokenPath.path!){
+                        do{
+                            try filemgr.removeItemAtPath(tokenPath.path!)
+                        } catch let error as NSError{
+                            print("Error = \(error.debugDescription)")
+                        }
+                        filemgr.createFileAtPath(tokenPath.path!, contents: nil, attributes: nil)
+                        
+                        // 이미 이메일 파일이 존재하는 경우 삭제
+                    } else { // 이메일 파일이 없는 경우, 생성하면서 파일 쓰기가 가능한지 확인**
+                        filemgr.createFileAtPath(tokenPath.path!, contents: nil, attributes: nil)
+                    }
+                    
+                    
+                    // 이메일 입력
+                    if let file: NSFileHandle? = NSFileHandle(forUpdatingAtPath: emailPath.path!){
+                        if file == nil {
+                            print("File open failed")
+                        } else {
+                            let data = (txtUserEmail.text! as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+                            file?.seekToFileOffset(0)
+                            file?.writeData(data!)
+                            file?.closeFile()
+                            //                            print("file write complete")
+                        }
+                    }
+                    
+                    if let file: NSFileHandle? = NSFileHandle(forUpdatingAtPath: passwordPath.path!){
+                        if file == nil {
+                            print("File open failed")
+                        } else {
+                            let data = (txtPassword.text! as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+                            file?.seekToFileOffset(0)
+                            file?.writeData(data!)
+                            file?.closeFile()
+                            //                            print("file write complete")
+                        }
+                    }
+                    
+                    // 토큰 입력 추가
+                    if let file: NSFileHandle? = NSFileHandle(forUpdatingAtPath: tokenPath.path!){
+                        if file == nil {
+                            print("File open failed")
+                        } else {
+                            let data = (signUpResult["mytoken"].string! as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+                            file?.seekToFileOffset(0)
+                            file?.writeData(data!)
+                            file?.closeFile()
+                            //                            print("file write complete")
+                        }
+                    }
+                    
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 
-                let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                print(dataString)
+            } catch let error as NSError{
+                print(error.localizedDescription)
             }
-            
-            task.resume()
+            // 기존 코드
+            //            let mySession = NSURLSession.sharedSession()
+            //
+            //            // NSURLDataSessionTask Retrun 한다
+            //            let task = mySession.dataTaskWithRequest(request){
+            //                (let data, let response, let error) in
+            //
+            //                guard let _:NSData = data, let _: NSURLResponse = response where error == nil else{
+            //                    print("error")
+            //                    return
+            //                }
+            //
+            //                let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            //                print("회원가입 메시지")
+            //
+            //                let json:JSON =
+            //
+            //                self.dismissViewControllerAnimated(true, completion: nil)
+            //                self.performSegueWithIdentifier("goto_main", sender: self)
+            //            }
+            //
+            //            task.resume()
             
             // MARK: NSURLSession 사용
             //            var session = NSURLSession.sharedSession()

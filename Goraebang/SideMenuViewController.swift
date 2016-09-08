@@ -230,6 +230,24 @@ class SideMenuViewController: UIViewController {
     }
     
     func logout(sender: UIButton){
+        let filemgr = NSFileManager.defaultManager()
+        
+        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+        
+//        let emailPath = dataPath.URLByAppendingPathComponent("email.txt")
+//        let passwordPath = dataPath.URLByAppendingPathComponent("password.txt")
+        let tokenPath = documentPath.URLByAppendingPathComponent("token.txt")
+        
+        if filemgr.fileExistsAtPath(tokenPath.path!){
+            do{
+                try filemgr.removeItemAtPath(tokenPath.path!)
+            } catch let error as NSError{
+                print("Error = \(error.debugDescription)")
+            }
+        } else {
+            print("Token is already not exists")
+        }
+        
         self.performSegueWithIdentifier("unwindToLoginView", sender: self)
     }
 
