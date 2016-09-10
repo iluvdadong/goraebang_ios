@@ -14,9 +14,12 @@ class HomeChartDetailTableViewController: UITableViewController {
     let goraebang_url = GlobalSetting.getGoraebangURL()
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
+    var userInfo: UserInfoGetter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userInfo = UserInfoGetter()
+        
         if(self.view.bounds.width == 320){
             tableView.rowHeight = 100.0
         } else if (self.view.bounds.width == 375){
@@ -94,7 +97,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         cell.albumWebView.userInteractionEnabled = false
         
         cell.songAddButton.userInteractionEnabled = true
-        cell.songAddButton.tag = 5 // 여기에 파라미터 넘기자
+        cell.songAddButton.tag = topChartReadableJSON[row]["id"].int! // 여기에 파라미터 넘기자
         cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
         
         return cell
@@ -102,6 +105,55 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     func songAddAction(sender: UIButton!){
         print("Button tapped \(sender.tag)")
+        
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
+        
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
+            
+            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+            print(result)
+            
+            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
+            if(result["message"] == "SUCCESS"){
+                alertWithWarningMessage("추가되었습니다")
+                
+                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
+                //                self.performSegueWithIdentifier("AddSong", sender: self)
+                
+            }
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func alertWithWarningMessage(message: String){
+        let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
+        
+        alertView.message = message
+        alertView.delegate = self
+        alertView.show()
+        
+        let delay = 0.5 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue(), {
+            alertView.dismissWithClickedButtonIndex(-1, animated: true)
+        })
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

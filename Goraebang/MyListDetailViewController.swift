@@ -58,13 +58,17 @@ class MyListDetailViewController: UIViewController {
     
     var isMylist:Bool = false
     
+    var userInfo:UserInfoGetter!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        userInfo = UserInfoGetter()
         self.automaticallyAdjustsScrollViewInsets = false;
         phoneSize = view.bounds.width
         
         fixedTopPadding = 65.0
+        
         
         
         setMyAlbum(phoneSize)
@@ -212,7 +216,7 @@ class MyListDetailViewController: UIViewController {
         print("button tapped")
         
         
-        let post:NSString = "id=\(tmpUserId)&myList_id=\(tmpMyListId)&song_id=\(songInfo.id)"
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(songInfo.id)"
         
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
         

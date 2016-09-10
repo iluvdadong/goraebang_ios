@@ -9,8 +9,8 @@
 import UIKit
 import SwiftyJSON
 
+
 class MyListTableViewController: UITableViewController {
-    
     
     let goraebang_url = GlobalSetting.getGoraebangURL()
     let tmpUserId = 2
@@ -20,6 +20,7 @@ class MyListTableViewController: UITableViewController {
     var myListSongs: JSON!
     var myLists: JSON!
     
+    var userInfo:UserInfoGetter!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func viewDidAppear(animated: Bool) {
@@ -41,7 +42,10 @@ class MyListTableViewController: UITableViewController {
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
+        userInfo = UserInfoGetter()
+        
         getMyList()
+//        getMyListSong(userInfo.myListId)
         
         // 테이블 뷰 행 높이 설정
         tableView.rowHeight = 90.0
@@ -60,7 +64,7 @@ class MyListTableViewController: UITableViewController {
     func getMyList(){
         // Mylist read api
         
-        let post:NSString = "id=\(tmpUserId)"
+        let post:NSString = "id=\(userInfo.myListId)"
         
         //        let post:NSString = "id=\(tmpUserId)&user[name]=sohn&user[password]=\(password)&user[password_confirmation]=\(confirm_password)&user[gender]=0"
         
@@ -97,7 +101,7 @@ class MyListTableViewController: UITableViewController {
             print("watch this shit")
             print(myLists)
             print(myLists[0]["id"]) // 내 리스트의 아이디 출력
-            getMyListSong(1)
+            getMyListSong(userInfo.myListId)
         }
         
         
@@ -114,7 +118,7 @@ class MyListTableViewController: UITableViewController {
     }
     
     func getMyListSong(id: Int){
-        let post:NSString = "id=\(tmpUserId)&myList_id=\(id)"
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(id)"
 //        let post:NSString = "id=\(3)&myList_id=\(1)&autnNum="
         
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_read")!
@@ -234,7 +238,7 @@ class MyListTableViewController: UITableViewController {
         
         let userSongCountLabel = UILabel(frame: CGRect(x: 0, y: 90, width: view.bounds.width, height: 20))
         userSongCountLabel.textColor = UIColor.whiteColor()
-        userSongCountLabel.text = "저장된 곡 개수  \(myListReadableJSON.count)"
+//        userSongCountLabel.text = "저장된 곡 개수  \(myListReadableJSON.count)"
         userSongCountLabel.textAlignment = NSTextAlignment.Center
         userSongCountLabel.font = userSongCountLabel.font.fontWithSize(12)
         userInfoView.addSubview(userSongCountLabel)
@@ -270,7 +274,7 @@ class MyListTableViewController: UITableViewController {
             // MARK ****: JSON 파일에 mySong_id가 필요하다. 삭제하려면 *************
             
             let row = indexPath.row
-            let post:NSString = "id=\(tmpUserId)&mySong_id=\(myListSongs["mylistSongId"][row])"
+            let post:NSString = "id=\(userInfo.myId)&mySong_id=\(myListSongs["mylistSongId"][row])"
             let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
             print("MySong Delete Start!!\n\n")
             
@@ -298,7 +302,7 @@ class MyListTableViewController: UITableViewController {
                 print(error.localizedDescription)
             }
 
-            getMyListSong(1)
+            getMyListSong(userInfo.myListId)
             
             self.tableView.reloadData()
             

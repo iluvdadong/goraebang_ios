@@ -83,6 +83,9 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
     
+    var myId:Int!
+    var myListId: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,6 +95,27 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
+        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+        let myIdPath = documentPath.URLByAppendingPathComponent("id.txt")
+        let myListIdPath = documentPath.URLByAppendingPathComponent("myListId.txt")
+        
+        //testing...
+        
+        if let file:NSFileHandle? = NSFileHandle(forUpdatingAtPath: myIdPath.path!){
+            if file == nil{
+                print("my Id File open failed")
+            } else {
+                file?.seekToFileOffset(0)
+                let databuffer = file?.readDataToEndOfFile()
+                let databufferStr = NSString(data: databuffer!, encoding: NSUTF8StringEncoding)
+                // 여기서 클래스의 멤버 변수에 아이디값 설정할 수 있다
+                print("my id = \(databufferStr!)")
+                file?.closeFile()
+            }
+        }
+        
+        
+        // test end
         
         setSize(view.bounds.width) // 초기설정
         

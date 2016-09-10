@@ -14,9 +14,30 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
+    var filemgr:NSFileManager!
+    var dataPath:NSURL!
+    var documentPath:NSURL!
+    var emailPath:NSURL!
+    var passwordPath:NSURL!
+    var tokenPath:NSURL!
+    var myIdPath:NSURL!
+    var myListIdPath:NSURL!
+    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        filemgr = NSFileManager.defaultManager()
+        
+        documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+        
+        
+        dataPath = documentPath.URLByAppendingPathComponent("data")
+        emailPath = documentPath.URLByAppendingPathComponent("email.txt")
+        passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
+        tokenPath = documentPath.URLByAppendingPathComponent("token.txt")
+        myIdPath = documentPath.URLByAppendingPathComponent("id.txt")
+        myListIdPath = documentPath.URLByAppendingPathComponent("myListId.txt")
         
         txtUserEmail.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
         txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
@@ -216,6 +237,7 @@ class LoginVC: UIViewController {
                                     isLogin = true
                                     isEnd = true
                                     
+                                    
                                 } else {
                                     print("로그인 하는 유저가 기존과 같습니다. 토큰 업데이트 필요")
                                     self.writeToken(loginResultJSON["mytoken"].string!, tokenPath: tokenPath.path!)
@@ -231,6 +253,7 @@ class LoginVC: UIViewController {
                         self.writeEmail(self.txtUserEmail.text!, emailPath: emailPath.path!)
                         self.writePassword(self.txtUserEmail.text!, passwordPath: passwordPath.path!)
                         self.writeToken(loginResultJSON["mytoken"].string!, tokenPath: tokenPath.path!)
+                        
                         self.txtUserEmail.text = ""
                         self.txtPassword.text = ""
                         isLogin = true
@@ -261,6 +284,8 @@ class LoginVC: UIViewController {
         // 여기서 어떻게 로그인 할지...
         // 로그인 됬는지 어떻게 확인
         if(isLogin == true){
+            self.writeMyId(loginResultJSON["id"].int!, myIdPath: myIdPath.path!)
+            self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: myListIdPath.path!)
             self.performSegueWithIdentifier("goto_main", sender: self)
         }
         
@@ -370,6 +395,56 @@ class LoginVC: UIViewController {
         }
     }
     
+    func writeMyListId(myListId: Int, listPath: String){
+        print("My list id 생성")
+        if(filemgr.fileExistsAtPath(listPath)){
+            do{
+                try filemgr.removeItemAtPath(listPath)
+            } catch let error as NSError{
+                print(error.debugDescription)
+            }
+            filemgr.createFileAtPath(listPath, contents: nil, attributes: nil)
+        } else {
+            filemgr.createFileAtPath(listPath, contents: nil, attributes: nil)
+        }
+        
+        if let file: NSFileHandle? = NSFileHandle(forUpdatingAtPath: listPath){
+            if file == nil {
+                print("myListId.txt File open failed")
+            } else {
+                let data = (String(myListId) as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+                file?.seekToFileOffset(0)
+                file?.writeData(data!)
+                file?.closeFile()
+            }
+        }
+    }
+    
+    func writeMyId(id: Int, myIdPath: String){
+        print("My id 생성")
+        if(filemgr.fileExistsAtPath(myIdPath)){
+            do{
+                try filemgr.removeItemAtPath(myIdPath)
+            } catch let error as NSError{
+                print(error.debugDescription)
+            }
+            filemgr.createFileAtPath(myIdPath, contents: nil, attributes: nil)
+        } else {
+            filemgr.createFileAtPath(myIdPath, contents: nil, attributes: nil)
+        }
+        
+        if let file: NSFileHandle? = NSFileHandle(forUpdatingAtPath: myIdPath){
+            if file == nil {
+                print("myListId.txt File open failed")
+            } else {
+                let data = (String(id) as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+                file?.seekToFileOffset(0)
+                file?.writeData(data!)
+                file?.closeFile()
+            }
+        }
+    }
+    
     func tokenLogin(tokenPath: String, emailPath: String){
         print("tokenLogin 시작")
         let filemgr = NSFileManager.defaultManager()
@@ -403,6 +478,8 @@ class LoginVC: UIViewController {
                             
                             print(loginResultJSON["result"].string!)
                             if(loginResultJSON["result"].string! == "SUCCESS"){
+                                self.writeMyId(loginResultJSON["id"].int!, myIdPath: self.myIdPath.path!)
+                                self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: self.myListIdPath.path!)
                                 print("token 로그인 결과는 = \(loginResultJSON)")
                                 self.performSegueWithIdentifier("goto_main", sender: self)
                             }
