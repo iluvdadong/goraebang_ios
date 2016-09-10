@@ -64,8 +64,15 @@ class SearchTableViewController: UITableViewController {
         tableView.showsVerticalScrollIndicator = false
         
         // 테이블 뷰 행 높이 설정
-        tableView.rowHeight = 90.0
-        tableView.sectionHeaderHeight = 120
+        if(view.bounds.width == 320){
+            tableView.rowHeight = 100.0
+        } else if (view.bounds.width == 375){
+            tableView.rowHeight = 110.0
+        } else {
+            tableView.rowHeight = 120.0
+        }
+        
+        tableView.sectionHeaderHeight = 95
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -111,7 +118,7 @@ class SearchTableViewController: UITableViewController {
     // MARK: Section Header
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let userInfoView = UIView()
-        userInfoView.backgroundColor = UIColor.grayColor()
+        userInfoView.backgroundColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0)
         
         userInfoView.layer.masksToBounds = false
         userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
@@ -119,29 +126,37 @@ class SearchTableViewController: UITableViewController {
         userInfoView.layer.shadowOpacity = 0.6
         
         searchBar = UITextField()
-        searchBar.frame = CGRect(x: searchBarStartingXPoint, y: searchBarStartingYPoint, width: searchBarWidth, height: searchBarHeight)
-        searchBar.backgroundColor = UIColor.darkGrayColor()
+        searchBar.frame = CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: 30)
+//        searchBar.backgroundColor = UIColor.darkGrayColor()
         searchBar.textAlignment = NSTextAlignment.Left
         searchBar.placeholder = "검색어를 입력하세요."
         userInfoView.addSubview(searchBar)
         
-        let searchButton = UIButton(frame: CGRectMake(searchButtonStartingXPoint, searchBarStartingYPoint, searchButtonWidth, searchBarHeight))
-        //        showTop100DetailButton.backgroundColor = UIColor.whiteColor()
-        searchButton.backgroundColor = UIColor.blueColor()
+        let searchBarLine = UILabel()
+        searchBarLine.frame = CGRect(x: 20, y: 50, width: view.bounds.width - 40, height: 1)
+        searchBarLine.backgroundColor = UIColor.whiteColor()
+        userInfoView.addSubview(searchBarLine)
+        
+        
+        let searchButton = UIButton()
+        searchButton.frame = CGRect(x: view.bounds.width-40, y: 25, width: 20, height: 20)
+        searchButton.setBackgroundImage(UIImage(named: "EvalIcon"), forState: .Normal)
         searchButton.tintColor = UIColor.redColor()
-        searchButton.setTitle("검색", forState: .Normal)
         searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         
         searchButton.addTarget(self, action: #selector(searchSong), forControlEvents: .TouchUpInside)
         userInfoView.addSubview(searchButton)
         
-        segmentedController.frame = CGRect(x: 0, y: searchBarStartingYPoint + 45, width: view.bounds.width, height: 25)
+        segmentedController.frame = CGRect(x: 0, y: 65, width: view.bounds.width, height: 30)
         segmentedController.tintColor = UIColor.whiteColor()
-        segmentedController.backgroundColor = UIColor.darkGrayColor()
+        
+//        segmentedController.backgroundColor = UIColor.darkGrayColor()
         //        segmentedController.layer.masksToBounds = true
         segmentedController.layer.cornerRadius = 0
-        segmentedController.layer.borderColor = UIColor.darkGrayColor().CGColor
-        segmentedController.layer.borderWidth = 2.0
+//        segmentedController.layer.borderColor = UIColor.darkGrayColor().CGColor
+        segmentedController.layer.borderColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0).CGColor
+
+        segmentedController.layer.borderWidth = 2
         
         userInfoView.addSubview(segmentedController)
         
@@ -164,7 +179,7 @@ class SearchTableViewController: UITableViewController {
             let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
             
             //        let url = NSURL(string: "\(goraebang_url)/json/song")
-            
+            print(search_text_UTF8)
             let url = NSURL(string: urlStr)
             
             //        let url:NSURL = NSURL(string: "http://52.78.127.110/json/search?query=연가")!
@@ -221,10 +236,11 @@ class SearchTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCellWithIdentifier("SearchTableCell", forIndexPath: indexPath) as! SearchTableViewCell
         
         let row = indexPath.row
-        
+
         if(searchType == 0){
             cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
             cell.songNumberLabel.text = String(searchResult["title"][row]["song_tjnum"])
@@ -236,9 +252,11 @@ class SearchTableViewController: UITableViewController {
             //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
             cell.songArtistLabel.text = searchResult["title"][row]["artist_name"].string
             
-            cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["title"][row]["jacket_small"].string!)!))
-            cell.songImageWebView.frame.size.height = 63.5
-            cell.songImageWebView.frame.size.width = 63.5
+            if(searchResult["title"][row]["jacket_small"].string != nil){
+                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["title"][row]["jacket_small"].string!)!))
+            }
+//            cell.songImageWebView.frame.size.height = 63.5
+//            cell.songImageWebView.frame.size.width = 63.5
             cell.songImageWebView.scalesPageToFit = true
             cell.songImageWebView.userInteractionEnabled = false
         }
@@ -254,8 +272,8 @@ class SearchTableViewController: UITableViewController {
             cell.songArtistLabel.text = searchResult["artist"][row]["artist_name"].string
             
             cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["artist"][row]["jacket_small"].string!)!))
-            cell.songImageWebView.frame.size.height = 63.5
-            cell.songImageWebView.frame.size.width = 63.5
+//            cell.songImageWebView.frame.size.height = 63.5
+//            cell.songImageWebView.frame.size.width = 63.5
             cell.songImageWebView.scalesPageToFit = true
             cell.songImageWebView.userInteractionEnabled = false
         }
@@ -271,17 +289,15 @@ class SearchTableViewController: UITableViewController {
             cell.songArtistLabel.text = searchResult["lyrics"][row]["artist_name"].string
             
             cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["lyrics"][row]["jacket_small"].string!)!))
-            cell.songImageWebView.frame.size.height = 63.5
-            cell.songImageWebView.frame.size.width = 63.5
+//            cell.songImageWebView.frame.size.height = 63.5
+//            cell.songImageWebView.frame.size.width = 63.5
             cell.songImageWebView.scalesPageToFit = true
             cell.songImageWebView.userInteractionEnabled = false
         }
         
         segmentedController.selectedSegmentIndex == searchType
-        
-        
+    
         // Configure the cell...
-        
         return cell
     }
     

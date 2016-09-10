@@ -14,15 +14,22 @@ class HomeChartDetailTableViewController: UITableViewController {
     let goraebang_url = GlobalSetting.getGoraebangURL()
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 90.0
+        if(self.view.bounds.width == 320){
+            tableView.rowHeight = 100.0
+        } else if (self.view.bounds.width == 375){
+            tableView.rowHeight = 110.0
+        } else {
+            tableView.rowHeight = 120.0
+        }
+        
         
         getTopChart()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -36,49 +43,65 @@ class HomeChartDetailTableViewController: UITableViewController {
         
         print(topChartReadableJSON)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return topChartReadableJSON.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TopChartTableCell", forIndexPath: indexPath) as! HomeChartDetailTableViewCell
         
         let row = indexPath.row
         //        cell.songNumberLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
+        //        cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
         cell.songNumberLabel.text = String(topChartReadableJSON[row]["song_tjnum"])
         //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
+        //        cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
         cell.songTitleLabel.text = topChartReadableJSON[row]["title"].string
         print(topChartReadableJSON[row]["title"].string)
         print(cell.songTitleLabel.text)
         //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
-        cell.artistLabel.text = "Unkown Artist" // artist명 추가
+        //        cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
+        if (topChartReadableJSON[row]["artist_name"] != nil){
+            cell.artistLabel.text = topChartReadableJSON[row]["artist_name"].string!// artist명 추가
+        }
+        
         
         // MARK: jacket_middle 맞는지 확인
-        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row]["jacket_small"].string!)!))
-        cell.albumWebView.frame.size.height = 63.5
-        cell.albumWebView.frame.size.width = 63.5
+        if (topChartReadableJSON[row]["jacket_small"] != nil ){
+            cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row]["jacket_small"].string!)!))
+        }
+        else {
+            cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[0]["jacket_small"].string!)!))
+//            cell.albumWebView.loadRequest(NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: topChartReadableJSON[0]["jacket_small"].string!)!))
+//            cell.albumWebView.loadRequest(NSURLRequest()
+        }
+
         cell.albumWebView.scalesPageToFit = true
         cell.albumWebView.userInteractionEnabled = false
         
+        cell.songAddButton.userInteractionEnabled = true
+        cell.songAddButton.tag = 5 // 여기에 파라미터 넘기자
+        cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
         
         return cell
+    }
+    
+    func songAddAction(sender: UIButton!){
+        print("Button tapped \(sender.tag)")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -93,60 +116,109 @@ class HomeChartDetailTableViewController: UITableViewController {
             
         }
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Block") { (action:UITableViewRowAction!, indexPath:NSIndexPath) in
+            print("hello \(tableView.tag)")
+            //            tableView.endEditing(true)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            //            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            
+            self.addBlack(indexPath.row)
+            //            tableView.deselectRowAtIndexPath([indexPath], animated: .Fade)
+            //            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            // Write code here
+        }
+        
+        return [shareAction]
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
+    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func addBlack(index: Int){
+        print("Black 할 아이디= \(topChartReadableJSON[index]["id"])")
+        
+        let post:NSString = "id=1&song_id=\(topChartReadableJSON[index]["id"])"
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/blacklist_song_create")!
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let blackResult = NSURLSession.sharedSession().dataTaskWithRequest(request){
+            data, response, error in
+            if let data = data where error == nil{
+                print(data)
+            } else{
+                print("error = \(error.debugDescription)")
+            }
+        }
+        
+        blackResult.resume()
+        
     }
-    */
-
+    
+    //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    //        if (editingStyle == UITableViewCellEditingStyle.None) {
+    //            // handle delete (by removing the data from your array and updating the tableview)
+    //        }
+    //    }
     /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
+     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+     let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+     
+     // Configure the cell...
+     
+     return cell
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+     if editingStyle == .Delete {
+     // Delete the row from the data source
+     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+     } else if editingStyle == .Insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
+    /*
+     // Override to support rearranging the table view.
+     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+     
+     }
+     */
+    
+    /*
+     // Override to support conditional rearranging of the table view.
+     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

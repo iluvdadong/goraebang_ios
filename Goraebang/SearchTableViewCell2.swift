@@ -1,20 +1,22 @@
 //
-//  SearchTableViewCell.swift
+//  SearchTableViewCell2.swift
 //  Goraebang
 //
-//  Created by Sohn on 9/2/16.
+//  Created by Sohn on 9/10/16.
 //  Copyright © 2016 Sohn. All rights reserved.
 //
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var songAddButton: UIButton!
+class SearchTableViewCell2: UITableViewCell {
+    
     @IBOutlet weak var songNumberLabel: UILabel!
     @IBOutlet weak var songImageWebView: UIWebView!
-    @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var songArtistLabel: UILabel!
+    
+    @IBOutlet weak var songAddButton: UIButton!
+    @IBOutlet weak var artistLabel: UILabel!
+    @IBOutlet weak var songTitleLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

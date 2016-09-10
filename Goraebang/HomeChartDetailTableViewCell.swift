@@ -16,6 +16,8 @@ class HomeChartDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     
+    @IBOutlet weak var songAddButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

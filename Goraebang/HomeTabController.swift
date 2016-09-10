@@ -214,6 +214,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         let titleForTop100DetailButton = UILabel(frame: CGRect(x: 0, y: 0, width:showTop100DetailButtonWidth, height: 50))
         titleForTop100DetailButton.text = "전체보기 >"
+//        titleForTop100DetailButton.tintColor = UIColor.redColor()
         titleForTop100DetailButton.textColor = UIColor.whiteColor()
         titleForTop100DetailButton.font = titleForTop100DetailButton.font.fontWithSize(13)
         
@@ -221,6 +222,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         showTop100DetailButton.addSubview(titleForTop100DetailButton)
         
         showTop100DetailButton.titleLabel?.textColor = UIColor.whiteColor()
+        
         showTop100DetailButton.addTarget(self, action: #selector(showTopDetailButtonAction), forControlEvents: .TouchUpInside)
         bottomTopChartContainer.addSubview(showTop100DetailButton)
         

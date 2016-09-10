@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 
+
 class LoginVC: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -17,8 +18,8 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        txtUserEmail.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-        txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        txtUserEmail.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
+        txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
         
         //        let filemgr = NSFileManager.defaultManager()
         //
@@ -370,7 +371,7 @@ class LoginVC: UIViewController {
     }
     
     func tokenLogin(tokenPath: String, emailPath: String){
-        
+        print("tokenLogin 시작")
         let filemgr = NSFileManager.defaultManager()
         
         if filemgr.fileExistsAtPath(tokenPath){
@@ -402,6 +403,7 @@ class LoginVC: UIViewController {
                             
                             print(loginResultJSON["result"].string!)
                             if(loginResultJSON["result"].string! == "SUCCESS"){
+                                print("token 로그인 결과는 = \(loginResultJSON)")
                                 self.performSegueWithIdentifier("goto_main", sender: self)
                             }
                             else {
