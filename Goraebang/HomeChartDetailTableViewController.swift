@@ -165,7 +165,6 @@ class HomeChartDetailTableViewController: UITableViewController {
             
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(topChartReadableJSON, row: row!, type: 0)
-            
         }
     }
     

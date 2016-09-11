@@ -53,9 +53,10 @@ class Song{
             self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["title"][row]["jacket"].string!)!))
         }
         else if(type == 3){
+//            print("Hello")
             self.id = json[row]["id"].int
             self.title = json[row]["title"].string
-            self.artist = "Unknown Artist"
+            self.artist = json[row]["artist_name"].string
             self.genre1 = json[row]["genre1"].string
             self.genre2 = json[row]["genre2"].string
             self.highKey = json[row]["highKey"].string
@@ -64,6 +65,18 @@ class Song{
             self.runtime = json[row]["runtime"].string
             self.song_tjnum = json[row]["song_tjnum"].string
             self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket_small"].string!)!))
+        } else if (type == 0) {
+            self.id = json[row]["id"].int
+            self.title = json[row]["title"].string
+            self.artist = json[row]["artist_name"].string
+            self.genre1 = json[row]["genre1"].string
+            self.genre2 = json[row]["genre2"].string
+            self.highKey = json[row]["highKey"].string
+            self.lowKey = json[row]["lowKey"].string
+            self.lyrics = json[row]["lyrics"].string
+            self.runtime = json[row]["runtime"].string
+            self.song_tjnum = json[row]["song_tjnum"].string
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket"].string!)!))
         }
         else { // type 1 from mylist
             print(json)

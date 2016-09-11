@@ -3,7 +3,7 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "gorae_logo_58_square.png",
+      "filename" : "logo58.png",
       "scale" : "2x"
     },
     {
@@ -14,7 +14,7 @@
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "icon70.png",
+      "filename" : "logo80.png",
       "scale" : "2x"
     },
     {
@@ -25,7 +25,7 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "gorae_logo_120_square.png",
+      "filename" : "logo140.png",
       "scale" : "2x"
     },
     {

@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class SearchTableViewController: UITableViewController {    
+class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     let goraebang_url = GlobalSetting.getGoraebangURL()
     
     var searchResult:JSON!
@@ -33,6 +33,7 @@ class SearchTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -59,6 +60,45 @@ class SearchTableViewController: UITableViewController {
         }
         
         tableView.sectionHeaderHeight = 95
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        searchBar.endEditing(true)
+        
+        if(searchBar.text != ""){
+            let search_text_UTF8 = searchBar.text?.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+            
+            let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
+            
+            //        let url = NSURL(string: "\(goraebang_url)/json/song")
+            print(search_text_UTF8)
+            let url = NSURL(string: urlStr)
+            
+            //        let url:NSURL = NSURL(string: "http://52.78.127.110/json/search?query=연가")!
+            //        print(url)
+            
+            let request: NSMutableURLRequest = NSMutableURLRequest()
+            request.URL = NSURL(string: "\(urlStr)")
+            
+            request.HTTPMethod = "GET"
+            //        print(request)
+            
+            //        let jsonData = NSData(contentsOfURL: url!) as NSData!
+            
+            if let jsonData = NSData(contentsOfURL: url!) as NSData!{
+                searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                print(searchResult.count)
+                
+            }
+            else{
+                searchResult = nil
+                print("jsonData 없는 경우")
+                print("검색결과가 없습니다")
+            }
+            
+            self.tableView.reloadData()
+        }
+        return true
     }
     
     func dismissKeyboard() {
@@ -105,10 +145,12 @@ class SearchTableViewController: UITableViewController {
         userInfoView.layer.shadowOpacity = 0.6
         
         searchBar = UITextField()
+        searchBar.delegate = self
         searchBar.frame = CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: 30)
 //        searchBar.backgroundColor = UIColor.darkGrayColor()
         searchBar.textAlignment = NSTextAlignment.Left
         searchBar.placeholder = "검색어를 입력하세요."
+        searchBar.keyboardType = UIKeyboardType.WebSearch
         userInfoView.addSubview(searchBar)
         
         let searchBarLine = UILabel()
