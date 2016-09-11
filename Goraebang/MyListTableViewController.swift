@@ -25,7 +25,7 @@ class MyListTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    override    func viewDidLoad() {
+    override func viewDidLoad() {
         
         super.viewDidLoad()
         
@@ -156,46 +156,7 @@ class MyListTableViewController: UITableViewController {
         return cell
     }
     
-    //    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //        return "Section"
-    //    }
-    
-    // MARK: Section Header
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let userInfoView = UIView()
-////        userInfoView.backgroundColor = UIColor.whiteColor()
-//        
-//        userInfoView.layer.masksToBounds = false
-//        userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
-//        userInfoView.layer.shadowRadius = 5
-//        userInfoView.layer.shadowOpacity = 0.6
-//        
-//        let userInfoBackground = UIImageView()
-//        userInfoBackground.frame = CGRect(x: 0, y: 0, width: 322, height: 120)
-//        userInfoBackground.image = UIImage(named: "Park")
-//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-//        blurEffectView.frame = userInfoBackground.bounds
-//        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-//        userInfoBackground.addSubview(blurEffectView)
-//        userInfoView.addSubview(userInfoBackground)
-//        
-//        
-//        let userTitleLabel = UILabel(frame: CGRect(x: 0, y: 70, width: view.bounds.width, height: 20))
-//        userTitleLabel.text = "고래"
-//        userTitleLabel.textColor = UIColor.whiteColor()
-//        userTitleLabel.textAlignment = NSTextAlignment.Center
-//        userInfoView.addSubview(userTitleLabel)
-//        
-//        let userSongCountLabel = UILabel(frame: CGRect(x: 0, y: 90, width: view.bounds.width, height: 20))
-//        userSongCountLabel.textColor = UIColor.whiteColor()
-////        userSongCountLabel.text = "저장된 곡 개수  \(myListReadableJSON.count)"
-//        userSongCountLabel.textAlignment = NSTextAlignment.Center
-//        userSongCountLabel.font = userSongCountLabel.font.fontWithSize(12)
-//        userInfoView.addSubview(userSongCountLabel)
-//        
-//        return userInfoView
-//    }
+
     
     // MARK: - Navigation
     
@@ -233,8 +194,6 @@ class MyListTableViewController: UITableViewController {
             let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
             request.HTTPMethod = "POST"
             request.HTTPBody = postData
-            
-//            print(request)
             
             let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
             

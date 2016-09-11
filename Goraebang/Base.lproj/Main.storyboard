@@ -274,7 +274,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fT-V0-FoB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4275" y="1340.625"/>
+            <point key="canvasLocation" x="3939" y="1194.75"/>
         </scene>
         <!--Song Title-->
         <scene sceneID="JUd-6Q-58Z">
@@ -292,12 +292,11 @@
                     <navigationItem key="navigationItem" title="Song Title" id="TaT-tk-Wgk"/>
                     <connections>
                         <outlet property="songTitleLabel" destination="TaT-tk-Wgk" id="MLC-aj-cKu"/>
-                        <segue destination="Yzq-Py-Z6D" kind="custom" identifier="AddSong" id="bDQ-6p-aMb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6x-HC-lzr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5724" y="469.125"/>
+            <point key="canvasLocation" x="5742" y="189.75"/>
         </scene>
         <!--고래방-->
         <scene sceneID="24r-1G-4op">
@@ -530,7 +529,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ssi-ax-KkA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3129" y="1269.75"/>
+            <point key="canvasLocation" x="2968.5" y="1194.75"/>
         </scene>
         <!--Top 100-->
         <scene sceneID="reR-gD-9hq">
@@ -797,7 +796,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sg8-et-7CP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4029" y="-987"/>
+            <point key="canvasLocation" x="3939" y="-969"/>
         </scene>
         <!--Recommend-->
         <scene sceneID="cd0-q3-Thd">
@@ -816,7 +815,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELw-Ge-pUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3049.5" y="469.5"/>
+            <point key="canvasLocation" x="2968.5" y="469.5"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="Mix-tC-vAi">
@@ -1590,7 +1589,7 @@
         <!--검색-->
         <scene sceneID="svu-9H-eJo">
             <objects>
-                <tableViewController id="S69-wd-T9T" customClass="SearchTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="S69-wd-T9T" customClass="SearchTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cxG-xH-Z5Y">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1836,6 +1835,7 @@
                                     <outlet property="songImageWebView" destination="N2J-jA-0B7" id="Pvz-Lh-Ndh"/>
                                     <outlet property="songNumberLabel" destination="O6P-9R-Gt0" id="eZt-o5-E6D"/>
                                     <outlet property="songTitleLabel" destination="8gW-QE-RQS" id="vWc-Sg-Nnt"/>
+                                    <segue destination="2Gb-oa-1Mb" kind="show" identifier="ShowSongDetailFromSearch" id="kLG-D2-YXG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1848,7 +1848,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5wI-33-FtV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3030" y="-228.75"/>
+            <point key="canvasLocation" x="2968.5" y="-318.75"/>
         </scene>
         <!--설정-->
         <scene sceneID="IPA-Ci-zUT">
@@ -1893,7 +1893,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="acy-sd-2CQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="JmZ-Fm-O1o" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3090" y="2072.25"/>
+            <point key="canvasLocation" x="2968.5" y="1869.75"/>
         </scene>
         <!--SEARCH-->
         <scene sceneID="BAy-Q6-pLV">
@@ -1916,7 +1916,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sBl-2N-zgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2112" y="-228.75"/>
+            <point key="canvasLocation" x="2050.5" y="-318.75"/>
         </scene>
         <!--MY LIST-->
         <scene sceneID="Qu2-EL-XWj">
@@ -1939,7 +1939,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSx-tx-uQb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2211" y="1269.75"/>
+            <point key="canvasLocation" x="2131.5" y="1194.75"/>
         </scene>
         <!--Setting-->
         <scene sceneID="128-va-mq7">
@@ -1962,7 +1962,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I9e-GW-n8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2172" y="2072.25"/>
+            <point key="canvasLocation" x="2131.5" y="1869.75"/>
         </scene>
     </scenes>
     <resources>
@@ -1974,7 +1974,6 @@
         <image name="logo2" width="1100" height="1100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bDQ-6p-aMb"/>
-        <segue reference="Jv2-WF-SYa"/>
+        <segue reference="kLG-D2-YXG"/>
     </inferredMetricsTieBreakers>
 </document>
