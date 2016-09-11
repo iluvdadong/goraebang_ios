@@ -12,8 +12,6 @@ import SwiftyJSON
 class MyListDetailViewController: UIViewController {
     
     let goraebang_url = GlobalSetting.getGoraebangURL()
-    let tmpUserId = 2
-    let tmpMyListId = 1
     // Configure: Hide bottom bar on push
     
     // 필요한 정보
@@ -68,8 +66,6 @@ class MyListDetailViewController: UIViewController {
         phoneSize = view.bounds.width
         
         fixedTopPadding = 65.0
-        
-        
         
         setMyAlbum(phoneSize)
         setMyFirstContainer(phoneSize)
@@ -187,8 +183,6 @@ class MyListDetailViewController: UIViewController {
         lyricsTextView.showsVerticalScrollIndicator = false
         
         let  attrStr: NSAttributedString = try! NSAttributedString(data: songInfo.lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-        
-        //        let  attrStr: NSAttributedString = try! NSAttributedString(data: lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
         
         lyricsTextView.attributedText = attrStr
         lyricsTextView.editable = false

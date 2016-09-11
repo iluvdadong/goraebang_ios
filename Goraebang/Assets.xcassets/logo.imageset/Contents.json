@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "search25.png",
+      "filename" : "gorae_logo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "search50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "search75.png",
       "scale" : "3x"
     }
   ],

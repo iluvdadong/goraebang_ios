@@ -1,24 +1,17 @@
 //
-//  MyListTableViewCell.swift
+//  SideMenuBarTableViewCell.swift
 //  Goraebang
 //
-//  Created by Sohn on 8/6/16.
+//  Created by Sohn on 8/22/16.
 //  Copyright © 2016 Sohn. All rights reserved.
 //
 
 import UIKit
 
-class MyListTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var songNumberLabel: UILabel!
-    @IBOutlet weak var songTitleLabel: UILabel!
-    @IBOutlet weak var songAddButton: UIButton!
-    @IBOutlet weak var artistLabel: UILabel!
-    @IBOutlet weak var albumWebView: UIWebView!
-    
+class SideMenuBarTableViewCell: UITableViewCell {
+
     override func awakeFromNib() {
         super.awakeFromNib()
-
         // Initialization code
     }
 

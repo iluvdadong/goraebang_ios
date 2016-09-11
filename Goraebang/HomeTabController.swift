@@ -3,16 +3,9 @@ import UIKit
 import SwiftyJSON
 
 class HomeTabController: UIViewController, UIScrollViewDelegate {
-    
-    // 아이폰 화면비율 9:16
-    // 아이폰 5s 640x1136
     // width, 4inch :320, 4.7inch :375, 5.5inch: 414
-    // 각 크기마다 따로 설정해야 하는지?
-    
-    // http://52.78.113.43, top chart json url
+
     let goraebang_url = GlobalSetting.getGoraebangURL()
-    
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     // MARK: Variables
     var bottomContainerScrollView: UIScrollView!
     var bottomTopChartContainer: UIView!
@@ -82,40 +75,10 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
-    
-    var myId:Int!
-    var myListId: Int!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
-        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
-        let myIdPath = documentPath.URLByAppendingPathComponent("id.txt")
-        let myListIdPath = documentPath.URLByAppendingPathComponent("myListId.txt")
-        
-        //testing...
-        
-        if let file:NSFileHandle? = NSFileHandle(forUpdatingAtPath: myIdPath.path!){
-            if file == nil{
-                print("my Id File open failed")
-            } else {
-                file?.seekToFileOffset(0)
-                let databuffer = file?.readDataToEndOfFile()
-                let databufferStr = NSString(data: databuffer!, encoding: NSUTF8StringEncoding)
-                // 여기서 클래스의 멤버 변수에 아이디값 설정할 수 있다
-                print("my id = \(databufferStr!)")
-                file?.closeFile()
-            }
-        }
-        
-        
-        // test end
+
         
         setSize(view.bounds.width) // 초기설정
         

@@ -9,10 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class SearchTableViewController: UITableViewController {
-    
-    @IBOutlet weak var menuButton: UIBarButtonItem!
-    
+class SearchTableViewController: UITableViewController {    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     
     var searchResult:JSON!
@@ -49,17 +46,6 @@ class SearchTableViewController: UITableViewController {
         segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .ValueChanged)
         segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .TouchUpInside)
         
-        
-        
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
-        
-        // hide keyboard
-        
         setSize(view.bounds.width)
         tableView.showsVerticalScrollIndicator = false
         
@@ -73,13 +59,6 @@ class SearchTableViewController: UITableViewController {
         }
         
         tableView.sectionHeaderHeight = 95
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     func dismissKeyboard() {
@@ -140,7 +119,7 @@ class SearchTableViewController: UITableViewController {
         
         let searchButton = UIButton()
         searchButton.frame = CGRect(x: view.bounds.width-40, y: 25, width: 20, height: 20)
-        searchButton.setBackgroundImage(UIImage(named: "EvalIcon"), forState: .Normal)
+        searchButton.setBackgroundImage(UIImage(named: "SearchIcon"), forState: .Normal)
         searchButton.tintColor = UIColor.redColor()
         searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         
@@ -271,11 +250,13 @@ class SearchTableViewController: UITableViewController {
             //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
             cell.songArtistLabel.text = searchResult["artist"][row]["artist_name"].string
             
-            cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["artist"][row]["jacket_small"].string!)!))
-//            cell.songImageWebView.frame.size.height = 63.5
-//            cell.songImageWebView.frame.size.width = 63.5
-            cell.songImageWebView.scalesPageToFit = true
-            cell.songImageWebView.userInteractionEnabled = false
+            if(searchResult["artist"][row]["jacket_small"].string != nil){
+                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["artist"][row]["jacket_small"].string!)!))
+                cell.songImageWebView.scalesPageToFit = true
+                cell.songImageWebView.userInteractionEnabled = false
+            } else {
+                cell.songImageWebView = nil
+            }
         }
         else{
             cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
@@ -288,11 +269,14 @@ class SearchTableViewController: UITableViewController {
             //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
             cell.songArtistLabel.text = searchResult["lyrics"][row]["artist_name"].string
             
-            cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["lyrics"][row]["jacket_small"].string!)!))
-//            cell.songImageWebView.frame.size.height = 63.5
-//            cell.songImageWebView.frame.size.width = 63.5
-            cell.songImageWebView.scalesPageToFit = true
-            cell.songImageWebView.userInteractionEnabled = false
+            if(searchResult["lyrics"][row]["jacket_small"].string != nil){
+                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["lyrics"][row]["jacket_small"].string!)!))
+                cell.songImageWebView.scalesPageToFit = true
+                cell.songImageWebView.userInteractionEnabled = false
+            } else {
+                cell.songImageWebView = nil
+            }
+            
         }
         
         segmentedController.selectedSegmentIndex == searchType

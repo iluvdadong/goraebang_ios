@@ -13,34 +13,22 @@ import SwiftyJSON
 class MyListTableViewController: UITableViewController {
     
     let goraebang_url = GlobalSetting.getGoraebangURL()
-    let tmpUserId = 2
-    let tmpMyListId = 1
     
     var myListReadableJSON: JSON!
     var myListSongs: JSON!
     var myLists: JSON!
     
     var userInfo:UserInfoGetter!
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func viewDidAppear(animated: Bool) {
         getMyList()
         self.tableView.reloadData()
-        
-        
     }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        if self.revealViewController() != nil {
-            print("Cool")
-            menuButton.target = self.revealViewController()
-            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
         
         userInfo = UserInfoGetter()
         
@@ -48,8 +36,15 @@ class MyListTableViewController: UITableViewController {
 //        getMyListSong(userInfo.myListId)
         
         // 테이블 뷰 행 높이 설정
-        tableView.rowHeight = 90.0
-        tableView.sectionHeaderHeight = 120
+        if(view.bounds.width == 320){
+            tableView.rowHeight = 90.0
+        } else if(view.bounds.width == 375) {
+            tableView.rowHeight = 100.0
+        } else {
+            tableView.rowHeight = 110.0
+        }
+        
+//        tableView.sectionHeaderHeight = 120
         
         // table cell gesture recognizer 추가
         
@@ -65,31 +60,18 @@ class MyListTableViewController: UITableViewController {
         // Mylist read api
         
         let post:NSString = "id=\(userInfo.myListId)"
-        
-        //        let post:NSString = "id=\(tmpUserId)&user[name]=sohn&user[password]=\(password)&user[password_confirmation]=\(confirm_password)&user[gender]=0"
-        
         let turl:NSURL = NSURL(string: "\(goraebang_url)/json/myList_read")!
-        print("Watch Here\n\n\n")
-        print(turl)
-        
+
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: turl)
         request.HTTPMethod = "POST"
         request.HTTPBody = postData
-        //            request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
-        //            request.setValue("application/x-www-0form-urlencoded", forHTTPHeaderField: "Content-Type")
-        //            request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        print(request)
         let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
         
         do {
             // NSURLSession.DataTaskWithRequest 로 변경해야한다.
             let myListsJsonData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
-            
-            print(response)
-            
             
             myLists = JSON(data: myListsJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
             
@@ -98,43 +80,21 @@ class MyListTableViewController: UITableViewController {
         }
         
         if((myLists) != nil){
-            print("watch this shit")
-            print(myLists)
-            print(myLists[0]["id"]) // 내 리스트의 아이디 출력
             getMyListSong(userInfo.myListId)
         }
-        
-        
-        // Top 100 read
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/song")!
-        let jsonData = NSData(contentsOfURL: url) as NSData!
-        
-        myListReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-        
-        
-        //        print(myListReadableJSON[0]["lyrics"])
-        //        print(myListReadableJSON.count)
-        //        print(myListReadableJSON[0]["jacket"])
     }
     
     func getMyListSong(id: Int){
         let post:NSString = "id=\(userInfo.myId)&myList_id=\(id)"
-//        let post:NSString = "id=\(3)&myList_id=\(1)&autnNum="
         
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_read")!
-//        let url:NSURL = NSURL(string: "https://whaaale-likelionsunwoo.c9users.io/json/mySong_read")!
-        
-        print("Watch Here\n")
-        print(url)
-        
+
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"
         request.HTTPBody = postData
-        
-        print(request)
-        
+
         let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
         
         do {
@@ -143,16 +103,9 @@ class MyListTableViewController: UITableViewController {
             
             print(response)
             myListSongs = JSON(data: myListsJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-            print(myListSongs)
-            
-            
         } catch let error as NSError{
             print(error.localizedDescription)
         }
-        
-        print("Print my list songs")
-        print(myListSongs)
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -186,15 +139,13 @@ class MyListTableViewController: UITableViewController {
         cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
         cell.songTitleLabel.text = myListSongs["song"][row]["title"].string
         //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
-        cell.songArtistLabel.text = myListSongs["artistName"][row].string
+        cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
+        cell.artistLabel.text = myListSongs["artistName"][row].string
         
         
-        cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListSongs["song"][row]["jacket_small"].string!)!))
-        cell.songImageWebView.frame.size.height = 63.5
-        cell.songImageWebView.frame.size.width = 63.5
-        cell.songImageWebView.scalesPageToFit = true
-        cell.songImageWebView.userInteractionEnabled = false
+        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListSongs["song"][row]["jacket_small"].string!)!))
+        cell.albumWebView.scalesPageToFit = true
+        cell.albumWebView.userInteractionEnabled = false
         
         
         
@@ -210,41 +161,41 @@ class MyListTableViewController: UITableViewController {
     //    }
     
     // MARK: Section Header
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let userInfoView = UIView()
-//        userInfoView.backgroundColor = UIColor.whiteColor()
-        
-        userInfoView.layer.masksToBounds = false
-        userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
-        userInfoView.layer.shadowRadius = 5
-        userInfoView.layer.shadowOpacity = 0.6
-        
-        let userInfoBackground = UIImageView()
-        userInfoBackground.frame = CGRect(x: 0, y: 0, width: 322, height: 120)
-        userInfoBackground.image = UIImage(named: "Park")
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = userInfoBackground.bounds
-        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        userInfoBackground.addSubview(blurEffectView)
-        userInfoView.addSubview(userInfoBackground)
-        
-        
-        let userTitleLabel = UILabel(frame: CGRect(x: 0, y: 70, width: view.bounds.width, height: 20))
-        userTitleLabel.text = "고래"
-        userTitleLabel.textColor = UIColor.whiteColor()
-        userTitleLabel.textAlignment = NSTextAlignment.Center
-        userInfoView.addSubview(userTitleLabel)
-        
-        let userSongCountLabel = UILabel(frame: CGRect(x: 0, y: 90, width: view.bounds.width, height: 20))
-        userSongCountLabel.textColor = UIColor.whiteColor()
-//        userSongCountLabel.text = "저장된 곡 개수  \(myListReadableJSON.count)"
-        userSongCountLabel.textAlignment = NSTextAlignment.Center
-        userSongCountLabel.font = userSongCountLabel.font.fontWithSize(12)
-        userInfoView.addSubview(userSongCountLabel)
-        
-        return userInfoView
-    }
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let userInfoView = UIView()
+////        userInfoView.backgroundColor = UIColor.whiteColor()
+//        
+//        userInfoView.layer.masksToBounds = false
+//        userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
+//        userInfoView.layer.shadowRadius = 5
+//        userInfoView.layer.shadowOpacity = 0.6
+//        
+//        let userInfoBackground = UIImageView()
+//        userInfoBackground.frame = CGRect(x: 0, y: 0, width: 322, height: 120)
+//        userInfoBackground.image = UIImage(named: "Park")
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = userInfoBackground.bounds
+//        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+//        userInfoBackground.addSubview(blurEffectView)
+//        userInfoView.addSubview(userInfoBackground)
+//        
+//        
+//        let userTitleLabel = UILabel(frame: CGRect(x: 0, y: 70, width: view.bounds.width, height: 20))
+//        userTitleLabel.text = "고래"
+//        userTitleLabel.textColor = UIColor.whiteColor()
+//        userTitleLabel.textAlignment = NSTextAlignment.Center
+//        userInfoView.addSubview(userTitleLabel)
+//        
+//        let userSongCountLabel = UILabel(frame: CGRect(x: 0, y: 90, width: view.bounds.width, height: 20))
+//        userSongCountLabel.textColor = UIColor.whiteColor()
+////        userSongCountLabel.text = "저장된 곡 개수  \(myListReadableJSON.count)"
+//        userSongCountLabel.textAlignment = NSTextAlignment.Center
+//        userSongCountLabel.font = userSongCountLabel.font.fontWithSize(12)
+//        userInfoView.addSubview(userSongCountLabel)
+//        
+//        return userInfoView
+//    }
     
     // MARK: - Navigation
     
@@ -257,7 +208,7 @@ class MyListTableViewController: UITableViewController {
             let row = myIndexPath?.row
             
             detailViewController.songInfo = Song()
-            detailViewController.songInfo.set(myListReadableJSON, row: row!, type: 1)
+            detailViewController.songInfo.set(myListSongs, row: row!, type: 1)
             detailViewController.isMylist = true
         }
     }
@@ -276,7 +227,6 @@ class MyListTableViewController: UITableViewController {
             let row = indexPath.row
             let post:NSString = "id=\(userInfo.myId)&mySong_id=\(myListSongs["mylistSongId"][row])"
             let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
-            print("MySong Delete Start!!\n\n")
             
             let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
             
