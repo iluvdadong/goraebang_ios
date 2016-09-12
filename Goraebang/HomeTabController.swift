@@ -101,8 +101,8 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         if(phoneSize == 320){ // 4inch
             phoneSizeString = "4inch"
-            albumSizeForVariousPhoneWidth = 91
-            albumSmallInterval = 3.5
+            albumSizeForVariousPhoneWidth = 88
+            albumSmallInterval = 8
             albumBigInterval = 40
             topBackgroundStartingYPoint = 64
             topBackgroundHeight = 120

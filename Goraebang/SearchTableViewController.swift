@@ -35,8 +35,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchTableViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+
         
         searchType = 0
         
@@ -134,12 +133,17 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         userInfoView.layer.shadowRadius = 5
         userInfoView.layer.shadowOpacity = 0.6
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchTableViewController.dismissKeyboard))
+        userInfoView.addGestureRecognizer(tap)
+        
         searchBar = UITextField()
         searchBar.delegate = self
         searchBar.frame = CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: 30)
         searchBar.textAlignment = NSTextAlignment.Left
         searchBar.placeholder = "검색어를 입력하세요."
         searchBar.keyboardType = UIKeyboardType.WebSearch
+        searchBar.keyboardAppearance = UIKeyboardAppearance.Dark
+        
         userInfoView.addSubview(searchBar)
         
         let searchBarLine = UILabel()
@@ -297,7 +301,6 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowSongDetailFromSearch" {
-            print("search detila button tapped")
             let detailViewController =  segue.destinationViewController as! MyListDetailViewController
             
             let myIndexPath = self.tableView.indexPathForSelectedRow
@@ -305,7 +308,6 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(searchResult, row: row!, type: 2)
-            
         }
     }
     

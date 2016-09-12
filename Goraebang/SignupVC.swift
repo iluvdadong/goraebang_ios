@@ -17,6 +17,12 @@ class SignupVC: UIViewController {
     let goraebang_url = GlobalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
+        txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
+        txtUserEmail.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
+        txtConfirmPassword.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
+        txtUserEmail.keyboardAppearance = UIKeyboardAppearance.Dark
+        txtPassword.keyboardAppearance = UIKeyboardAppearance.Dark
+        txtConfirmPassword.keyboardAppearance = UIKeyboardAppearance.Dark
         // Do any additional setup after loading the view.
     }
     

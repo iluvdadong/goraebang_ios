@@ -31,7 +31,6 @@ class LoginVC: UIViewController {
         
         documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         
-        
         dataPath = documentPath.URLByAppendingPathComponent("data")
         emailPath = documentPath.URLByAppendingPathComponent("email.txt")
         passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
@@ -40,7 +39,9 @@ class LoginVC: UIViewController {
         myListIdPath = documentPath.URLByAppendingPathComponent("myListId.txt")
         
         txtUserEmail.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
+        txtUserEmail.keyboardAppearance = UIKeyboardAppearance.Dark
         txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
+        txtPassword.keyboardAppearance = UIKeyboardAppearance.Dark
         
         //        let filemgr = NSFileManager.defaultManager()
         //
