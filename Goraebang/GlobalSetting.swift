@@ -14,10 +14,10 @@ class GlobalSetting{
         struct Holder{
 //            static var goraebang_url = "https://whale-likelionsunwoo.c9users.io"
 //            static var goraebang_url = "http://localhost:3000"
-            static var goraebang_url = "http://web-yhk1038.c9users.io"
+//            static var goraebang_url = "http://web-yhk1038.c9users.io"
 //            static var goraebang_url = "http://52.78.113.43"
 //            static var goraebang_url = "http://52.78.127.110"
-//            static var goraebang_url = "http://52.78.160.188"
+            static var goraebang_url = "http://52.78.160.188"
             
             
         }

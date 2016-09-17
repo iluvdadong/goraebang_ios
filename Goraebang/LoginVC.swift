@@ -475,7 +475,6 @@ class LoginVC: UIViewController {
                     let loginResult = try NSURLSession.sharedSession().dataTaskWithRequest(request){
                         data, response, error in
                         if let data = data where error == nil{
-                            print(data)
                             loginResultJSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
                             
                             print(loginResultJSON["result"].string!)
