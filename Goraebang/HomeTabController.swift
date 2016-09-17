@@ -187,12 +187,26 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     func makeTopChartContainer(){
         bottomTopChartContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: bottomTopChartHeight))
         //        bottomTopChartContainer.backgroundColor = UIColor.darkGrayColor()
-        let chartLabel = UILabel(frame: CGRectMake(20, 0, 200, 50))
+        
+        // 고래방 TOP 라벨 앞에 선을 UILabel로 추가한다.
+        let preChartLabel = UILabel()
+        preChartLabel.frame = CGRect(x: 20, y: 15, width: 5, height: 20)
+        preChartLabel.backgroundColor = UIColor(red: 232/255, green: 56/255, blue: 61/255, alpha: 1.0)
+        bottomTopChartContainer.addSubview(preChartLabel)
+        
+        // TOP CHART 글자 라벨
+        let chartLabel = UILabel(frame: CGRectMake(30, 0, 200, 50))
         chartLabel.textAlignment = NSTextAlignment.Left
         chartLabel.textColor = UIColor.whiteColor()
-        chartLabel.text = "고래방 차트"
+        chartLabel.text = "고래방 TOP 차트"
         chartLabel.font = UIFont.boldSystemFontOfSize(15)
         bottomTopChartContainer.addSubview(chartLabel)
+        
+        // TOP CHART 글자 라벨 아래 구분선
+        let chartTextDivisionLine = UILabel()
+        chartTextDivisionLine.frame = CGRect(x: 20, y: 41, width: view.bounds.width - 40, height: 1)
+        chartTextDivisionLine.backgroundColor = UIColor.darkGrayColor()
+        bottomTopChartContainer.addSubview(chartTextDivisionLine)
         
         // MARK: 고래방 Top 100 Detail View 버튼
         
@@ -200,7 +214,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
 //        showTop100DetailButton.backgroundColor = UIColor.blueColor()
         
         let titleForTop100DetailButton = UILabel(frame: CGRect(x: 0, y: 0, width:showTop100DetailButtonWidth, height: 50))
-        titleForTop100DetailButton.text = "전체보기 >"
+        titleForTop100DetailButton.text = "더 보기 >"
 //        titleForTop100DetailButton.tintColor = UIColor.redColor()
         titleForTop100DetailButton.textColor = UIColor.whiteColor()
         titleForTop100DetailButton.font = titleForTop100DetailButton.font.fontWithSize(13)
@@ -214,6 +228,13 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         bottomTopChartContainer.addSubview(showTop100DetailButton)
         
         makeAlbumPageControl()
+        
+        // 인기차트와 신곡 사이 구분선
+        let bottomTopChartContainerDivisionLine = UILabel()
+        bottomTopChartContainerDivisionLine.frame = CGRect(x: 20, y: bottomTopChartHeight - 3, width: view.bounds.width-40, height: 1)
+        bottomTopChartContainerDivisionLine.backgroundColor = UIColor.darkGrayColor()
+        bottomTopChartContainer.addSubview(bottomTopChartContainerDivisionLine)
+        
         bottomContainerScrollView.addSubview(bottomTopChartContainer)
     }
     
@@ -247,20 +268,32 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         bottomNewSongContainer = UIView(frame: CGRect(x: 0, y: bottomNewSongContainerY, width: view.bounds.width, height: bottomNewSongHeight))
         //        bottomNewSongContainer.backgroundColor = UIColor.blueColor()
         
+        // 신곡 타이틀 라벨 앞 세로 굵은 선을 UILabel로 추가
+        let preNewSongLabel = UILabel()
+        preNewSongLabel.frame = CGRect(x: 20, y: 15, width: 5, height: 20)
+        preNewSongLabel.backgroundColor = UIColor(red: 232/255, green: 56/255, blue: 61/255, alpha: 1.0)
+        bottomNewSongContainer.addSubview(preNewSongLabel)
+        
         // MARK: 이달의 신곡 타이틀 라벨
-        let newSongLabel = UILabel(frame: CGRectMake(20, 0, 200, 50))
+        let newSongLabel = UILabel(frame: CGRectMake(30, 0, 200, 50))
         newSongLabel.textAlignment = NSTextAlignment.Left
         newSongLabel.textColor = UIColor.whiteColor()
         newSongLabel.text = "이달의 신곡"
         newSongLabel.font = UIFont.boldSystemFontOfSize(15)
         bottomNewSongContainer.addSubview(newSongLabel)
         
+        // NEW SONG 글자 라벨 아래 구분선
+        let newSongTextDivisionLine = UILabel()
+        newSongTextDivisionLine.frame = CGRect(x: 20, y: 41, width: view.bounds.width - 40, height: 1)
+        newSongTextDivisionLine.backgroundColor = UIColor.darkGrayColor()
+        bottomNewSongContainer.addSubview(newSongTextDivisionLine)
+        
         // MARK: 고래방 Top 100 Detail View 버튼
         
         let showNewSongDetailButton = UIButton(frame: CGRectMake(showTop100DetailButtonStartingXPoint, 0, showTop100DetailButtonWidth, showTop100DetailButtonHeight))
         
         let titleForNewSongDetailButton = UILabel(frame: CGRect(x: 0, y: 0, width:showTop100DetailButtonWidth, height: 50))
-        titleForNewSongDetailButton.text = "전체보기 >"
+        titleForNewSongDetailButton.text = "더 보기 >"
         titleForNewSongDetailButton.textColor = UIColor.whiteColor()
         titleForNewSongDetailButton.font = titleForNewSongDetailButton.font.fontWithSize(13)
         
