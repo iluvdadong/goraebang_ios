@@ -58,6 +58,8 @@ class MyListDetailViewController: UIViewController {
     
     var userInfo:UserInfoGetter!
     
+    // 190916 Interface Builder로 변경
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
