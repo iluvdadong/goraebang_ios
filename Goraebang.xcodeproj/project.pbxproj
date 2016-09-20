@@ -30,6 +30,7 @@
 		49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */; };
 		49B862471D85479C00EBBE95 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B862461D85479C00EBBE95 /* SettingViewController.swift */; };
 		49B862491D857B0200EBBE95 /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B862481D857B0200EBBE95 /* MyListViewController.swift */; };
+		49D228741D8E93AF0036746A /* SearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D228731D8E93AF0036746A /* SearchContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +74,7 @@
 		49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListDetailViewController.swift; sourceTree = "<group>"; };
 		49B862461D85479C00EBBE95 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		49B862481D857B0200EBBE95 /* MyListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
+		49D228731D8E93AF0036746A /* SearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 			children = (
 				499318641D797A1B0047C8B1 /* SearchTableViewController.swift */,
 				499318661D797BEA0047C8B1 /* SearchTableViewCell.swift */,
+				49D228731D8E93AF0036746A /* SearchContainerViewController.swift */,
 			);
 			name = SearchController;
 			sourceTree = "<group>";
@@ -240,7 +243,7 @@
 				TargetAttributes = {
 					494F3A941D42ECAA008B5051 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8MUW9937R9;
+						DevelopmentTeam = 23EFP3FERN;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -290,6 +293,7 @@
 				497454B71D4CE727000D520B /* SignupVC.swift in Sources */,
 				494F3A991D42ECAA008B5051 /* AppDelegate.swift in Sources */,
 				49B862491D857B0200EBBE95 /* MyListViewController.swift in Sources */,
+				49D228741D8E93AF0036746A /* SearchContainerViewController.swift in Sources */,
 				49B04B841D6ABF0E00AC4934 /* SWRevealViewController.m in Sources */,
 				49235DC21D843CC60063DE7D /* UserInfoGetter.swift in Sources */,
 				498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */,
@@ -365,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -406,7 +410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -420,10 +424,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 23EFP3FERN;
 				INFOPLIST_FILE = Goraebang/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Sohn.Goraebang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Goraebang/Goraebang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -437,10 +442,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 23EFP3FERN;
 				INFOPLIST_FILE = Goraebang/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Sohn.Goraebang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Goraebang/Goraebang-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;

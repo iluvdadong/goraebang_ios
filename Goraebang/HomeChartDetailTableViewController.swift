@@ -39,12 +39,10 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     func getTopChart(){
         // Top 100 read
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/song")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-        
-        print(topChartReadableJSON)
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,6 +66,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("TopChartTableCell", forIndexPath: indexPath) as! HomeChartDetailTableViewCell
         
         let row = indexPath.row
+        cell.rankLabel.text = String(row+1)
         //        cell.songNumberLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         //        cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
         cell.songNumberLabel.text = String(topChartReadableJSON[row]["song_tjnum"])

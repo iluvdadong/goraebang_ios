@@ -10,6 +10,8 @@ import UIKit
 
 class HomeChartDetailTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var rankLabel: UILabel!
+    
     @IBOutlet weak var songNumberLabel: UILabel!
     @IBOutlet weak var albumWebView: UIWebView!
     

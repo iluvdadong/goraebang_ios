@@ -9,6 +9,13 @@
 import UIKit
 
 
+/* MARK: 160919 오류
+ 처음 설치 후
+ 회원가입 해서 돌아왔을 때 로그인 안됌
+ 다시 켜서 로그인 하면 앱 꺼지고
+ 그다음 부터 자동로그인
+ */
+
 class SignupVC: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!

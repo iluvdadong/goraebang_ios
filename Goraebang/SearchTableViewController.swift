@@ -142,6 +142,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         searchBar.textAlignment = NSTextAlignment.Left
         searchBar.placeholder = "검색어를 입력하세요."
         searchBar.keyboardType = UIKeyboardType.WebSearch
+        
         searchBar.keyboardAppearance = UIKeyboardAppearance.Dark
         
         userInfoView.addSubview(searchBar)

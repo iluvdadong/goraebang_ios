@@ -156,7 +156,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
     func getTopChart(){
         // 서버 문제있을 때?
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/song")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
@@ -358,6 +358,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         // 앨범 x 좌표
         var x:CGFloat = 20
         var y:CGFloat = 0
+        print("Top 100 개수 출력")
         print(topChartReadableJSON.count)
         for i in 0...17 {
             
@@ -431,8 +432,6 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         // 앨범 x 좌표
         var x:CGFloat = 20
         var y:CGFloat = 0
-        print("Watch here")
-        print(topChartReadableJSON)
         print(topChartReadableJSON.count)
         for i in 0...8 {
             
