@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490E5F5E1D915E0E009BA6A2 /* OnSearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */; };
 		4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */; };
 		4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */; };
 		491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */; };
@@ -46,6 +47,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		490E5F5C1D91524D009BA6A2 /* Goraebang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goraebang-Bridging-Header.h"; sourceTree = "<group>"; };
+		490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSearchContainerViewController.swift; sourceTree = "<group>"; };
 		4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewController.swift; sourceTree = "<group>"; };
 		4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewCell.swift; sourceTree = "<group>"; };
 		491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendTabController.swift; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 				494F3A981D42ECAA008B5051 /* AppDelegate.swift */,
 				494F3AA11D42ECAA008B5051 /* LaunchScreen.storyboard */,
 				494F3AA41D42ECAA008B5051 /* Info.plist */,
+				490E5F5C1D91524D009BA6A2 /* Goraebang-Bridging-Header.h */,
 			);
 			path = Goraebang;
 			sourceTree = "<group>";
@@ -153,6 +157,7 @@
 				499318641D797A1B0047C8B1 /* SearchTableViewController.swift */,
 				499318661D797BEA0047C8B1 /* SearchTableViewCell.swift */,
 				49D228731D8E93AF0036746A /* SearchContainerViewController.swift */,
+				490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */,
 			);
 			name = SearchController;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				4935DA081D8A5F1B0027C408 /* SwiftyJSON.swift in Sources */,
 				491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */,
 				49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */,
+				490E5F5E1D915E0E009BA6A2 /* OnSearchContainerViewController.swift in Sources */,
 				497454B71D4CE727000D520B /* SignupVC.swift in Sources */,
 				494F3A991D42ECAA008B5051 /* AppDelegate.swift in Sources */,
 				49B862491D857B0200EBBE95 /* MyListViewController.swift in Sources */,
@@ -414,6 +420,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Goraebang/Goraebang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -433,6 +440,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Goraebang/Goraebang-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;

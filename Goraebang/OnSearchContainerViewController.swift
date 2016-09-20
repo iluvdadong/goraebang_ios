@@ -1,34 +1,20 @@
 //
-//  MyTabBarController.swift
+//  OnSearchContainerViewController.swift
 //  Goraebang
 //
-//  Created by Sohn on 7/23/16.
+//  Created by Sohn on 9/20/16.
 //  Copyright © 2016 Sohn. All rights reserved.
 //
 
 import UIKit
 
-class MyTabBarController: UITabBarController {
+class OnSearchContainerViewController: UIViewController {
 
-    @IBOutlet weak var myTabBar: UITabBar!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        myTabBar.tintColor = UIColor.redColor()
-        myTabBar.barTintColor = UIColor.blackColor()
-        
-        
+
         // Do any additional setup after loading the view.
     }
-    
-//    func changeIndex(num: Int){
-//        self.selectedIndex = num
-//        self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-
-    //    }
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -40,7 +26,7 @@ class MyTabBarController: UITabBarController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }

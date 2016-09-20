@@ -124,54 +124,54 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: Section Header
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let userInfoView = UIView()
-        userInfoView.backgroundColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0)
-        
-        userInfoView.layer.masksToBounds = false
-        userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
-        userInfoView.layer.shadowRadius = 5
-        userInfoView.layer.shadowOpacity = 0.6
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchTableViewController.dismissKeyboard))
-        userInfoView.addGestureRecognizer(tap)
-        
-        searchBar = UITextField()
-        searchBar.delegate = self
-        searchBar.frame = CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: 30)
-        searchBar.textAlignment = NSTextAlignment.Left
-        searchBar.placeholder = "검색어를 입력하세요."
-        searchBar.keyboardType = UIKeyboardType.WebSearch
-        
-        searchBar.keyboardAppearance = UIKeyboardAppearance.Dark
-        
-        userInfoView.addSubview(searchBar)
-        
-        let searchBarLine = UILabel()
-        searchBarLine.frame = CGRect(x: 20, y: 50, width: view.bounds.width - 40, height: 1)
-        searchBarLine.backgroundColor = UIColor.whiteColor()
-        userInfoView.addSubview(searchBarLine)
-        
-        
-        let searchButton = UIButton()
-        searchButton.frame = CGRect(x: view.bounds.width-40, y: 25, width: 20, height: 20)
-        searchButton.setBackgroundImage(UIImage(named: "SearchIcon"), forState: .Normal)
-        searchButton.tintColor = UIColor.redColor()
-        searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        
-        searchButton.addTarget(self, action: #selector(searchSong), forControlEvents: .TouchUpInside)
-        userInfoView.addSubview(searchButton)
-        
-        segmentedController.frame = CGRect(x: 0, y: 65, width: view.bounds.width, height: 30)
-        segmentedController.tintColor = UIColor.whiteColor()
-        
-        segmentedController.layer.cornerRadius = 0
-        segmentedController.layer.borderColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0).CGColor
-        segmentedController.layer.borderWidth = 2
-        userInfoView.addSubview(segmentedController)
-        
-        return userInfoView
-    }
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let userInfoView = UIView()
+//        userInfoView.backgroundColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0)
+//        
+//        userInfoView.layer.masksToBounds = false
+//        userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
+//        userInfoView.layer.shadowRadius = 5
+//        userInfoView.layer.shadowOpacity = 0.6
+//        
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchTableViewController.dismissKeyboard))
+//        userInfoView.addGestureRecognizer(tap)
+//        
+//        searchBar = UITextField()
+//        searchBar.delegate = self
+//        searchBar.frame = CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: 30)
+//        searchBar.textAlignment = NSTextAlignment.Left
+//        searchBar.placeholder = "검색어를 입력하세요."
+//        searchBar.keyboardType = UIKeyboardType.WebSearch
+//        
+//        searchBar.keyboardAppearance = UIKeyboardAppearance.Dark
+//        
+//        userInfoView.addSubview(searchBar)
+//        
+//        let searchBarLine = UILabel()
+//        searchBarLine.frame = CGRect(x: 20, y: 50, width: view.bounds.width - 40, height: 1)
+//        searchBarLine.backgroundColor = UIColor.whiteColor()
+//        userInfoView.addSubview(searchBarLine)
+//        
+//        
+//        let searchButton = UIButton()
+//        searchButton.frame = CGRect(x: view.bounds.width-40, y: 25, width: 20, height: 20)
+//        searchButton.setBackgroundImage(UIImage(named: "SearchIcon"), forState: .Normal)
+//        searchButton.tintColor = UIColor.redColor()
+//        searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+//        
+//        searchButton.addTarget(self, action: #selector(searchSong), forControlEvents: .TouchUpInside)
+//        userInfoView.addSubview(searchButton)
+//        
+//        segmentedController.frame = CGRect(x: 0, y: 65, width: view.bounds.width, height: 30)
+//        segmentedController.tintColor = UIColor.whiteColor()
+//        
+//        segmentedController.layer.cornerRadius = 0
+//        segmentedController.layer.borderColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0).CGColor
+//        segmentedController.layer.borderWidth = 2
+//        userInfoView.addSubview(segmentedController)
+//        
+//        return userInfoView
+//    }
     
     func segmentedControllerAction(segment: UISegmentedControl){
         

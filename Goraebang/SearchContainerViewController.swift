@@ -10,6 +10,13 @@ import UIKit
 
 class SearchContainerViewController: UIViewController {
 
+    
+    @IBAction func searchAction(sender: AnyObject) {
+        
+        performSegueWithIdentifier("onSearch", sender: self)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
