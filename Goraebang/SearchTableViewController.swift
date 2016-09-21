@@ -7,9 +7,31 @@
 //
 
 import UIKit
-
+//
+//protocol SearchTableDelegate: class{
+//    func didSearch()
+//}
 
 class SearchTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    //    var OnSearchDelegate: OnSearchContainerViewController!
+    
+    //    weak var delegate: SearchTableDelegate?
+    /*
+     View delegate Call
+     */
+    
+    func searchCall(n:NSNotification){
+        print("Success")
+        print("Here")
+        print("SEcond Succdeess")
+        
+        print(n.userInfo!["searchText"]!)
+        let searchText:String = String(n.userInfo!["searchText"]!)
+        searchSong(searchText)
+    }
+    
+    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     
     var searchResult:JSON!
@@ -17,36 +39,13 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     // Type 0: Title, Type 1: Artist, Type 2: Lyrics
     var searchType:Int!
     
-    var searchBar:UITextField!
-    
-    // MARK: Segmented Control
-    var segmentedController:UISegmentedControl!
-    
-    // MARK: Width, Height Settings
-    var searchBarWidth:CGFloat!
-    var searchBarHeight:CGFloat!
-    var searchBarStartingXPoint:CGFloat!
-    var searchBarStartingYPoint:CGFloat!
-    
-    var searchButtonWidth:CGFloat!
-    var searchButtonStartingXPoint:CGFloat!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchTableViewController.searchCall), name: "com.sohn.searchByTitleKey", object: nil)
         
         searchType = 0
         
-        let items = ["제목", "가수", "가사"]
-        segmentedController = UISegmentedControl(items: items)
-        segmentedController.selectedSegmentIndex = 0
-        
-        segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .ValueChanged)
-        segmentedController.addTarget(self, action: #selector(SearchTableViewController.segmentedControllerAction(_:)), forControlEvents: .TouchUpInside)
-        
-        setSize(view.bounds.width)
         tableView.showsVerticalScrollIndicator = false
         
         // 테이블 뷰 행 높이 설정
@@ -58,40 +57,40 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             tableView.rowHeight = 120.0
         }
         
-        tableView.sectionHeaderHeight = 95
+        //        tableView.sectionHeaderHeight = 95
     }
     
     // MARK: Return Key 입력 시 검색
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        searchBar.endEditing(true)
-        
-        if(searchBar.text != ""){
-            let search_text_UTF8 = searchBar.text?.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-            
-            let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
-            
-            
-            print(search_text_UTF8)
-            let url = NSURL(string: urlStr)
-            
-            let request: NSMutableURLRequest = NSMutableURLRequest()
-            request.URL = NSURL(string: "\(urlStr)")
-            
-            request.HTTPMethod = "GET"
-            
-            if let jsonData = NSData(contentsOfURL: url!) as NSData!{
-                searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-                print(searchResult.count)
-                
-            } else{
-                searchResult = nil
-                // MARK: 검색 결과가 없습니다. Alert View 생성
-            }
-            
-            self.tableView.reloadData()
-        }
-        return true
-    }
+    //    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    //        searchBar.endEditing(true)
+    //
+    //        if(searchBar.text != ""){
+    //            let search_text_UTF8 = searchBar.text?.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+    //
+    //            let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
+    //
+    //
+    //            print(search_text_UTF8)
+    //            let url = NSURL(string: urlStr)
+    //
+    //            let request: NSMutableURLRequest = NSMutableURLRequest()
+    //            request.URL = NSURL(string: "\(urlStr)")
+    //
+    //            request.HTTPMethod = "GET"
+    //
+    //            if let jsonData = NSData(contentsOfURL: url!) as NSData!{
+    //                searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+    //                print(searchResult.count)
+    //
+    //            } else{
+    //                searchResult = nil
+    //                // MARK: 검색 결과가 없습니다. Alert View 생성
+    //            }
+    //
+    //            self.tableView.reloadData()
+    //        }
+    //        return true
+    //    }
     
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
@@ -100,14 +99,6 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: 아이폰 사이즈 마다 변수 값 세팅
     func setSize(phoneSize:CGFloat){
-        searchBarStartingXPoint = 30
-        searchBarStartingYPoint = 50
-        
-        searchBarWidth = 220
-        searchBarHeight = 40
-        
-        searchButtonStartingXPoint = searchBarStartingXPoint + searchBarWidth
-        searchButtonWidth = 40
         if(phoneSize == 320){ // 4inch
             
         } else if(phoneSize == 375){ // 4.7inch
@@ -118,81 +109,18 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: Section Header
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let userInfoView = UIView()
-//        userInfoView.backgroundColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0)
-//        
-//        userInfoView.layer.masksToBounds = false
-//        userInfoView.layer.shadowOffset = CGSizeMake(0, 3)
-//        userInfoView.layer.shadowRadius = 5
-//        userInfoView.layer.shadowOpacity = 0.6
-//        
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchTableViewController.dismissKeyboard))
-//        userInfoView.addGestureRecognizer(tap)
-//        
-//        searchBar = UITextField()
-//        searchBar.delegate = self
-//        searchBar.frame = CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: 30)
-//        searchBar.textAlignment = NSTextAlignment.Left
-//        searchBar.placeholder = "검색어를 입력하세요."
-//        searchBar.keyboardType = UIKeyboardType.WebSearch
-//        
-//        searchBar.keyboardAppearance = UIKeyboardAppearance.Dark
-//        
-//        userInfoView.addSubview(searchBar)
-//        
-//        let searchBarLine = UILabel()
-//        searchBarLine.frame = CGRect(x: 20, y: 50, width: view.bounds.width - 40, height: 1)
-//        searchBarLine.backgroundColor = UIColor.whiteColor()
-//        userInfoView.addSubview(searchBarLine)
-//        
-//        
-//        let searchButton = UIButton()
-//        searchButton.frame = CGRect(x: view.bounds.width-40, y: 25, width: 20, height: 20)
-//        searchButton.setBackgroundImage(UIImage(named: "SearchIcon"), forState: .Normal)
-//        searchButton.tintColor = UIColor.redColor()
-//        searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-//        
-//        searchButton.addTarget(self, action: #selector(searchSong), forControlEvents: .TouchUpInside)
-//        userInfoView.addSubview(searchButton)
-//        
-//        segmentedController.frame = CGRect(x: 0, y: 65, width: view.bounds.width, height: 30)
-//        segmentedController.tintColor = UIColor.whiteColor()
-//        
-//        segmentedController.layer.cornerRadius = 0
-//        segmentedController.layer.borderColor = UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1.0).CGColor
-//        segmentedController.layer.borderWidth = 2
-//        userInfoView.addSubview(segmentedController)
-//        
-//        return userInfoView
-//    }
-    
-    func segmentedControllerAction(segment: UISegmentedControl){
-        
-        searchType = segment.selectedSegmentIndex
-        self.tableView.reloadData()
-    }
-    
-    func searchSong(sender: UIButton!){
-        searchBar.endEditing(true)
-        
-        if(searchBar.text != ""){
-            let search_text_UTF8 = searchBar.text?.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+    func searchSong(searchText: String){
+        if(searchText != ""){
+            let search_text_UTF8 = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             
             let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
             let url = NSURL(string: urlStr)
-
+            
             
             let request: NSMutableURLRequest = NSMutableURLRequest()
             request.URL = NSURL(string: "\(urlStr)")
             request.HTTPMethod = "GET"
-
+            
             if let jsonData = NSData(contentsOfURL: url!) as NSData!{
                 searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
             }
@@ -210,18 +138,14 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if(searchResult != nil){
             if(searchType == 0){
-                segmentedController.selectedSegmentIndex == 0
                 return searchResult["title"].count
             }
             else if(searchType == 1){
-                segmentedController.selectedSegmentIndex == 1
                 return searchResult["artist"].count
             }
             else {
-                segmentedController.selectedSegmentIndex == 2
                 return searchResult["lyrics"].count
             }
         }
@@ -232,11 +156,11 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("SearchTableCell", forIndexPath: indexPath) as! SearchTableViewCell
         
         let row = indexPath.row
-
+        
         if(searchType == 0){
             cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
             cell.songNumberLabel.text = String(searchResult["title"][row]["song_tjnum"])
@@ -294,8 +218,8 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             
         }
         
-        segmentedController.selectedSegmentIndex == searchType
-    
+        //        segmentedController.selectedSegmentIndex == searchType
+        
         // Configure the cell...
         return cell
     }
@@ -310,6 +234,11 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(searchResult, row: row!, type: 2)
         }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     

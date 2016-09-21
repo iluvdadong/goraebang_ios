@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		490E5F5E1D915E0E009BA6A2 /* OnSearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */; };
+		490E5F621D916AA5009BA6A2 /* OnSearchContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490E5F611D916AA5009BA6A2 /* OnSearchContainerView.swift */; };
 		4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */; };
 		4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */; };
 		491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		490E5F5C1D91524D009BA6A2 /* Goraebang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goraebang-Bridging-Header.h"; sourceTree = "<group>"; };
 		490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSearchContainerViewController.swift; sourceTree = "<group>"; };
+		490E5F611D916AA5009BA6A2 /* OnSearchContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSearchContainerView.swift; sourceTree = "<group>"; };
 		4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewController.swift; sourceTree = "<group>"; };
 		4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewCell.swift; sourceTree = "<group>"; };
 		491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendTabController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				499318661D797BEA0047C8B1 /* SearchTableViewCell.swift */,
 				49D228731D8E93AF0036746A /* SearchContainerViewController.swift */,
 				490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */,
+				490E5F611D916AA5009BA6A2 /* OnSearchContainerView.swift */,
 			);
 			name = SearchController;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
 				49B862471D85479C00EBBE95 /* SettingViewController.swift in Sources */,
+				490E5F621D916AA5009BA6A2 /* OnSearchContainerView.swift in Sources */,
 				4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */,
 				492F62FB1D617F9100F270BA /* Song.swift in Sources */,
 				498E0D811D71598D00CCEFF1 /* GlobalSetting.swift in Sources */,
