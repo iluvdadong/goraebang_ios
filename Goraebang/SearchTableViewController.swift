@@ -21,23 +21,17 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
      View delegate Call
      */
     
-    func searchCall(n:NSNotification){
-        print("Success")
-        print("Here")
-        print("SEcond Succdeess")
-        
-        print(n.userInfo!["searchText"]!)
-        let searchText:String = String(n.userInfo!["searchText"]!)
-        searchSong(searchText)
-    }
-    
-    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     
     var searchResult:JSON!
     
     // Type 0: Title, Type 1: Artist, Type 2: Lyrics
     var searchType:Int!
+    
+    func searchCall(n:NSNotification){
+        let searchText:String = String(n.userInfo!["searchText"]!)
+        searchSong(searchText)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,7 +219,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowSongDetailFromSearch" {
+        if segue.identifier == "SongDetailFromTitleSearch" {
             let detailViewController =  segue.destinationViewController as! MyListDetailViewController
             
             let myIndexPath = self.tableView.indexPathForSelectedRow

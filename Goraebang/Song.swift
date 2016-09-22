@@ -1,4 +1,4 @@
-//
+    //
 //  Song.swift
 //  Goraebang
 //
@@ -40,7 +40,7 @@ class Song{
     // MARK: prepare detail view
     // type 0: Top100 Chart, type 1: MyList, type 2: Search, Type 3: Main Page
     func set(json: JSON, row: Int, type: Int){
-        if(type == 2){ // SearchResult인 경우
+        if(type == 2){ // SearchResult by title인 경우
             self.id = json["title"][row]["id"].int
             self.title = json["title"][row]["title"].string
             self.artist = json["title"][row]["artist_name"].string
@@ -54,6 +54,23 @@ class Song{
             self.song_tjnum = String(json["title"][row]["song_tjnum"].int!)
             self.albumWebViewString = json["title"][row]["jacket_middle"].string!
             self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["title"][row]["jacket"].string!)!))
+        }
+        else if(type == 4){ // Search By Artist 인 경우
+            self.id = json["artist"][row]["id"].int
+            self.title = json["artist"][row]["title"].string
+            self.artist = json["artist"][row]["artist_name"].string
+            self.genre1 = json["artist"][row]["genre1"].string
+            self.genre2 = json["artist"][row]["genre2"].string
+            self.highKey = json["artist"][row]["highKey"].string
+            self.lowKey = json["artist"][row]["lowKey"].string
+            
+            self.lyrics = json["artist"][row]["lyrics"].string
+            self.runtime = json["artist"][row]["runtime"].string
+            
+            
+            self.song_tjnum = String(json["artist"][row]["song_tjnum"].int!)
+            self.albumWebViewString = json["artist"][row]["jacket_middle"].string!
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["artist"][row]["jacket"].string!)!))
         }
         else if(type == 3){ // main page
 //            print("Hello")

@@ -14,8 +14,12 @@ import UIKit
 
 class OnSearchContainerViewController: UIViewController {
     
+    var searchTextFromPreviousPage:String!
     @IBOutlet weak var searchText: UITextField!
-    @IBOutlet weak var songTitleSearchContainer: UIView!
+    
+    @IBOutlet weak var titleSearchContainer: UIView!
+    
+    @IBOutlet weak var artistSearchContainer: UIView!
     
     //    weak var delegate: OnSearchContainerDelegate?
     //    var searchDelegate: SearchTableViewController?
@@ -30,14 +34,33 @@ class OnSearchContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OnSearchContainerViewController.call) , name: "com.sohn.specialNotificationKey"
-        //            , object: nil)
+        artistSearchContainer.hidden = true
         
-        //        searchDelegate = SearchTableViewController()
-        //        searchDelegate?.delegate = self
-        
-        // Do any additional setup after loading the view.
+        // 검색 페이지로 넘어 왔을 때 처음 검색을 위함
+        searchText.text = searchTextFromPreviousPage
+        searchFromPreviousPage()
     }
+    
+    @IBAction func songByTitleAction(sender: AnyObject) {
+        titleSearchContainer.hidden = false
+        artistSearchContainer.hidden = true
+    }
+    
+    @IBAction func songByArtistAction(sender: AnyObject) {
+        let realSearchText = ["searchText":searchText.text!]
+        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByArtistKey", object: self, userInfo: realSearchText)
+
+        titleSearchContainer.hidden = true
+        artistSearchContainer.hidden = false
+        
+    }
+    
+    
+    @IBAction func songByLyricsAction(sender: AnyObject) {
+    }
+    
+    
+
     
     func call(){
         print("Succcess")
@@ -48,11 +71,18 @@ class OnSearchContainerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func searchFromPreviousPage(){
+        print("검색어 전달받자")
+        
+        let searchTextParam = ["searchText":searchText.text!]
+        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
+    }
+    
     @IBAction func searchAction(sender: AnyObject) {
         print("Click Search")
         searchText.resignFirstResponder()
-        let serachText = ["searchText":searchText.text!]
-        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: serachText)
+        let searchTextParam = ["searchText":searchText.text!]
+        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
         
         //        print(searchDelegate?.searchBarHeight)
         //        searchDelegate?.call()

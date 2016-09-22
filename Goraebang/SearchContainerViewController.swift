@@ -10,24 +10,38 @@ import UIKit
 
 class SearchContainerViewController: UIViewController {
 
+    @IBOutlet weak var searchText: UITextField!
     
     @IBAction func searchAction(sender: AnyObject) {
         
         performSegueWithIdentifier("onSearch", sender: self)
+        
+        // 실제 검색 페이지로 이동할 때
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ok")
+        
         // Do any additional setup after loading the view.
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "onSearch"){
+            let OnSearchView = (segue.destinationViewController as! OnSearchContainerViewController)
+            print("지금 넘기려는 검색어는 \(searchText.text!)")
+            
+            OnSearchView.searchTextFromPreviousPage = searchText.text!
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 
     /*

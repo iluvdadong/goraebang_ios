@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		490E5F5E1D915E0E009BA6A2 /* OnSearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */; };
-		490E5F621D916AA5009BA6A2 /* OnSearchContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490E5F611D916AA5009BA6A2 /* OnSearchContainerView.swift */; };
 		4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */; };
 		4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */; };
 		491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */; };
@@ -31,6 +30,8 @@
 		49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */; };
 		49B862471D85479C00EBBE95 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B862461D85479C00EBBE95 /* SettingViewController.swift */; };
 		49B862491D857B0200EBBE95 /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B862481D857B0200EBBE95 /* MyListViewController.swift */; };
+		49C4879B1D94028400F3D46C /* SearchByArtistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4879A1D94028400F3D46C /* SearchByArtistTableViewController.swift */; };
+		49C4879D1D940BB500F3D46C /* SearchByArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4879C1D940BB500F3D46C /* SearchByArtistTableViewCell.swift */; };
 		49D228741D8E93AF0036746A /* SearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D228731D8E93AF0036746A /* SearchContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +51,6 @@
 /* Begin PBXFileReference section */
 		490E5F5C1D91524D009BA6A2 /* Goraebang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goraebang-Bridging-Header.h"; sourceTree = "<group>"; };
 		490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSearchContainerViewController.swift; sourceTree = "<group>"; };
-		490E5F611D916AA5009BA6A2 /* OnSearchContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSearchContainerView.swift; sourceTree = "<group>"; };
 		4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewController.swift; sourceTree = "<group>"; };
 		4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewCell.swift; sourceTree = "<group>"; };
 		491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendTabController.swift; sourceTree = "<group>"; };
@@ -75,6 +75,8 @@
 		49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListDetailViewController.swift; sourceTree = "<group>"; };
 		49B862461D85479C00EBBE95 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		49B862481D857B0200EBBE95 /* MyListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
+		49C4879A1D94028400F3D46C /* SearchByArtistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchByArtistTableViewController.swift; sourceTree = "<group>"; };
+		49C4879C1D940BB500F3D46C /* SearchByArtistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchByArtistTableViewCell.swift; sourceTree = "<group>"; };
 		49D228731D8E93AF0036746A /* SearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,7 +162,8 @@
 				499318661D797BEA0047C8B1 /* SearchTableViewCell.swift */,
 				49D228731D8E93AF0036746A /* SearchContainerViewController.swift */,
 				490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */,
-				490E5F611D916AA5009BA6A2 /* OnSearchContainerView.swift */,
+				49C4879A1D94028400F3D46C /* SearchByArtistTableViewController.swift */,
+				49C4879C1D940BB500F3D46C /* SearchByArtistTableViewCell.swift */,
 			);
 			name = SearchController;
 			sourceTree = "<group>";
@@ -291,11 +294,12 @@
 				49235DC21D843CC60063DE7D /* UserInfoGetter.swift in Sources */,
 				498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */,
 				499318671D797BEA0047C8B1 /* SearchTableViewCell.swift in Sources */,
+				49C4879D1D940BB500F3D46C /* SearchByArtistTableViewCell.swift in Sources */,
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
 				49B862471D85479C00EBBE95 /* SettingViewController.swift in Sources */,
-				490E5F621D916AA5009BA6A2 /* OnSearchContainerView.swift in Sources */,
 				4914EF3E1D5DE032007D150A /* HomeChartDetailTableViewCell.swift in Sources */,
+				49C4879B1D94028400F3D46C /* SearchByArtistTableViewController.swift in Sources */,
 				492F62FB1D617F9100F270BA /* Song.swift in Sources */,
 				498E0D811D71598D00CCEFF1 /* GlobalSetting.swift in Sources */,
 				4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */,

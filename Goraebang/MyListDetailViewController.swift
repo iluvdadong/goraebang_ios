@@ -104,6 +104,44 @@ class MyListDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    @IBAction func songAddAction(sender: AnyObject) {
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(songInfo.id)"
+        
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
+            
+            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+            print(result)
+            
+            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
+            if(result["message"] == "SUCCESS"){
+                alertWithWarningMessage("추가되었습니다")
+                
+                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
+                //                self.performSegueWithIdentifier("AddSong", sender: self)
+                
+            }
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+
+    }
+    
     func alertWithWarningMessage(message: String){
         let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
         

@@ -62,9 +62,10 @@ class SignupVC: UIViewController {
             alertView.show()
         } else {
             // MARK: 회원가입 성공
+            print("Sign up Success")
             let post:NSString = "user[email]=\(username)&user[name]=sohn&user[password]=\(password)&user[password_confirmation]=\(confirm_password)&user[gender]=0"
             
-            NSLog("PostData: %@", post)
+//            NSLog("PostData: %@", post)
             
             let url:NSURL = NSURL(string: "\(goraebang_url)/json/regist")!
             
@@ -79,7 +80,7 @@ class SignupVC: UIViewController {
             //            request.setValue("application/x-www-0form-urlencoded", forHTTPHeaderField: "Content-Type")
             //            request.setValue("application/json", forHTTPHeaderField: "Accept")
             
-            print(request)
+//            print(request)
             
             //            var responseError: NSError?
             //            var response: NSURLResponse?
@@ -90,20 +91,18 @@ class SignupVC: UIViewController {
                 // NSURLSession.DataTaskWithRequest 로 변경해야한다.
                 let signUpJsonData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
                 
-                print(response)
+//                print(response)
                 
                 let signUpResult = JSON(data: signUpJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
                 print(signUpResult)
                 if(signUpResult["result"].string! == "SUCCESS"){
-                    
                     let filemgr = NSFileManager.defaultManager()
                     
                     let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
                     
-                    let dataPath = documentPath.URLByAppendingPathComponent("data")
-                    let emailPath = dataPath!.URLByAppendingPathComponent("email.txt")
-                    let passwordPath = dataPath!.URLByAppendingPathComponent("password.txt")
-                    let tokenPath = dataPath!.URLByAppendingPathComponent("token.txt")
+                    let emailPath = documentPath.URLByAppendingPathComponent("email.txt")
+                    let passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
+                    let tokenPath = documentPath.URLByAppendingPathComponent("token.txt")
                     
                     if filemgr.fileExistsAtPath(emailPath!.path!){
                         // 이미 이메일 파일이 존재하는 경우 삭제
@@ -118,6 +117,7 @@ class SignupVC: UIViewController {
                         filemgr.createFileAtPath(emailPath!.path!, contents: nil, attributes: nil)
                     }
                     
+                    // 패스워드 파일이 존재하는지 확인 후 삭제 혹은 생성
                     if filemgr.fileExistsAtPath(passwordPath!.path!){
                         do{
                             try filemgr.removeItemAtPath(passwordPath!.path!)
@@ -130,6 +130,7 @@ class SignupVC: UIViewController {
                         filemgr.createFileAtPath(passwordPath!.path!, contents: nil, attributes: nil)
                     }
                     
+                    // 토큰 파일이 존재하는지 확인 후 삭제 그리고 생성
                     if filemgr.fileExistsAtPath(tokenPath!.path!){
                         do{
                             try filemgr.removeItemAtPath(tokenPath!.path!)
@@ -137,9 +138,7 @@ class SignupVC: UIViewController {
                             print("Error = \(error.debugDescription)")
                         }
                         filemgr.createFileAtPath(tokenPath!.path!, contents: nil, attributes: nil)
-                        
-                        // 이미 이메일 파일이 존재하는 경우 삭제
-                    } else { // 이메일 파일이 없는 경우, 생성하면서 파일 쓰기가 가능한지 확인**
+                    } else { // 토큰 파일이 없는 경우 (첫번 째 회원 가입인 경우 혹은 로그아웃 후 새로운 회원가입인 경우
                         filemgr.createFileAtPath(tokenPath!.path!, contents: nil, attributes: nil)
                     }
                     
@@ -178,6 +177,7 @@ class SignupVC: UIViewController {
                             file?.seekToFileOffset(0)
                             file?.writeData(data!)
                             file?.closeFile()
+                            print("회원가입으로 인한 토큰 생성 완료")
                             //                            print("file write complete")
                         }
                     }
