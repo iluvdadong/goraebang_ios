@@ -684,7 +684,7 @@
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="h3o-Mg-gIv" customClass="HomeChartDetailTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" id="JPY-Fc-hEh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.19215686269999999" green="0.1960784314" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.12156862745098039" green="0.13333333333333333" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -692,7 +692,7 @@
                         <color key="sectionIndexTrackingBackgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopChartTableCell" rowHeight="133" id="39f-9n-lV8" customClass="HomeChartDetailTableViewCell" customModule="Goraebang" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="375" height="133"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="133"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="39f-9n-lV8" id="UrI-zG-ve8">
                                     <frame key="frameInset" width="375" height="132"/>
@@ -2307,11 +2307,11 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x1i-ap-cUz" userLabel="Search Text Field">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="검색어를 입력하세요." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x1i-ap-cUz" userLabel="Search Text Field">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="W9g-bk-gvb"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -2341,11 +2341,20 @@
                                     <constraint firstItem="8ld-dL-O8t" firstAttribute="top" secondItem="wcb-Ig-59k" secondAttribute="top" constant="8" id="yyY-NE-1Fe"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0E-S4-6ZP">
+                                <connections>
+                                    <segue destination="h3o-Mg-gIv" kind="embed" id="Qdr-sD-sq7"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wcb-Ig-59k" firstAttribute="leading" secondItem="3gt-xf-oBR" secondAttribute="leading" id="F2m-zk-e1X"/>
+                            <constraint firstAttribute="trailing" secondItem="n0E-S4-6ZP" secondAttribute="trailing" id="L9m-xO-MZ6"/>
                             <constraint firstAttribute="trailing" secondItem="wcb-Ig-59k" secondAttribute="trailing" id="Met-8W-eiY"/>
+                            <constraint firstItem="n0E-S4-6ZP" firstAttribute="top" secondItem="wcb-Ig-59k" secondAttribute="bottom" id="Zw1-Eq-qpY"/>
+                            <constraint firstItem="Zo0-RK-yFx" firstAttribute="top" secondItem="n0E-S4-6ZP" secondAttribute="bottom" id="iho-Rr-YSJ"/>
+                            <constraint firstItem="n0E-S4-6ZP" firstAttribute="leading" secondItem="3gt-xf-oBR" secondAttribute="leading" id="lft-d9-D6c"/>
                             <constraint firstItem="wcb-Ig-59k" firstAttribute="top" secondItem="rfN-NJ-nXx" secondAttribute="bottom" id="sNc-bp-dJQ"/>
                         </constraints>
                     </view>
@@ -2357,7 +2366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q7l-xN-rQT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2931" y="-188"/>
+            <point key="canvasLocation" x="2930.4000000000001" y="-188.45577211394306"/>
         </scene>
         <!--On Search View Controller-->
         <scene sceneID="lea-9D-7QR">
@@ -2378,64 +2387,118 @@
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbl-ml-0lB" userLabel="Search View">
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RZ6-dG-rKQ" userLabel="Search UI View">
-                                        <frame key="frameInset" minX="8" minY="8" width="304" height="63"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZ6-dG-rKQ" userLabel="Search UI View">
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3Y-W2-Osk" userLabel="Search Button">
-                                                <frame key="frameInset" minX="271" minY="19" width="25" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyk-rW-K22" userLabel="Division Line">
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="ICK-eu-IIM"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="검색어를 입력하세요." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3mz-5x-fqX" userLabel="Search Text Field">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="ffy-i1-c0O"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3Y-W2-Osk" userLabel="Search Button">
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="a3Y-W2-Osk" secondAttribute="height" multiplier="1:1" id="SCl-NQ-u9p"/>
+                                                </constraints>
                                                 <state key="normal" image="SearchIcon"/>
                                                 <connections>
                                                     <action selector="searchAction:" destination="E7F-dw-rHe" eventType="touchUpInside" id="UIK-mk-bQN"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyk-rW-K22" userLabel="Division Line">
-                                                <frame key="frameInset" minX="8" minY="47.5" width="255" height="1"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3mz-5x-fqX" userLabel="Search Text Field">
-                                                <frame key="frameInset" minX="8" minY="17.5" width="255" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Jyk-rW-K22" firstAttribute="leading" secondItem="RZ6-dG-rKQ" secondAttribute="leading" constant="8" id="1eB-wf-CvA"/>
+                                            <constraint firstAttribute="height" constant="63" id="Vyz-jl-gHJ"/>
+                                            <constraint firstItem="3mz-5x-fqX" firstAttribute="top" secondItem="RZ6-dG-rKQ" secondAttribute="top" constant="18" id="YmX-gT-CdO"/>
+                                            <constraint firstItem="Jyk-rW-K22" firstAttribute="top" secondItem="3mz-5x-fqX" secondAttribute="bottom" id="bD2-vV-3d3"/>
+                                            <constraint firstAttribute="trailing" secondItem="Jyk-rW-K22" secondAttribute="trailing" constant="41" id="sf8-nP-JTI"/>
+                                            <constraint firstItem="a3Y-W2-Osk" firstAttribute="centerY" secondItem="RZ6-dG-rKQ" secondAttribute="centerY" id="trv-Rt-kNE"/>
+                                            <constraint firstItem="3mz-5x-fqX" firstAttribute="leading" secondItem="RZ6-dG-rKQ" secondAttribute="leading" constant="8" id="uUn-DB-muK"/>
+                                            <constraint firstAttribute="trailing" secondItem="a3Y-W2-Osk" secondAttribute="trailing" constant="8" id="uhX-Rr-BWm"/>
+                                            <constraint firstItem="a3Y-W2-Osk" firstAttribute="leading" secondItem="3mz-5x-fqX" secondAttribute="trailing" constant="8" id="zcb-1N-cLW"/>
+                                        </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="npK-8k-c6J">
-                                        <frame key="frameInset" minX="52" minY="70" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="제목"/>
-                                        <connections>
-                                            <action selector="songByTitleAction:" destination="E7F-dw-rHe" eventType="touchUpInside" id="El1-xO-5SD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVZ-dT-UWK">
-                                        <frame key="frameInset" minX="172" minY="70" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="가수"/>
-                                        <connections>
-                                            <action selector="songByArtistAction:" destination="E7F-dw-rHe" eventType="touchUpInside" id="4U3-8T-Hyh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHk-9W-rr0">
-                                        <frame key="frameInset" minX="305" minY="70" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="가사"/>
-                                        <connections>
-                                            <action selector="songByLyricsAction:" destination="E7F-dw-rHe" eventType="touchUpInside" id="ZX8-RV-KUx"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVg-DE-CgZ" userLabel="Button Container View">
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVZ-dT-UWK">
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="아티스트">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="songByArtistAction:" destination="E7F-dw-rHe" eventType="touchUpInside" id="4U3-8T-Hyh"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHk-9W-rr0">
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="가사">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="songByLyricsAction:" destination="E7F-dw-rHe" eventType="touchUpInside" id="ZX8-RV-KUx"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="npK-8k-c6J">
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="제목">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="songByTitleAction:" destination="E7F-dw-rHe" eventType="touchUpInside" id="El1-xO-5SD"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="vVZ-dT-UWK" firstAttribute="leading" secondItem="npK-8k-c6J" secondAttribute="trailing" id="3HA-th-0er"/>
+                                            <constraint firstItem="DHk-9W-rr0" firstAttribute="centerY" secondItem="IVg-DE-CgZ" secondAttribute="centerY" id="3U6-4L-H6F"/>
+                                            <constraint firstItem="DHk-9W-rr0" firstAttribute="leading" secondItem="vVZ-dT-UWK" secondAttribute="trailing" id="9Gi-ET-LMp"/>
+                                            <constraint firstAttribute="trailing" secondItem="DHk-9W-rr0" secondAttribute="trailing" id="AeA-ce-hJO"/>
+                                            <constraint firstItem="npK-8k-c6J" firstAttribute="centerY" secondItem="IVg-DE-CgZ" secondAttribute="centerY" id="P65-7a-bx8"/>
+                                            <constraint firstAttribute="trailing" secondItem="DHk-9W-rr0" secondAttribute="trailing" id="Ri8-Jg-wGf"/>
+                                            <constraint firstItem="vVZ-dT-UWK" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.34" id="SuV-ry-PFp"/>
+                                            <constraint firstItem="npK-8k-c6J" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.33" id="TYz-ia-Y6E"/>
+                                            <constraint firstAttribute="height" constant="32" id="dwI-4C-pGk"/>
+                                            <constraint firstItem="DHk-9W-rr0" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.33" id="guF-ou-PCd"/>
+                                            <constraint firstItem="vVZ-dT-UWK" firstAttribute="centerY" secondItem="IVg-DE-CgZ" secondAttribute="centerY" id="k2Z-FO-YuL"/>
+                                            <constraint firstItem="DHk-9W-rr0" firstAttribute="leading" secondItem="vVZ-dT-UWK" secondAttribute="trailing" id="qiE-CR-SUL"/>
+                                            <constraint firstItem="npK-8k-c6J" firstAttribute="leading" secondItem="IVg-DE-CgZ" secondAttribute="leading" id="xG3-qe-DUE"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOT-S1-PvY" userLabel="BottomLine">
+                                        <frame key="frameInset" minY="95" width="112" height="5"/>
+                                        <color key="backgroundColor" red="1" green="0.039215686274509803" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="5" id="Yat-v0-oYa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="RZ6-dG-rKQ" firstAttribute="centerX" secondItem="hbl-ml-0lB" secondAttribute="centerX" id="1ru-zf-lhg"/>
+                                    <constraint firstAttribute="bottom" secondItem="aOT-S1-PvY" secondAttribute="bottom" id="1xi-W9-1ya"/>
+                                    <constraint firstAttribute="trailing" secondItem="IVg-DE-CgZ" secondAttribute="trailing" id="AID-EU-nm8"/>
+                                    <constraint firstItem="RZ6-dG-rKQ" firstAttribute="top" secondItem="hbl-ml-0lB" secondAttribute="top" constant="8" id="HEy-6b-kNO"/>
+                                    <constraint firstItem="IVg-DE-CgZ" firstAttribute="leading" secondItem="hbl-ml-0lB" secondAttribute="leading" id="Onm-FI-TlL"/>
+                                    <constraint firstItem="RZ6-dG-rKQ" firstAttribute="leading" secondItem="hbl-ml-0lB" secondAttribute="leading" constant="8" id="P1I-cc-S96"/>
+                                    <constraint firstAttribute="trailing" secondItem="RZ6-dG-rKQ" secondAttribute="trailing" constant="8" id="Thf-QK-zez"/>
                                     <constraint firstAttribute="height" constant="100" id="y5M-c9-VR0"/>
+                                    <constraint firstItem="aOT-S1-PvY" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.33" id="z2H-Yf-Wic"/>
+                                    <constraint firstAttribute="bottom" secondItem="IVg-DE-CgZ" secondAttribute="bottom" id="zNR-k0-ED6"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3st-uh-YEU" userLabel="Song By Artist Search Container">
@@ -2470,9 +2533,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="검색 중" id="1XU-n3-VAo"/>
                     <connections>
+                        <outlet property="artistButton" destination="vVZ-dT-UWK" id="ZkK-7Q-dFq"/>
                         <outlet property="artistSearchContainer" destination="3st-uh-YEU" id="Agq-Hp-oOQ"/>
+                        <outlet property="currentLocationLine" destination="aOT-S1-PvY" id="miA-kw-YN6"/>
+                        <outlet property="lyricsButton" destination="DHk-9W-rr0" id="hOo-5C-VRD"/>
                         <outlet property="lyricsSearchContainer" destination="mcw-Y3-yux" id="jWI-yf-im4"/>
                         <outlet property="searchText" destination="3mz-5x-fqX" id="4jz-qA-mtl"/>
+                        <outlet property="titleButton" destination="npK-8k-c6J" id="LMS-fq-cGq"/>
                         <outlet property="titleSearchContainer" destination="GhI-hc-CPh" id="NlW-QD-cRD"/>
                     </connections>
                 </viewController>
@@ -2742,7 +2809,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WLY-Lx-zrr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.14509803921568626" green="0.14901960784313725" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="SearchByArtistTableCell" rowHeight="163" id="E0E-kA-bFH" customClass="SearchByArtistTableViewCell" customModule="Goraebang" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
@@ -2996,7 +3063,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QFq-ra-snK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.14509803921568626" green="0.14901960784313725" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="SearchByLyricsTableCell" rowHeight="163" id="PzC-aI-9u9" userLabel="SearchByLyricsTableCell" customClass="SearchByLyricsTableViewCell" customModule="Goraebang" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
@@ -3340,11 +3407,11 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Mg-nP-SbC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="SEARCH" image="SearchIcon" id="4Wv-4i-ERd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a9o-q1-UFk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a9o-q1-UFk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.8980392157" green="0.21960784310000001" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="0.039215686274509803" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -3365,6 +3432,7 @@
         <image name="logo2" width="1100" height="1100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Qdr-sD-sq7"/>
         <segue reference="Sxe-hl-Hzz"/>
     </inferredMetricsTieBreakers>
 </document>

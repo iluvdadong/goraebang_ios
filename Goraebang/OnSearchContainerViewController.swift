@@ -14,6 +14,10 @@ import UIKit
 
 class OnSearchContainerViewController: UIViewController {
     
+    @IBOutlet weak var lyricsButton: UIButton!
+    @IBOutlet weak var artistButton: UIButton!
+    @IBOutlet weak var titleButton: UIButton!
+    @IBOutlet weak var currentLocationLine: UILabel!
     var searchTextFromPreviousPage:String!
     
     // 현재 검색어를 저장해놓는다. 바뀌는 검색어와 비교하기 위해서
@@ -79,6 +83,7 @@ class OnSearchContainerViewController: UIViewController {
         // 현재 검색어를 저장
         currentSearchText = searchText.text!
         searchText.resignFirstResponder()
+        showByTitle()
         let searchTextParam = ["searchText":searchText.text!]
         NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
         
@@ -94,19 +99,32 @@ class OnSearchContainerViewController: UIViewController {
         titleSearchContainer.hidden = false
         artistSearchContainer.hidden = true
         lyricsSearchContainer.hidden = true
+        
+        let frm: CGRect = currentLocationLine.frame
+        let changedLoc: CGRect = titleButton.frame
+        currentLocationLine.frame = CGRect(x: changedLoc.minX, y: frm.minY, width: frm.size.width, height: frm.size.height)
     }
     
     func showByArtist(){
         titleSearchContainer.hidden = true
         artistSearchContainer.hidden = false
         lyricsSearchContainer.hidden = true
+        
+        let frm: CGRect = currentLocationLine.frame
+        let changedLoc: CGRect = artistButton.frame
+        currentLocationLine.frame = CGRect(x: changedLoc.minX, y: frm.minY, width: frm.size.width, height: frm.size.height)
     }
     
     func showByLyrics(){
         titleSearchContainer.hidden = true
         artistSearchContainer.hidden = true
         lyricsSearchContainer.hidden = false
+        
+        let frm: CGRect = currentLocationLine.frame
+        let changedLoc: CGRect = lyricsButton.frame
+        currentLocationLine.frame = CGRect(x: changedLoc.minX, y: frm.minY, width: frm.size.width, height: frm.size.height)
     }
+    
     
     /*
      // MARK: - Navigation
