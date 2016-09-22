@@ -72,6 +72,23 @@ class Song{
             self.albumWebViewString = json["artist"][row]["jacket_middle"].string!
             self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["artist"][row]["jacket"].string!)!))
         }
+        else if(type == 5){ // Search By Lyrics 인 경우
+            self.id = json["lyrics"][row]["id"].int
+            self.title = json["lyrics"][row]["title"].string
+            self.artist = json["lyrics"][row]["artist_name"].string
+            self.genre1 = json["lyrics"][row]["genre1"].string
+            self.genre2 = json["lyrics"][row]["genre2"].string
+            self.highKey = json["lyrics"][row]["highKey"].string
+            self.lowKey = json["lyrics"][row]["lowKey"].string
+            
+            self.lyrics = json["lyrics"][row]["lyrics"].string
+            self.runtime = json["lyrics"][row]["runtime"].string
+            
+            
+            self.song_tjnum = String(json["lyrics"][row]["song_tjnum"].int!)
+            self.albumWebViewString = json["lyrics"][row]["jacket_middle"].string!
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["lyrics"][row]["jacket"].string!)!))
+        }
         else if(type == 3){ // main page
 //            print("Hello")
             self.id = json[row]["id"].int
