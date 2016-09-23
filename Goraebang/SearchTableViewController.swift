@@ -110,7 +110,6 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
             let url = NSURL(string: urlStr)
             
-            
             let request: NSMutableURLRequest = NSMutableURLRequest()
             request.URL = NSURL(string: "\(urlStr)")
             request.HTTPMethod = "GET"

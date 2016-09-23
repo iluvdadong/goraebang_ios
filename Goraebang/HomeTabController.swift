@@ -5,6 +5,7 @@ import UIKit
 class HomeTabController: UIViewController, UIScrollViewDelegate {
     // width, 4inch :320, 4.7inch :375, 5.5inch: 414
 
+    var overlay:UIView!
     let goraebang_url = GlobalSetting.getGoraebangURL()
     // MARK: Variables
     var bottomContainerScrollView: UIScrollView!
@@ -76,9 +77,32 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
 
+//    override func viewWillAppear(animated: Bool) {
+//        // Alert View
+//        
+//        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .Alert)
+//        
+//        alert.view.tintColor = UIColor.blackColor()
+//        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
+//        loadingIndicator.hidesWhenStopped = true
+//        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//        loadingIndicator.startAnimating();
+//        
+//        alert.view.addSubview(loadingIndicator)
+//        presentViewController(alert, animated: true, completion: nil)
+//                dismissViewControllerAnimated(false, completion: nil)
+//    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if(overlay != nil){
+            overlay.removeFromSuperview()
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        overlay = UIView(frame: self.view.frame)
         
         setSize(view.bounds.width) // 초기설정
         
@@ -229,11 +253,11 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         makeAlbumPageControl()
         
-        // 인기차트와 신곡 사이 구분선
-        let bottomTopChartContainerDivisionLine = UILabel()
-        bottomTopChartContainerDivisionLine.frame = CGRect(x: 20, y: bottomTopChartHeight - 3, width: view.bounds.width-40, height: 1)
-        bottomTopChartContainerDivisionLine.backgroundColor = UIColor.darkGrayColor()
-        bottomTopChartContainer.addSubview(bottomTopChartContainerDivisionLine)
+//        // 인기차트와 신곡 사이 구분선
+//        let bottomTopChartContainerDivisionLine = UILabel()
+//        bottomTopChartContainerDivisionLine.frame = CGRect(x: 20, y: bottomTopChartHeight - 3, width: view.bounds.width-40, height: 1)
+//        bottomTopChartContainerDivisionLine.backgroundColor = UIColor.darkGrayColor()
+//        bottomTopChartContainer.addSubview(bottomTopChartContainerDivisionLine)
         
         bottomContainerScrollView.addSubview(bottomTopChartContainer)
     }
@@ -337,7 +361,26 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     
     
     func showTopDetailButtonAction(sender: UIButton!){
-        print("button tapped")
+//        print("button tapped")
+//        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .Alert)
+//        
+//        alert.view.tintColor = UIColor.blackColor()
+//        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
+//        loadingIndicator.hidesWhenStopped = true
+//        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//        loadingIndicator.startAnimating();
+//        
+//        alert.view.addSubview(loadingIndicator)
+//        presentViewController(alert, animated: true, completion: nil)
+        //                dismissViewControllerAnimated(false, completion: nil)
+
+//        overlay:UIView!
+        
+        // overlay 추가 로딩 애니메이션 추가
+        overlay = UIView(frame: self.view.frame)
+        overlay!.backgroundColor = UIColor.blackColor()
+        overlay!.alpha = 0.4
+        self.view.addSubview(overlay!)
         self.performSegueWithIdentifier("ShowChartDetail", sender: self)
     }
     

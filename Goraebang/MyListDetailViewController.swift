@@ -73,6 +73,14 @@ class MyListDetailViewController: UIViewController {
     
     @IBOutlet weak var lyricsTextView: UITextView!
     
+    override func viewDidDisappear(animated: Bool) {
+        // 탭 간 이동시에만 사라져야 한다.
+//        if(self.tabBarController?.selectedIndex != 0){
+//            self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popToRootViewControllerAnimated(true)
+//        }
+    }
+    
     // TextView 스크롤 가장 위에서 시작
     override func viewDidLayoutSubviews() {
         lyricsTextView.setContentOffset(CGPointZero, animated: false)

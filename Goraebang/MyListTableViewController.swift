@@ -22,6 +22,9 @@ class MyListTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         getMyList()
+        let songCount = ["count": myListSongs["song"].count]
+        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.myListSongCountKey", object: self, userInfo: songCount)
+        
         self.tableView.reloadData()
     }
     

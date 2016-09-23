@@ -59,9 +59,6 @@ class OnSearchContainerViewController: UIViewController {
         showByLyrics()
     }
     
-    
-
-    
     func call(){
         print("Succcess")
         print("Call Succces")

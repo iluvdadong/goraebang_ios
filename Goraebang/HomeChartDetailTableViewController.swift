@@ -16,6 +16,15 @@ class HomeChartDetailTableViewController: UITableViewController {
     var topChartReadableJSON: JSON!
     var userInfo: UserInfoGetter!
     
+    
+    // 푸시된 창에서 다른 탭으로 넘어갈 경우 사라지는 코드
+    override func viewDidDisappear(animated: Bool) {
+        // 탭 간 이동시에만 사라져야 한다.
+        if(self.tabBarController?.selectedIndex != 0){
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userInfo = UserInfoGetter()
@@ -30,6 +39,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         
         
         getTopChart()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
