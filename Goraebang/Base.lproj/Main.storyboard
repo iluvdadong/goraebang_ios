@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="28" width="383" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yjA-XN-NfQ" id="k4O-iq-Ftc">
-                                    <frame key="frameInset" width="383" height="163"/>
+                                    <frame key="frameInset" width="383" height="162.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhl-Te-U7c">
@@ -277,7 +277,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ygn-vF-WpQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="T0B-LT-aOn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AYp-QC-Od7">
@@ -458,12 +458,12 @@
         <!--고래방-->
         <scene sceneID="24r-1G-4op">
             <objects>
-                <viewController id="hRM-6O-OxK" customClass="HomeTabController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="hRM-6O-OxK" customClass="HomeTabController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Lk-zC-Xyd"/>
                         <viewControllerLayoutGuide type="bottom" id="IB7-4O-h6P"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vYz-5o-eVp">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" misplaced="YES" id="vYz-5o-eVp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.1764705882352941" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -705,7 +705,7 @@
             <objects>
                 <tableViewController id="h3o-Mg-gIv" customClass="HomeChartDetailTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" id="JPY-Fc-hEh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.19215686269999999" green="0.1960784314" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.12156862745098039" green="0.13333333333333333" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -713,10 +713,10 @@
                         <color key="sectionIndexTrackingBackgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopChartTableCell" rowHeight="133" id="39f-9n-lV8" customClass="HomeChartDetailTableViewCell" customModule="Goraebang" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="133"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="133"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="39f-9n-lV8" id="UrI-zG-ve8">
-                                    <frame key="frameInset" width="375" height="133"/>
+                                    <frame key="frameInset" width="375" height="132.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJr-8E-vld">
@@ -2224,7 +2224,7 @@
         <!--My Tab Bar Controller-->
         <scene sceneID="aYp-O1-jnE">
             <objects>
-                <tabBarController storyboardIdentifier="tabBarController" id="0gG-Eg-SQS" customClass="MyTabBarController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" automaticallyAdjustsScrollViewInsets="NO" id="0gG-Eg-SQS" customClass="MyTabBarController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Wf2-cj-S2V"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="jJn-uf-NE8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -2262,6 +2262,10 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="JBP-gm-J2K">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="hRM-6O-OxK" kind="relationship" relationship="rootViewController" id="OIB-45-MGE"/>
                     </connections>
@@ -2627,7 +2631,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WhH-kb-ZnU" id="1DV-4M-uuk">
-                                    <frame key="frameInset" width="375" height="163"/>
+                                    <frame key="frameInset" width="375" height="162.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2J-jA-0B7">
@@ -2881,7 +2885,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E0E-kA-bFH" id="0RW-YV-Lz4">
-                                    <frame key="frameInset" width="375" height="163"/>
+                                    <frame key="frameInset" width="375" height="162.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="you-Wh-Y4Q">
@@ -3135,7 +3139,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PzC-aI-9u9" id="THk-yE-Lve">
-                                    <frame key="frameInset" width="375" height="163"/>
+                                    <frame key="frameInset" width="375" height="162.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDg-nr-iKH">
@@ -3501,7 +3505,7 @@
         <image name="logo2" width="1100" height="1100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="mgl-ra-ofF"/>
         <segue reference="Vhg-f1-jZU"/>
-        <segue reference="R9v-AN-emc"/>
     </inferredMetricsTieBreakers>
 </document>

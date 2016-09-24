@@ -93,6 +93,32 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
 //                dismissViewControllerAnimated(false, completion: nil)
 //    }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if(scrollView == self.bottomContainerScrollView){
+            
+            // 
+//            let currentY:CGFloat = 120
+            let nextY:CGFloat = 184 - scrollView.contentOffset.y*0.5
+            // 기존의 높이는 전 체 높이 - 내비바64 - 상단 이미지120 - 탭바30
+            let originHeight:CGFloat = view.bounds.height - 214
+            let nextHeight:CGFloat = originHeight + scrollView.contentOffset.y*0.5
+//            print("현재 위치는 \(scrollView.contentOffset.y)")
+//            print("bottomTopChartContainer 위치 \(bottomTopChartContainer.frame.minY) \(bottomTopChartContainer.bounds.height)")
+//            bottomTopChartContainer
+//            let bottomTopChartContainer
+//            let maxReduce = homeTopBackgroundImageView.frame.height // 최대로 올라갈 수 있는 사이즈
+            if(nextY >= 64){
+                scrollView.frame = CGRect(x: scrollView.frame.minX, y: nextY, width: scrollView.bounds.width, height: nextHeight)
+                scrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight+600)
+                homeTopBackgroundImageView.alpha = nextY/184
+            }
+            else if(nextY > 50){
+                scrollView.frame = CGRect(x: scrollView.frame.minX, y: 64, width: scrollView.bounds.width, height: nextHeight)
+            }
+        }
+    }
+    
+    
     override func viewDidAppear(animated: Bool) {
         if(overlay != nil){
             overlay.removeFromSuperview()
@@ -101,6 +127,8 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
 
 //        overlay = UIView(frame: self.view.frame)
         
@@ -200,20 +228,29 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         bottomContainerScrollView = UIScrollView(frame: CGRectMake(0, bottomContainerStartingYPoint, view.bounds.width, bottomContainerHeight))
         bottomContainerScrollView.showsHorizontalScrollIndicator = true
         bottomContainerScrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
-        
+        bottomContainerScrollView.delegate = self
+        bottomContainerScrollView.backgroundColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 1.0)
+//        bottomContainerScrollView.translatesAutoresizingMaskIntoConstraints = false
         // MARK: 고래방 TOP 100 차트 타이틀 라벨
         makeTopChartContainer()
         makeNewSongContainer()
         
+        homeTopBackgroundImageView.layer.zPosition = 1
+        bottomContainerScrollView.layer.zPosition = 2
         view.addSubview(bottomContainerScrollView)
+//        view.bringSubviewToFront(bottomContainerScrollView)
     }
     
     func makeTopChartContainer(){
         bottomTopChartContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: bottomTopChartHeight))
-        //        bottomTopChartContainer.backgroundColor = UIColor.darkGrayColor()
+//                bottomTopChartContainer.backgroundColor = UIColor.darkGrayColor()
+//        bottomTopChartContainer.autoresizesSubviews = true
         
         // 고래방 TOP 라벨 앞에 선을 UILabel로 추가한다.
         let preChartLabel = UILabel()
+//        preChartLabel.clipsToBounds = true
+//        preChartLabel.translatesAutoresizingMaskIntoConstraints = false
+//        preChartLabel.allowsDefaultTighteningForTruncation = false
         preChartLabel.frame = CGRect(x: 20, y: 15, width: 5, height: 20)
         preChartLabel.backgroundColor = UIColor(red: 232/255, green: 56/255, blue: 61/255, alpha: 1.0)
         bottomTopChartContainer.addSubview(preChartLabel)
@@ -438,6 +475,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             // MARK: 노래 제목과, 아티스트명을 담을 UIView
             viewForAlbumTitle = UIView(frame: CGRect(x: 0, y: viewForAlbumTitleStartingYPoint, width:albumSizeForVariousPhoneWidth, height: 40))
             viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 0.85)
+            
             albumWebView.addSubview(viewForAlbumTitle)
             
             // MARK : 노래제목 라벨 추가(textView를 이용하면 Inset 넣을 수 있는지 확인)

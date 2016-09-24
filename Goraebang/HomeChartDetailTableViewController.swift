@@ -15,19 +15,25 @@ class HomeChartDetailTableViewController: UITableViewController {
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
     var userInfo: UserInfoGetter!
-    
+    var currentTabIndex:Int!
     
     // 푸시된 창에서 다른 탭으로 넘어갈 경우 사라지는 코드
     override func viewDidDisappear(animated: Bool) {
         // 탭 간 이동시에만 사라져야 한다.
-        if(self.tabBarController?.selectedIndex != 0){
+        if(currentTabIndex != self.tabBarController?.selectedIndex){
             self.navigationController?.popViewControllerAnimated(true)
         }
+        
+        self.tabBarController?.selectedIndex
+    }
+    override func viewDidAppear(animated: Bool) {
+        currentTabIndex = self.tabBarController?.selectedIndex
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         userInfo = UserInfoGetter()
+        currentTabIndex = self.tabBarController?.selectedIndex
         
         if(self.view.bounds.width == 320){
             tableView.rowHeight = 100.0
