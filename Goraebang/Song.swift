@@ -41,53 +41,53 @@ class Song{
     // type 0: Top100 Chart, type 1: MyList, type 2: Search, Type 3: Main Page
     func set(json: JSON, row: Int, type: Int){
         if(type == 2){ // SearchResult by title인 경우
-            self.id = json["title"][row]["id"].int
-            self.title = json["title"][row]["title"].string
-            self.artist = json["title"][row]["artist_name"].string
-            self.genre1 = json["title"][row]["genre1"].string
-            self.genre2 = json["title"][row]["genre2"].string
-            self.highKey = json["title"][row]["highKey"].string
-            self.lowKey = json["title"][row]["lowKey"].string
-            self.lyrics = json["title"][row]["lyrics"].string
-            self.runtime = json["title"][row]["runtime"].string
+            self.id = json[row]["id"].int
+            self.title = json[row]["title"].string
+            self.artist = json[row]["artist_name"].string
+            self.genre1 = json[row]["genre1"].string
+            self.genre2 = json[row]["genre2"].string
+            self.highKey = json[row]["highKey"].string
+            self.lowKey = json[row]["lowKey"].string
+            self.lyrics = json[row]["lyrics"].string
+            self.runtime = json[row]["runtime"].string
             
-            self.song_tjnum = String(json["title"][row]["song_tjnum"].int!)
-            self.albumWebViewString = json["title"][row]["jacket_middle"].string!
-            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["title"][row]["jacket"].string!)!))
+            self.song_tjnum = String(json[row]["song_tjnum"].int!)
+            self.albumWebViewString = json[row]["jacket_middle"].string!
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket"].string!)!))
         }
         else if(type == 4){ // Search By Artist 인 경우
-            self.id = json["artist"][row]["id"].int
-            self.title = json["artist"][row]["title"].string
-            self.artist = json["artist"][row]["artist_name"].string
-            self.genre1 = json["artist"][row]["genre1"].string
-            self.genre2 = json["artist"][row]["genre2"].string
-            self.highKey = json["artist"][row]["highKey"].string
-            self.lowKey = json["artist"][row]["lowKey"].string
+            self.id = json[row]["id"].int
+            self.title = json[row]["title"].string
+            self.artist = json[row]["artist_name"].string
+            self.genre1 = json[row]["genre1"].string
+            self.genre2 = json[row]["genre2"].string
+            self.highKey = json[row]["highKey"].string
+            self.lowKey = json[row]["lowKey"].string
             
-            self.lyrics = json["artist"][row]["lyrics"].string
-            self.runtime = json["artist"][row]["runtime"].string
+            self.lyrics = json[row]["lyrics"].string
+            self.runtime = json[row]["runtime"].string
             
             
-            self.song_tjnum = String(json["artist"][row]["song_tjnum"].int!)
-            self.albumWebViewString = json["artist"][row]["jacket_middle"].string!
-            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["artist"][row]["jacket"].string!)!))
+            self.song_tjnum = String(json[row]["song_tjnum"].int!)
+            self.albumWebViewString = json[row]["jacket_middle"].string!
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket"].string!)!))
         }
         else if(type == 5){ // Search By Lyrics 인 경우
-            self.id = json["lyrics"][row]["id"].int
-            self.title = json["lyrics"][row]["title"].string
-            self.artist = json["lyrics"][row]["artist_name"].string
-            self.genre1 = json["lyrics"][row]["genre1"].string
-            self.genre2 = json["lyrics"][row]["genre2"].string
-            self.highKey = json["lyrics"][row]["highKey"].string
-            self.lowKey = json["lyrics"][row]["lowKey"].string
+            self.id = json[row]["id"].int
+            self.title = json[row]["title"].string
+            self.artist = json[row]["artist_name"].string
+            self.genre1 = json[row]["genre1"].string
+            self.genre2 = json[row]["genre2"].string
+            self.highKey = json[row]["highKey"].string
+            self.lowKey = json[row]["lowKey"].string
             
-            self.lyrics = json["lyrics"][row]["lyrics"].string
-            self.runtime = json["lyrics"][row]["runtime"].string
+            self.lyrics = json[row]["lyrics"].string
+            self.runtime = json[row]["runtime"].string
             
             
-            self.song_tjnum = String(json["lyrics"][row]["song_tjnum"].int!)
-            self.albumWebViewString = json["lyrics"][row]["jacket_middle"].string!
-            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json["lyrics"][row]["jacket"].string!)!))
+            self.song_tjnum = String(json[row]["song_tjnum"].int!)
+            self.albumWebViewString = json[row]["jacket_middle"].string!
+            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket"].string!)!))
         }
         else if(type == 3){ // main page
 //            print("Hello")

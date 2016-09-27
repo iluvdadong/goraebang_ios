@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class MyListTableViewController: UITableViewController {
     
     let goraebang_url = GlobalSetting.getGoraebangURL()

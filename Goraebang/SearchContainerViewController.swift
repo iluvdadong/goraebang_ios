@@ -8,9 +8,13 @@
 
 import UIKit
 
-class SearchContainerViewController: UIViewController {
+class SearchContainerViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var searchText: UITextField!
+    
+    @IBOutlet weak var topChartContainerView: UIView!
+    
+    var overlayView:UIView!
     
     @IBAction func searchAction(sender: AnyObject) {
         
@@ -19,10 +23,37 @@ class SearchContainerViewController: UIViewController {
         // 실제 검색 페이지로 이동할 때
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        searchText.resignFirstResponder()
+        performSegueWithIdentifier("onSearch", sender: self)
+        return true
+    }
+    
+    // 검색 시작 시 액션
+    @IBAction func searchEditingBegin(sender: AnyObject) {
+        // 테이블 뷰 위에 덮어씌울 뷰 생성
+        overlayView = UIView()
+        overlayView.frame = CGRect(x: 0, y: 0, width: topChartContainerView.bounds.width, height: topChartContainerView.bounds.height)
+        overlayView.backgroundColor = UIColor.blackColor() // 투명하게 하고
+        overlayView.alpha = 0.2
+        topChartContainerView.addSubview(overlayView)
+    }
+    @IBAction func searchEditingDidEnd(sender: AnyObject) {
+        overlayView.removeFromSuperview()
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        searchText.endEditing(true)
+        
+    }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchText.delegate = self
         // Do any additional setup after loading the view.
     }
 

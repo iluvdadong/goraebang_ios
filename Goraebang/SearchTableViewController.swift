@@ -107,7 +107,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         if(searchText != ""){
             let search_text_UTF8 = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             
-            let urlStr = "\(goraebang_url)/json/search?query=\(search_text_UTF8!)"
+            let urlStr = "\(goraebang_url)/json/search_by_title?query=\(search_text_UTF8!)"
             let url = NSURL(string: urlStr)
             
             let request: NSMutableURLRequest = NSMutableURLRequest()
@@ -132,15 +132,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(searchResult != nil){
-            if(searchType == 0){
-                return searchResult["title"].count
-            }
-            else if(searchType == 1){
-                return searchResult["artist"].count
-            }
-            else {
-                return searchResult["lyrics"].count
-            }
+            return searchResult.count
         }
         else {
             return 0
@@ -156,17 +148,17 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         
         if(searchType == 0){
             cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
-            cell.songNumberLabel.text = String(searchResult["title"][row]["song_tjnum"])
+            cell.songNumberLabel.text = String(searchResult[row]["song_tjnum"])
             //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
             cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
-            cell.songTitleLabel.text = searchResult["title"][row]["title"].string
+            cell.songTitleLabel.text = searchResult[row]["title"].string
             //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
             cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
             //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
-            cell.songArtistLabel.text = searchResult["title"][row]["artist_name"].string
+            cell.songArtistLabel.text = searchResult[row]["artist_name"].string
             
-            if(searchResult["title"][row]["jacket_small"].string != nil){
-                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["title"][row]["jacket_small"].string!)!))
+            if(searchResult[row]["jacket_small"].string != nil){
+                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult[row]["jacket_small"].string!)!))
             }
             cell.songImageWebView.scalesPageToFit = true
             cell.songImageWebView.userInteractionEnabled = false

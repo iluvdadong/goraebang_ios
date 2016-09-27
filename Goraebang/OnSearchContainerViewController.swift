@@ -12,7 +12,7 @@ import UIKit
 //    func SearchImplemented()
 //}
 
-class OnSearchContainerViewController: UIViewController {
+class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var lyricsButton: UIButton!
     @IBOutlet weak var artistButton: UIButton!
@@ -22,15 +22,25 @@ class OnSearchContainerViewController: UIViewController {
     
     // 현재 검색어를 저장해놓는다. 바뀌는 검색어와 비교하기 위해서
     var currentSearchText:String!
+    var currentTitleSearchText:String!
+    var currentArtistSearchText:String!
+    var currentLyricsSearchText:String!
+    
     @IBOutlet weak var searchText: UITextField!
     
     @IBOutlet weak var titleSearchContainer: UIView!
     @IBOutlet weak var artistSearchContainer: UIView!
     @IBOutlet weak var lyricsSearchContainer: UIView!
     
+    var overlayView:UIView!
+    var currentPage:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentPage = 0
+        
+        searchText.delegate = self
+        
         artistSearchContainer.hidden = true
         lyricsSearchContainer.hidden = true
         // 검색 페이지로 넘어 왔을 때 처음 검색을 위함
@@ -40,22 +50,66 @@ class OnSearchContainerViewController: UIViewController {
         searchFromPreviousPage()
     }
     
+    // 리턴 키로 검색했을 때
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        currentSearchText = searchText.text!
+        searchText.resignFirstResponder()
+        showByTitle()
+        let searchTextParam = ["searchText":searchText.text!]
+        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
+        
+        return true
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        searchText.endEditing(true)
+        
+    }
+    
+    @IBAction func searchEditingBegin(sender: AnyObject) {
+        // 테이블 뷰 위에 덮어씌울 뷰 생성
+        overlayView = UIView()
+        overlayView.frame = CGRect(x: 0, y: 0, width: titleSearchContainer.bounds.width, height: titleSearchContainer.bounds.height)
+        overlayView.backgroundColor = UIColor.blackColor() // 투명하게 하고
+        overlayView.alpha = 0.2
+        if currentPage == 0 {
+            titleSearchContainer.addSubview(overlayView)
+        } else if currentPage == 1{
+            artistSearchContainer.addSubview(overlayView)
+        } else {
+            lyricsSearchContainer.addSubview(overlayView)
+        }
+    }
+    
+    @IBAction func searchEditingDidEnd(sender: AnyObject) {
+        overlayView.removeFromSuperview()
+    }
+    
+    
+    
+    
     @IBAction func songByTitleAction(sender: AnyObject) {
         showByTitle()
     }
     
     @IBAction func songByArtistAction(sender: AnyObject) {
-        let realSearchText = ["searchText":currentSearchText]
-        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByArtistKey", object: self, userInfo: realSearchText)
-
+        if currentSearchText != currentArtistSearchText{
+            let realSearchText = ["searchText":currentSearchText]
+            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByArtistKey", object: self, userInfo: realSearchText)
+        }
+        currentArtistSearchText = currentSearchText
         showByArtist()
     }
     
     
     @IBAction func songByLyricsAction(sender: AnyObject) {
-        let realSearchText = ["searchText":currentSearchText]
-        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByLyricsKey", object: self, userInfo: realSearchText)
-
+        if currentSearchText != currentLyricsSearchText {
+            let realSearchText = ["searchText":currentSearchText]
+            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByLyricsKey", object: self, userInfo: realSearchText)
+            
+            
+        }
+        currentLyricsSearchText = currentSearchText
         showByLyrics()
     }
     
@@ -97,6 +151,7 @@ class OnSearchContainerViewController: UIViewController {
         artistSearchContainer.hidden = true
         lyricsSearchContainer.hidden = true
         
+        currentPage = 0
         let frm: CGRect = currentLocationLine.frame
         let changedLoc: CGRect = titleButton.frame
         currentLocationLine.frame = CGRect(x: changedLoc.minX, y: frm.minY, width: frm.size.width, height: frm.size.height)
@@ -106,6 +161,7 @@ class OnSearchContainerViewController: UIViewController {
         titleSearchContainer.hidden = true
         artistSearchContainer.hidden = false
         lyricsSearchContainer.hidden = true
+        currentPage = 1
         
         let frm: CGRect = currentLocationLine.frame
         let changedLoc: CGRect = artistButton.frame
@@ -113,6 +169,7 @@ class OnSearchContainerViewController: UIViewController {
     }
     
     func showByLyrics(){
+        currentPage = 2
         titleSearchContainer.hidden = true
         artistSearchContainer.hidden = true
         lyricsSearchContainer.hidden = false

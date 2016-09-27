@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="28" width="383" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yjA-XN-NfQ" id="k4O-iq-Ftc">
-                                    <frame key="frameInset" width="383" height="162.5"/>
+                                    <frame key="frameInset" width="383" height="163"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhl-Te-U7c">
@@ -277,7 +277,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ygn-vF-WpQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="T0B-LT-aOn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AYp-QC-Od7">
@@ -463,7 +463,7 @@
                         <viewControllerLayoutGuide type="top" id="6Lk-zC-Xyd"/>
                         <viewControllerLayoutGuide type="bottom" id="IB7-4O-h6P"/>
                     </layoutGuides>
-                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" misplaced="YES" id="vYz-5o-eVp">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="vYz-5o-eVp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.1764705882352941" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -705,7 +705,7 @@
             <objects>
                 <tableViewController id="h3o-Mg-gIv" customClass="HomeChartDetailTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" id="JPY-Fc-hEh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.19215686269999999" green="0.1960784314" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.12156862745098039" green="0.13333333333333333" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -713,10 +713,10 @@
                         <color key="sectionIndexTrackingBackgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopChartTableCell" rowHeight="133" id="39f-9n-lV8" customClass="HomeChartDetailTableViewCell" customModule="Goraebang" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="375" height="133"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="133"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="39f-9n-lV8" id="UrI-zG-ve8">
-                                    <frame key="frameInset" width="375" height="132.5"/>
+                                    <frame key="frameInset" width="375" height="133"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJr-8E-vld">
@@ -2250,7 +2250,7 @@
                 <navigationController storyboardIdentifier="HomeTab" automaticallyAdjustsScrollViewInsets="NO" id="T8K-8X-hJe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="HOME" image="HomeIcon" id="sdO-Vt-y4a"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t24-1j-tDE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="t24-1j-tDE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2338,22 +2338,26 @@
                                                 </constraints>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert"/>
+                                                <connections>
+                                                    <action selector="searchEditingBegin:" destination="a9i-Mr-01S" eventType="editingDidBegin" id="94G-iA-dAI"/>
+                                                    <action selector="searchEditingDidEnd:" destination="a9i-Mr-01S" eventType="editingDidEnd" id="O3j-bC-7tj"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="x1i-ap-cUz" firstAttribute="centerY" secondItem="8ld-dL-O8t" secondAttribute="centerY" id="1FU-Z5-Q6y"/>
                                             <constraint firstAttribute="trailing" secondItem="Fa0-1w-dZp" secondAttribute="trailing" constant="8" id="3eg-CS-hbm"/>
-                                            <constraint firstAttribute="height" constant="63" id="6Jf-Fg-FEQ"/>
-                                            <constraint firstAttribute="trailing" secondItem="v5u-Fi-5eQ" secondAttribute="trailing" constant="41" id="BTn-gt-kiV"/>
+                                            <constraint firstAttribute="height" constant="50" id="6Jf-Fg-FEQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="v5u-Fi-5eQ" secondAttribute="trailing" constant="8" id="BTn-gt-kiV"/>
+                                            <constraint firstItem="Fa0-1w-dZp" firstAttribute="top" secondItem="8ld-dL-O8t" secondAttribute="top" constant="12.5" id="Evb-yj-Pkj"/>
                                             <constraint firstItem="v5u-Fi-5eQ" firstAttribute="top" secondItem="x1i-ap-cUz" secondAttribute="bottom" constant="1" id="FK7-co-BsO"/>
                                             <constraint firstItem="Fa0-1w-dZp" firstAttribute="leading" secondItem="x1i-ap-cUz" secondAttribute="trailing" constant="8" id="Mdd-V8-eHW"/>
                                             <constraint firstItem="v5u-Fi-5eQ" firstAttribute="leading" secondItem="8ld-dL-O8t" secondAttribute="leading" constant="8" id="dSx-rQ-VVJ"/>
-                                            <constraint firstItem="Fa0-1w-dZp" firstAttribute="top" secondItem="8ld-dL-O8t" secondAttribute="top" constant="19" id="eYz-tG-O7N"/>
-                                            <constraint firstAttribute="bottom" secondItem="Fa0-1w-dZp" secondAttribute="bottom" constant="19" id="hWH-n9-29B"/>
                                             <constraint firstItem="x1i-ap-cUz" firstAttribute="leading" secondItem="8ld-dL-O8t" secondAttribute="leading" constant="8" id="iMI-o5-7xm"/>
                                             <constraint firstItem="Fa0-1w-dZp" firstAttribute="centerY" secondItem="8ld-dL-O8t" secondAttribute="centerY" id="k83-fT-xby"/>
+                                            <constraint firstAttribute="bottom" secondItem="Fa0-1w-dZp" secondAttribute="bottom" constant="12.5" id="y3O-TP-ptz"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUv-pf-W1v" userLabel="Top Chart Title">
@@ -2398,6 +2402,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="EUv-pf-W1v" firstAttribute="top" secondItem="8ld-dL-O8t" secondAttribute="bottom" constant="8" id="9xf-GE-3wj"/>
                                     <constraint firstAttribute="bottom" secondItem="EUv-pf-W1v" secondAttribute="bottom" id="Bac-sG-dXK"/>
                                     <constraint firstItem="3cp-X5-7wf" firstAttribute="leading" secondItem="wcb-Ig-59k" secondAttribute="leading" id="D5m-Sl-1re"/>
                                     <constraint firstItem="8ld-dL-O8t" firstAttribute="leading" secondItem="wcb-Ig-59k" secondAttribute="leading" constant="8" id="F3S-pn-9i7"/>
@@ -2431,6 +2436,7 @@
                     <navigationItem key="navigationItem" title="검색" id="Ekw-mc-RB0"/>
                     <connections>
                         <outlet property="searchText" destination="x1i-ap-cUz" id="C6Y-tW-w0w"/>
+                        <outlet property="topChartContainerView" destination="n0E-S4-6ZP" id="zoe-Su-NQ4"/>
                         <segue destination="E7F-dw-rHe" kind="show" identifier="onSearch" id="AB0-bw-CQv"/>
                     </connections>
                 </viewController>
@@ -2474,7 +2480,11 @@
                                                 </constraints>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert"/>
+                                                <connections>
+                                                    <action selector="searchEditingBegin:" destination="E7F-dw-rHe" eventType="editingDidBegin" id="hhF-4P-i3V"/>
+                                                    <action selector="searchEditingDidEnd:" destination="E7F-dw-rHe" eventType="editingDidEnd" id="7fM-vE-Yus"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3Y-W2-Osk" userLabel="Search Button">
                                                 <constraints>
@@ -2492,7 +2502,7 @@
                                             <constraint firstAttribute="height" constant="63" id="Vyz-jl-gHJ"/>
                                             <constraint firstItem="3mz-5x-fqX" firstAttribute="top" secondItem="RZ6-dG-rKQ" secondAttribute="top" constant="18" id="YmX-gT-CdO"/>
                                             <constraint firstItem="Jyk-rW-K22" firstAttribute="top" secondItem="3mz-5x-fqX" secondAttribute="bottom" id="bD2-vV-3d3"/>
-                                            <constraint firstAttribute="trailing" secondItem="Jyk-rW-K22" secondAttribute="trailing" constant="41" id="sf8-nP-JTI"/>
+                                            <constraint firstAttribute="trailing" secondItem="Jyk-rW-K22" secondAttribute="trailing" constant="8" id="sf8-nP-JTI"/>
                                             <constraint firstItem="a3Y-W2-Osk" firstAttribute="centerY" secondItem="RZ6-dG-rKQ" secondAttribute="centerY" id="trv-Rt-kNE"/>
                                             <constraint firstItem="3mz-5x-fqX" firstAttribute="leading" secondItem="RZ6-dG-rKQ" secondAttribute="leading" constant="8" id="uUn-DB-muK"/>
                                             <constraint firstAttribute="trailing" secondItem="a3Y-W2-Osk" secondAttribute="trailing" constant="8" id="uhX-Rr-BWm"/>
@@ -2539,7 +2549,7 @@
                                             <constraint firstAttribute="trailing" secondItem="DHk-9W-rr0" secondAttribute="trailing" id="Ri8-Jg-wGf"/>
                                             <constraint firstItem="vVZ-dT-UWK" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.34" id="SuV-ry-PFp"/>
                                             <constraint firstItem="npK-8k-c6J" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.33" id="TYz-ia-Y6E"/>
-                                            <constraint firstAttribute="height" constant="32" id="dwI-4C-pGk"/>
+                                            <constraint firstAttribute="height" constant="40" id="dwI-4C-pGk"/>
                                             <constraint firstItem="DHk-9W-rr0" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.33" id="guF-ou-PCd"/>
                                             <constraint firstItem="vVZ-dT-UWK" firstAttribute="centerY" secondItem="IVg-DE-CgZ" secondAttribute="centerY" id="k2Z-FO-YuL"/>
                                             <constraint firstItem="DHk-9W-rr0" firstAttribute="leading" secondItem="vVZ-dT-UWK" secondAttribute="trailing" id="qiE-CR-SUL"/>
@@ -2547,7 +2557,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOT-S1-PvY" userLabel="BottomLine">
-                                        <frame key="frameInset" minY="95" width="112" height="5"/>
+                                        <frame key="frameInset" minY="105" width="112" height="5"/>
                                         <color key="backgroundColor" red="1" green="0.039215686274509803" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="5" id="Yat-v0-oYa"/>
@@ -2566,7 +2576,7 @@
                                     <constraint firstItem="IVg-DE-CgZ" firstAttribute="leading" secondItem="hbl-ml-0lB" secondAttribute="leading" id="Onm-FI-TlL"/>
                                     <constraint firstItem="RZ6-dG-rKQ" firstAttribute="leading" secondItem="hbl-ml-0lB" secondAttribute="leading" constant="8" id="P1I-cc-S96"/>
                                     <constraint firstAttribute="trailing" secondItem="RZ6-dG-rKQ" secondAttribute="trailing" constant="8" id="Thf-QK-zez"/>
-                                    <constraint firstAttribute="height" constant="100" id="y5M-c9-VR0"/>
+                                    <constraint firstAttribute="height" constant="110" id="y5M-c9-VR0"/>
                                     <constraint firstItem="aOT-S1-PvY" firstAttribute="width" secondItem="IVg-DE-CgZ" secondAttribute="width" multiplier="0.33" id="z2H-Yf-Wic"/>
                                     <constraint firstAttribute="bottom" secondItem="IVg-DE-CgZ" secondAttribute="bottom" id="zNR-k0-ED6"/>
                                 </constraints>
@@ -2621,17 +2631,18 @@
         <scene sceneID="svu-9H-eJo">
             <objects>
                 <tableViewController title="SearchByTitle" automaticallyAdjustsScrollViewInsets="NO" id="S69-wd-T9T" userLabel="Search By Title View" customClass="SearchTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cxG-xH-Z5Y">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
+                    <tableView key="view" autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cxG-xH-Z5Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.1450980392" green="0.14901960780000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="SearchTableCell" rowHeight="163" id="WhH-kb-ZnU" customClass="SearchTableViewCell" customModule="Goraebang" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WhH-kb-ZnU" id="1DV-4M-uuk">
-                                    <frame key="frameInset" width="375" height="162.5"/>
+                                    <frame key="frameInset" width="375" height="163"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2J-jA-0B7">
@@ -2876,16 +2887,17 @@
         <scene sceneID="3VV-6h-eM9">
             <objects>
                 <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="C6K-Ms-LRJ" customClass="SearchByArtistTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WLY-Lx-zrr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WLY-Lx-zrr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.14509803921568626" green="0.14901960784313725" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="SearchByArtistTableCell" rowHeight="163" id="E0E-kA-bFH" customClass="SearchByArtistTableViewCell" customModule="Goraebang" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E0E-kA-bFH" id="0RW-YV-Lz4">
-                                    <frame key="frameInset" width="375" height="162.5"/>
+                                    <frame key="frameInset" width="375" height="163"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="you-Wh-Y4Q">
@@ -3130,16 +3142,17 @@
         <scene sceneID="ADS-Hp-2Bh">
             <objects>
                 <tableViewController id="LhE-ip-oNI" userLabel="Search By Lyrics Table View Controller" customClass="SearchByLyricsTableViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QFq-ra-snK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QFq-ra-snK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.14509803921568626" green="0.14901960784313725" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="SearchByLyricsTableCell" rowHeight="163" id="PzC-aI-9u9" userLabel="SearchByLyricsTableCell" customClass="SearchByLyricsTableViewCell" customModule="Goraebang" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PzC-aI-9u9" id="THk-yE-Lve">
-                                    <frame key="frameInset" width="375" height="162.5"/>
+                                    <frame key="frameInset" width="375" height="163"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDg-nr-iKH">
@@ -3429,7 +3442,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qGF-63-3gv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="MY LIST" image="MylistIcon" id="yYH-QL-gUm"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IjU-jT-FiB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="IjU-jT-FiB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3453,7 +3466,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QqV-Yl-zw1" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Setting" image="SettingIcon" id="qCV-dc-qXv"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yqY-xS-MsR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yqY-xS-MsR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3477,7 +3490,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Mg-nP-SbC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="SEARCH" image="SearchIcon" id="4Wv-4i-ERd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a9o-q1-UFk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a9o-q1-UFk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3505,7 +3518,7 @@
         <image name="logo2" width="1100" height="1100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mgl-ra-ofF"/>
-        <segue reference="Vhg-f1-jZU"/>
+        <segue reference="R9v-AN-emc"/>
+        <segue reference="Sxe-hl-Hzz"/>
     </inferredMetricsTieBreakers>
 </document>
