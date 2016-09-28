@@ -24,6 +24,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     let goraebang_url = GlobalSetting.getGoraebangURL()
     
     var searchResult:JSON!
+    var userInfo:UserInfoGetter!
     
     // Type 0: Title, Type 1: Artist, Type 2: Lyrics
     var searchType:Int!
@@ -35,10 +36,10 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userInfo = UserInfoGetter()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchTableViewController.searchCall), name: "com.sohn.searchByTitleKey", object: nil)
         
-        searchType = 0
         
         tableView.showsVerticalScrollIndicator = false
         
@@ -146,68 +147,87 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         
         let row = indexPath.row
         
-        if(searchType == 0){
-            cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
-            cell.songNumberLabel.text = String(searchResult[row]["song_tjnum"])
-            //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-            cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
-            cell.songTitleLabel.text = searchResult[row]["title"].string
-            //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-            cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
-            //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
-            cell.songArtistLabel.text = searchResult[row]["artist_name"].string
-            
-            if(searchResult[row]["jacket_small"].string != nil){
-                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult[row]["jacket_small"].string!)!))
-            }
-            cell.songImageWebView.scalesPageToFit = true
-            cell.songImageWebView.userInteractionEnabled = false
+        
+        cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
+        cell.songNumberLabel.text = String(searchResult[row]["song_tjnum"])
+        //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
+        cell.songTitleLabel.text = searchResult[row]["title"].string
+        //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
+        //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
+        cell.songArtistLabel.text = searchResult[row]["artist_name"].string
+        
+        if(searchResult[row]["jacket_small"].string != nil){
+            cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult[row]["jacket_small"].string!)!))
         }
-        else if(searchType == 1){
-            cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
-            cell.songNumberLabel.text = String(searchResult["artist"][row]["song_tjnum"])
-            //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-            cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
-            cell.songTitleLabel.text = searchResult["artist"][row]["title"].string
-            //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-            cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
-            //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
-            cell.songArtistLabel.text = searchResult["artist"][row]["artist_name"].string
-            
-            if(searchResult["artist"][row]["jacket_small"].string != nil){
-                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["artist"][row]["jacket_small"].string!)!))
-                cell.songImageWebView.scalesPageToFit = true
-                cell.songImageWebView.userInteractionEnabled = false
-            } else {
-                cell.songImageWebView = nil
-            }
-        }
-        else{
-            cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
-            cell.songNumberLabel.text = String(searchResult["lyrics"][row]["song_tjnum"])
-            //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-            cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
-            cell.songTitleLabel.text = searchResult["lyrics"][row]["title"].string
-            //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-            cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
-            //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
-            cell.songArtistLabel.text = searchResult["lyrics"][row]["artist_name"].string
-            
-            if(searchResult["lyrics"][row]["jacket_small"].string != nil){
-                cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult["lyrics"][row]["jacket_small"].string!)!))
-                cell.songImageWebView.scalesPageToFit = true
-                cell.songImageWebView.userInteractionEnabled = false
-            } else {
-                cell.songImageWebView = nil
-            }
-            
-        }
+        cell.songImageWebView.scalesPageToFit = true
+        cell.songImageWebView.userInteractionEnabled = false
+        
+        cell.songAddButton.userInteractionEnabled = true
+        cell.songAddButton.tag = searchResult[row]["id"].int! // 여기에 파라미터 넘기자
+        cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        
         
         //        segmentedController.selectedSegmentIndex == searchType
         
         // Configure the cell...
         return cell
     }
+    
+    func songAddAction(sender: UIButton!){
+        //        print("Button tapped \(sender.tag)")
+        
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
+        
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
+            
+            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+            print(result)
+            
+            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
+            if(result["message"] == "SUCCESS"){
+                alertWithWarningMessage("추가되었습니다")
+                
+                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
+                //                self.performSegueWithIdentifier("AddSong", sender: self)
+                
+            }
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func alertWithWarningMessage(message: String){
+        let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
+        
+        alertView.message = message
+        alertView.delegate = self
+        alertView.show()
+        
+        let delay = 0.5 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue(), {
+            alertView.dismissWithClickedButtonIndex(-1, animated: true)
+        })
+    }
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SongDetailFromTitleSearch" {
@@ -220,6 +240,8 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             detailViewController.songInfo.set(searchResult, row: row!, type: 2)
         }
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

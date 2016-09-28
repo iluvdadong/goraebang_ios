@@ -74,6 +74,15 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     var viewForAlbumTitleStartingYPoint:CGFloat!
     var themeLabelStartingYPoint:CGFloat!
     
+    
+    // MARK: MyList 공유할 뷰
+    var myListShareContainer:UIView!
+    var bottomMyListContainerY:CGFloat!
+    var bottomMyListContainerHeight:CGFloat!
+    // MARK: MyList 위치 변수
+    
+    
+    
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
 
@@ -98,7 +107,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             
             // 
 //            let currentY:CGFloat = 120
-            let nextY:CGFloat = 184 - scrollView.contentOffset.y*0.5
+            let nextY:CGFloat = 64+topBackgroundHeight - scrollView.contentOffset.y*0.5
             // 기존의 높이는 전 체 높이 - 내비바64 - 상단 이미지120 - 탭바30
             let originHeight:CGFloat = view.bounds.height - 214
             let nextHeight:CGFloat = originHeight + scrollView.contentOffset.y*0.5
@@ -109,10 +118,10 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
 //            let maxReduce = homeTopBackgroundImageView.frame.height // 최대로 올라갈 수 있는 사이즈
             if(nextY >= 64){
                 scrollView.frame = CGRect(x: scrollView.frame.minX, y: nextY, width: scrollView.bounds.width, height: nextHeight)
-                scrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight+600)
+                scrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
                 homeTopBackgroundImageView.alpha = nextY/184
             }
-            else if(nextY > 50){
+            else if(nextY > 5){
                 scrollView.frame = CGRect(x: scrollView.frame.minX, y: 64, width: scrollView.bounds.width, height: nextHeight)
             }
         }
@@ -127,9 +136,6 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
 //        overlay = UIView(frame: self.view.frame)
         
         setSize(view.bounds.width) // 초기설정
@@ -157,7 +163,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             albumSmallInterval = 8
             albumBigInterval = 40
             topBackgroundStartingYPoint = 64
-            topBackgroundHeight = 120
+            topBackgroundHeight = 170
             bottomContainerStartingYPoint = topBackgroundStartingYPoint + topBackgroundHeight
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
@@ -169,7 +175,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             albumSmallInterval = 4
             albumBigInterval = 40
             topBackgroundStartingYPoint = 64
-            topBackgroundHeight = 120
+            topBackgroundHeight = 180
             bottomContainerStartingYPoint = topBackgroundStartingYPoint + topBackgroundHeight
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
@@ -180,7 +186,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             albumSmallInterval = 3.5
             albumBigInterval = 40
             topBackgroundStartingYPoint = 64
-            topBackgroundHeight = 120
+            topBackgroundHeight = 190
             bottomContainerStartingYPoint = topBackgroundStartingYPoint + topBackgroundHeight
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
@@ -192,12 +198,15 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         bottomNewSongContainerY = bottomTopChartHeight
         bottomNewSongHeight = albumSizeForVariousPhoneWidth + 60
         
+        bottomMyListContainerY = bottomNewSongContainerY + bottomNewSongHeight
+        bottomMyListContainerHeight = 600
+        
         topChartContainerContentsSizeWidth = (phoneSize) * 3
         topChartContainerContentsSizeHeight = albumSizeForVariousPhoneWidth*2 + 20
         // print(albumSizeForVariousPhoneWidth)
         
         // 아래 tab 사이즈 만큼 +70 해줬다.
-        bottomContainerContentsHeight = bottomTopChartHeight + bottomNewSongHeight + 70
+        bottomContainerContentsHeight = bottomTopChartHeight + bottomNewSongHeight + bottomMyListContainerHeight + 70
         // ShowTop100DetailView 설정
         showTop100DetailButtonStartingXPoint = phoneSize - 100
         showTop100DetailButtonStartingYPoint = 20
@@ -229,11 +238,13 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         bottomContainerScrollView.showsHorizontalScrollIndicator = true
         bottomContainerScrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
         bottomContainerScrollView.delegate = self
+        
         bottomContainerScrollView.backgroundColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 1.0)
 //        bottomContainerScrollView.translatesAutoresizingMaskIntoConstraints = false
         // MARK: 고래방 TOP 100 차트 타이틀 라벨
         makeTopChartContainer()
         makeNewSongContainer()
+        makeMyListContainer()
         
         homeTopBackgroundImageView.layer.zPosition = 1
         bottomContainerScrollView.layer.zPosition = 2
@@ -396,6 +407,70 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         addNewSongContents()
     }
     
+    
+    // MyList 공유할 뷰들 넣을 컨테이너
+    
+    func makeMyListContainer(){
+        myListShareContainer = UIView(frame: CGRect(x: 0, y: bottomMyListContainerY, width: view.bounds.width, height: bottomMyListContainerHeight))
+//        myListShareContainer.backgroundColor = UIColor.blueColor()
+        
+        let firstMyList = UIView(frame: CGRect(x: 20, y: 40, width: view.bounds.width-40, height: 70))
+        firstMyList.backgroundColor = UIColor.redColor()
+        firstMyList.alpha = 0.6
+//        firstMyList.layer.borderWidth = 3
+        firstMyList.layer.cornerRadius = 10
+        myListShareContainer.addSubview(firstMyList)
+        
+        let firstMyListTitle = UILabel(frame: CGRect(x: 20, y: 115, width: view.bounds.width-40, height: 20))
+        firstMyListTitle.text = "Gorae`s List"
+        firstMyListTitle.textColor = UIColor.whiteColor()
+        firstMyListTitle.font = firstMyListTitle.font.fontWithSize(12)
+        myListShareContainer.addSubview(firstMyListTitle)
+        
+        let secondMyList = UIView(frame: CGRect(x: 20, y: 145, width: view.bounds.width-40, height: 70))
+        secondMyList.backgroundColor = UIColor.blueColor()
+        secondMyList.alpha = 0.6
+        //        secondMyList.layer.borderWidth = 3
+        secondMyList.layer.cornerRadius = 10
+        myListShareContainer.addSubview(secondMyList)
+        
+        let secondMyListTitle = UILabel(frame: CGRect(x: 20, y: 220, width: view.bounds.width-40, height: 20))
+        secondMyListTitle.text = "Gorae`s List2"
+        secondMyListTitle.textColor = UIColor.whiteColor()
+        secondMyListTitle.font = secondMyListTitle.font.fontWithSize(12)
+        myListShareContainer.addSubview(secondMyListTitle)
+        
+        let thirdMyList = UIView(frame: CGRect(x: 20, y: 250, width: view.bounds.width-40, height: 70))
+        thirdMyList.backgroundColor = UIColor.redColor()
+        thirdMyList.alpha = 0.6
+        //        thirdMyList.layer.borderWidth = 3
+        thirdMyList.layer.cornerRadius = 10
+        myListShareContainer.addSubview(thirdMyList)
+        
+        let thirdMyListTitle = UILabel(frame: CGRect(x: 20, y: 325, width: view.bounds.width-40, height: 20))
+        thirdMyListTitle.text = "Gorae`s List3"
+        thirdMyListTitle.textColor = UIColor.whiteColor()
+        thirdMyListTitle.font = thirdMyListTitle.font.fontWithSize(12)
+        myListShareContainer.addSubview(thirdMyListTitle)
+        
+        
+        let fourthMyList = UIView(frame: CGRect(x: 20, y: 355, width: view.bounds.width-40, height: 70))
+        fourthMyList.backgroundColor = UIColor.blueColor()
+        fourthMyList.alpha = 0.6
+        //        fourthMyList.layer.borderWidth = 3
+        fourthMyList.layer.cornerRadius = 10
+        myListShareContainer.addSubview(fourthMyList)
+        
+        let fourthMyListTitle = UILabel(frame: CGRect(x: 20, y: 430, width: view.bounds.width-40, height: 20))
+        fourthMyListTitle.text = "Gorae`s List4"
+        fourthMyListTitle.textColor = UIColor.whiteColor()
+        fourthMyListTitle.font = fourthMyListTitle.font.fontWithSize(12)
+        myListShareContainer.addSubview(fourthMyListTitle)
+        
+        
+        // Dont touch
+        bottomContainerScrollView.addSubview(myListShareContainer)
+    }
     
     func showTopDetailButtonAction(sender: UIButton!){
 //        print("button tapped")

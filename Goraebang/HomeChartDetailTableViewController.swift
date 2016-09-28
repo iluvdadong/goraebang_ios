@@ -119,7 +119,7 @@ class HomeChartDetailTableViewController: UITableViewController {
     }
     
     func songAddAction(sender: UIButton!){
-        print("Button tapped \(sender.tag)")
+//        print("Button tapped \(sender.tag)")
         
         let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
         
