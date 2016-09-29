@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="28" width="383" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yjA-XN-NfQ" id="k4O-iq-Ftc">
-                                    <frame key="frameInset" width="383" height="162.5"/>
+                                    <frame key="frameInset" width="383" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhl-Te-U7c">
@@ -132,21 +132,19 @@
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-yn-elK">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="47" id="JUi-NL-WrJ"/>
-                                                <constraint firstAttribute="width" constant="50" id="auC-NQ-n3Y"/>
+                                                <constraint firstAttribute="width" secondItem="3xR-yn-elK" secondAttribute="height" multiplier="1:1" id="NO2-Xd-s4S"/>
+                                                <constraint firstAttribute="width" constant="30" id="auC-NQ-n3Y"/>
                                             </constraints>
-                                            <state key="normal" image="MylistIcon">
+                                            <state key="normal" image="AddButtonDeactive">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="JUi-NL-WrJ"/>
                                                     <exclude reference="auC-NQ-n3Y"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
-                                                    <include reference="JUi-NL-WrJ"/>
                                                     <include reference="auC-NQ-n3Y"/>
                                                 </mask>
                                             </variation>
@@ -277,7 +275,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ygn-vF-WpQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="T0B-LT-aOn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AYp-QC-Od7">
@@ -348,9 +346,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wm9-Eg-Yg6">
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Wm9-Eg-Yg6" secondAttribute="height" multiplier="1:1" id="08Y-Ia-TPp"/>
-                                            <constraint firstAttribute="width" constant="36" id="VWm-wv-rjX"/>
+                                            <constraint firstAttribute="width" constant="30" id="VWm-wv-rjX"/>
                                         </constraints>
-                                        <state key="normal" image="MylistIcon"/>
+                                        <state key="normal" image="AddButtonActive"/>
                                         <connections>
                                             <action selector="songAddAction:" destination="2Gb-oa-1Mb" eventType="touchUpInside" id="R51-Ql-mEj"/>
                                         </connections>
@@ -539,11 +537,29 @@
                                         <color key="textColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Park" translatesAutoresizingMaskIntoConstraints="NO" id="Sdy-78-Snl" userLabel="Profile Image View">
+                                        <color key="backgroundColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="XTE-nw-7HQ"/>
+                                            <constraint firstAttribute="width" secondItem="Sdy-78-Snl" secondAttribute="height" multiplier="1:1" id="jgl-Ih-dbc"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FyA-RN-W4f">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="FyA-RN-W4f" secondAttribute="height" multiplier="1:1" id="JOv-eO-QrV"/>
+                                            <constraint firstAttribute="height" constant="20" id="h1n-Iv-C4E"/>
+                                        </constraints>
+                                        <state key="normal" image="SettingIcon"/>
+                                        <connections>
+                                            <action selector="uploadProfileImage:" destination="2DA-jn-ZwS" eventType="touchUpInside" id="yET-bO-oHr"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="mG4-si-n8p" secondAttribute="bottom" id="4r6-9i-XEi"/>
                                     <constraint firstItem="mG4-si-n8p" firstAttribute="leading" secondItem="S9Q-Gs-81o" secondAttribute="trailing" id="8Mc-Fi-9bf"/>
+                                    <constraint firstItem="mG4-si-n8p" firstAttribute="top" secondItem="FyA-RN-W4f" secondAttribute="bottom" constant="8" id="8Tv-9h-ata"/>
                                     <constraint firstItem="mG4-si-n8p" firstAttribute="top" secondItem="Ta0-cc-dhh" secondAttribute="bottom" constant="8" id="9KI-O4-KzF"/>
                                     <constraint firstItem="DyB-UK-SRw" firstAttribute="leading" secondItem="It4-XS-Sgi" secondAttribute="leading" id="BMh-eJ-w9R"/>
                                     <constraint firstAttribute="bottom" secondItem="mG4-si-n8p" secondAttribute="bottom" id="BTc-Oy-LEF"/>
@@ -557,6 +573,7 @@
                                     <constraint firstItem="S9Q-Gs-81o" firstAttribute="leading" secondItem="It4-XS-Sgi" secondAttribute="leading" id="XUX-sv-Gce"/>
                                     <constraint firstItem="S9Q-Gs-81o" firstAttribute="leading" secondItem="It4-XS-Sgi" secondAttribute="leading" id="Xba-be-h4j"/>
                                     <constraint firstItem="IyD-sn-geF" firstAttribute="top" secondItem="DyB-UK-SRw" secondAttribute="bottom" constant="8" id="aoZ-yC-1k1"/>
+                                    <constraint firstItem="Sdy-78-Snl" firstAttribute="top" secondItem="It4-XS-Sgi" secondAttribute="top" constant="10" id="c9b-Rg-5Jj"/>
                                     <constraint firstItem="mG4-si-n8p" firstAttribute="width" secondItem="It4-XS-Sgi" secondAttribute="width" multiplier="0.4" id="cGm-Jy-0t3"/>
                                     <constraint firstAttribute="trailing" secondItem="vJg-Df-neN" secondAttribute="trailing" id="ghn-ph-vmm"/>
                                     <constraint firstAttribute="trailing" secondItem="DyB-UK-SRw" secondAttribute="trailing" id="gtT-N0-WCQ"/>
@@ -564,9 +581,11 @@
                                     <constraint firstItem="mG4-si-n8p" firstAttribute="leading" secondItem="S9Q-Gs-81o" secondAttribute="trailing" id="ml1-30-zSF"/>
                                     <constraint firstAttribute="height" constant="150" id="rWv-cX-wbK"/>
                                     <constraint firstAttribute="trailing" secondItem="IyD-sn-geF" secondAttribute="trailing" constant="12" id="ujU-60-oDW"/>
+                                    <constraint firstItem="FyA-RN-W4f" firstAttribute="leading" secondItem="Ta0-cc-dhh" secondAttribute="trailing" constant="8" id="upg-tE-8FE"/>
                                     <constraint firstAttribute="bottom" secondItem="S9Q-Gs-81o" secondAttribute="bottom" id="v78-M5-Sz2"/>
                                     <constraint firstItem="Ta0-cc-dhh" firstAttribute="centerX" secondItem="It4-XS-Sgi" secondAttribute="centerX" id="yVn-kQ-B7x"/>
                                     <constraint firstItem="vJg-Df-neN" firstAttribute="width" secondItem="S9Q-Gs-81o" secondAttribute="width" id="zLS-8g-RMl"/>
+                                    <constraint firstItem="Sdy-78-Snl" firstAttribute="centerX" secondItem="It4-XS-Sgi" secondAttribute="centerX" id="zdt-Ns-dpP"/>
                                     <constraint firstItem="vJg-Df-neN" firstAttribute="width" secondItem="It4-XS-Sgi" secondAttribute="width" multiplier="0.3" id="zia-A6-Vyf"/>
                                 </constraints>
                                 <variation key="default">
@@ -583,7 +602,6 @@
                                         <exclude reference="XUX-sv-Gce"/>
                                         <exclude reference="Xba-be-h4j"/>
                                         <exclude reference="v78-M5-Sz2"/>
-                                        <exclude reference="yVn-kQ-B7x"/>
                                         <exclude reference="4r6-9i-XEi"/>
                                         <exclude reference="8Mc-Fi-9bf"/>
                                         <exclude reference="9KI-O4-KzF"/>
@@ -593,6 +611,7 @@
                                         <exclude reference="cGm-Jy-0t3"/>
                                         <exclude reference="ldu-bc-mHG"/>
                                         <exclude reference="ml1-30-zSF"/>
+                                        <exclude reference="yVn-kQ-B7x"/>
                                         <exclude reference="Dp7-OO-lCi"/>
                                         <exclude reference="Pgc-UK-gDW"/>
                                         <exclude reference="ghn-ph-vmm"/>
@@ -614,7 +633,6 @@
                                         <exclude reference="XUX-sv-Gce"/>
                                         <include reference="Xba-be-h4j"/>
                                         <exclude reference="v78-M5-Sz2"/>
-                                        <include reference="yVn-kQ-B7x"/>
                                         <exclude reference="4r6-9i-XEi"/>
                                         <include reference="8Mc-Fi-9bf"/>
                                         <include reference="9KI-O4-KzF"/>
@@ -624,6 +642,7 @@
                                         <include reference="cGm-Jy-0t3"/>
                                         <exclude reference="ldu-bc-mHG"/>
                                         <exclude reference="ml1-30-zSF"/>
+                                        <include reference="yVn-kQ-B7x"/>
                                         <include reference="Dp7-OO-lCi"/>
                                         <include reference="Pgc-UK-gDW"/>
                                         <include reference="ghn-ph-vmm"/>
@@ -693,6 +712,7 @@
                         <outlet property="myListButton" destination="mG4-si-n8p" id="hHh-VW-3La"/>
                         <outlet property="myListContainer" destination="ITX-63-LD3" id="ebc-Ud-Tv5"/>
                         <outlet property="preferenceButton" destination="S9Q-Gs-81o" id="Yng-7X-kvR"/>
+                        <outlet property="profileImageView" destination="Sdy-78-Snl" id="EBW-wq-gRT"/>
                         <outlet property="storedSongCountLabel" destination="IyD-sn-geF" id="33I-SC-tfd"/>
                     </connections>
                 </viewController>
@@ -716,7 +736,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="133"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="39f-9n-lV8" id="UrI-zG-ve8">
-                                    <frame key="frameInset" width="375" height="132.5"/>
+                                    <frame key="frameInset" width="375" height="132"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJr-8E-vld">
@@ -821,21 +841,20 @@
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCt-Yu-hLR">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="47" id="DPY-4o-fps"/>
-                                                <constraint firstAttribute="width" constant="50" id="rGa-Sn-wMi"/>
+                                                <constraint firstAttribute="width" secondItem="JCt-Yu-hLR" secondAttribute="height" multiplier="1:1" id="7Vv-Pq-lwv"/>
+                                                <constraint firstAttribute="width" constant="30" id="rGa-Sn-wMi"/>
                                             </constraints>
-                                            <state key="normal" image="MylistIcon">
+                                            <color key="tintColor" red="1" green="0.039215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="AddButtonDeactive">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="DPY-4o-fps"/>
                                                     <exclude reference="rGa-Sn-wMi"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
-                                                    <include reference="DPY-4o-fps"/>
                                                     <include reference="rGa-Sn-wMi"/>
                                                 </mask>
                                             </variation>
@@ -2250,7 +2269,7 @@
                 <navigationController storyboardIdentifier="HomeTab" automaticallyAdjustsScrollViewInsets="NO" id="T8K-8X-hJe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="HOME" image="HomeIcon" id="sdO-Vt-y4a"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="t24-1j-tDE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t24-1j-tDE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2642,7 +2661,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WhH-kb-ZnU" id="1DV-4M-uuk">
-                                    <frame key="frameInset" width="375" height="162.5"/>
+                                    <frame key="frameInset" width="375" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2J-jA-0B7">
@@ -2747,22 +2766,20 @@
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5J4-6R-N48">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="8Zg-15-hIA"/>
-                                                <constraint firstAttribute="height" constant="47" id="sFR-KX-waM"/>
+                                                <constraint firstAttribute="width" constant="30" id="8Zg-15-hIA"/>
+                                                <constraint firstAttribute="width" secondItem="5J4-6R-N48" secondAttribute="height" multiplier="1:1" id="ao8-uA-zBP"/>
                                             </constraints>
-                                            <state key="normal" image="MylistIcon">
+                                            <state key="normal" image="AddButtonDeactive">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="8Zg-15-hIA"/>
-                                                    <exclude reference="sFR-KX-waM"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="8Zg-15-hIA"/>
-                                                    <include reference="sFR-KX-waM"/>
                                                 </mask>
                                             </variation>
                                         </button>
@@ -2897,7 +2914,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E0E-kA-bFH" id="0RW-YV-Lz4">
-                                    <frame key="frameInset" width="375" height="162.5"/>
+                                    <frame key="frameInset" width="375" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="you-Wh-Y4Q">
@@ -3002,22 +3019,20 @@
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tk-jB-jQg">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="5OV-9E-oNc"/>
-                                                <constraint firstAttribute="height" constant="47" id="8b6-AO-IBP"/>
+                                                <constraint firstAttribute="width" constant="30" id="5OV-9E-oNc"/>
+                                                <constraint firstAttribute="width" secondItem="4tk-jB-jQg" secondAttribute="height" multiplier="1:1" id="pun-98-A1u"/>
                                             </constraints>
-                                            <state key="normal" image="MylistIcon">
+                                            <state key="normal" image="AddButtonDeactive">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="5OV-9E-oNc"/>
-                                                    <exclude reference="8b6-AO-IBP"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="5OV-9E-oNc"/>
-                                                    <include reference="8b6-AO-IBP"/>
                                                 </mask>
                                             </variation>
                                         </button>
@@ -3152,7 +3167,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PzC-aI-9u9" id="THk-yE-Lve">
-                                    <frame key="frameInset" width="375" height="162.5"/>
+                                    <frame key="frameInset" width="375" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDg-nr-iKH">
@@ -3257,21 +3272,19 @@
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Z9-6u-i1s">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="47" id="CIt-pp-2zf"/>
-                                                <constraint firstAttribute="width" constant="50" id="f7g-BB-HC8"/>
+                                                <constraint firstAttribute="width" secondItem="3Z9-6u-i1s" secondAttribute="height" multiplier="1:1" id="Faa-RD-5xY"/>
+                                                <constraint firstAttribute="width" constant="30" id="f7g-BB-HC8"/>
                                             </constraints>
-                                            <state key="normal" image="MylistIcon">
+                                            <state key="normal" image="AddButtonDeactive">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="CIt-pp-2zf"/>
                                                     <exclude reference="f7g-BB-HC8"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
-                                                    <include reference="CIt-pp-2zf"/>
                                                     <include reference="f7g-BB-HC8"/>
                                                 </mask>
                                             </variation>
@@ -3442,7 +3455,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qGF-63-3gv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="MY LIST" image="MylistIcon" id="yYH-QL-gUm"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="IjU-jT-FiB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IjU-jT-FiB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3466,7 +3479,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QqV-Yl-zw1" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Setting" image="SettingIcon" id="qCV-dc-qXv"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yqY-xS-MsR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yqY-xS-MsR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3490,7 +3503,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Mg-nP-SbC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="SEARCH" image="SearchIcon" id="4Wv-4i-ERd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a9o-q1-UFk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a9o-q1-UFk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3510,8 +3523,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AddButtonActive" width="60" height="60"/>
+        <image name="AddButtonDeactive" width="60" height="60"/>
         <image name="HomeIcon" width="25" height="25"/>
         <image name="MylistIcon" width="25" height="25"/>
+        <image name="Park" width="618" height="336"/>
         <image name="RecommendIcon" width="25" height="25"/>
         <image name="SearchIcon" width="25" height="25"/>
         <image name="SettingIcon" width="25" height="25"/>
@@ -3519,6 +3535,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="R9v-AN-emc"/>
-        <segue reference="Sxe-hl-Hzz"/>
+        <segue reference="Vhg-f1-jZU"/>
     </inferredMetricsTieBreakers>
 </document>

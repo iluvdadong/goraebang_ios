@@ -31,7 +31,7 @@ class LoginVC: UIViewController {
         
         documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         
-        dataPath = documentPath.URLByAppendingPathComponent("data")
+//        dataPath = documentPath.URLByAppendingPathComponent("data")
         emailPath = documentPath.URLByAppendingPathComponent("email.txt")
         passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
         tokenPath = documentPath.URLByAppendingPathComponent("token.txt")

@@ -134,9 +134,8 @@ class HomeChartDetailTableViewController: UITableViewController {
         let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
         
         do {
-            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.=
             let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
-            
             
             let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
             

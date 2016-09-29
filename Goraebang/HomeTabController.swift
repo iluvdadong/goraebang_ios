@@ -548,8 +548,22 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             imageViewForSongTag.addSubview(labelForImageViewArray)
             
             // MARK: 노래 제목과, 아티스트명을 담을 UIView
+            // GradientLayer
+            
             viewForAlbumTitle = UIView(frame: CGRect(x: 0, y: viewForAlbumTitleStartingYPoint, width:albumSizeForVariousPhoneWidth, height: 40))
-            viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 0.85)
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: viewForAlbumTitle.bounds.width, height: viewForAlbumTitle.bounds.height)
+            let color1 = UIColor(white: 0.2, alpha: 0.0).CGColor as CGColorRef
+            let color2 = UIColor(white: 0.2, alpha: 0.2).CGColor as CGColorRef
+            let color3 = UIColor(white: 0.2, alpha: 0.4).CGColor as CGColorRef
+            let color4 = UIColor(white: 0.2, alpha: 0.6).CGColor as CGColorRef
+            let color5 = UIColor(white: 0.2, alpha: 0.75).CGColor as CGColorRef
+            let color6 = UIColor(white: 0.2, alpha: 1.0).CGColor as CGColorRef
+            gradientLayer.colors = [color1, color2, color3, color4, color5, color6]
+            gradientLayer.locations = [0.0, 0.1, 0.2, 0.35, 0.5, 1.0]
+            
+            viewForAlbumTitle.layer.addSublayer(gradientLayer)
+//            viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 0.85)
             
             albumWebView.addSubview(viewForAlbumTitle)
             
@@ -557,6 +571,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             songLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 5, width: albumSizeForVariousPhoneWidth - 10, height: 15))
             songLabelForAlbum.text = topChartReadableJSON[i]["title"].string
             songLabelForAlbum.font = UIFont.boldSystemFontOfSize(12)
+            // 글씨 굵게
             songLabelForAlbum.textAlignment = NSTextAlignment.Left
             songLabelForAlbum.textColor = UIColor.whiteColor()
             
@@ -565,7 +580,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             artistLabelForAlbum.text = topChartReadableJSON[i]["artist_name"].string
             //            artistLabelForAlbum.text = topChartReadableJSON[i]["artist"].string
             artistLabelForAlbum.textAlignment = NSTextAlignment.Left
-            artistLabelForAlbum.textColor = UIColor.lightGrayColor()
+            artistLabelForAlbum.textColor = UIColor.whiteColor()
             artistLabelForAlbum.font = artistLabelForAlbum.font.fontWithSize(11)
             
             viewForAlbumTitle.addSubview(songLabelForAlbum)

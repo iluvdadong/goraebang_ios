@@ -9,11 +9,14 @@
 import UIKit
 
 
-class MyListViewController: UIViewController {
+class MyListViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var storedSongCountLabel: UILabel!
     
     @IBOutlet weak var backgroundWebView: UIWebView!
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    let imagePicker = UIImagePickerController()
     
     @IBOutlet weak var preferenceButton: UIButton!
     @IBOutlet weak var myListButton: UIButton!
@@ -45,10 +48,45 @@ class MyListViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
 //        countMyListSong()
+        myListContainer.hidden = false
+        selectLine.frame = CGRect(x: view.bounds.width*0.3+2.9, y: 147, width: view.bounds.width*0.4+2.5, height: 2)
     }
+    
+    @IBAction func uploadProfileImage(sender: AnyObject) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .PhotoLibrary
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profileImageView.image = pickedImage
+            // 앱에 이미지를 저장해야 한다.
+            let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+            
+            let imagePath = documentPath.URLByAppendingPathComponent("profile.png")
+            
+                if let data = UIImagePNGRepresentation(pickedImage){
+                    
+                    let result = try? data.writeToURL(imagePath!, options: NSDataWritingOptions.AtomicWrite)
+                    print(result)
+                }
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
+        makeProfileImage()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyListViewController.countMyListSong(_:)), name: "com.sohn.myListSongCountKey", object: nil)
         // 처음에 백그라운드 이미지 설정
         setBackgroundWebView()
@@ -59,6 +97,25 @@ class MyListViewController: UIViewController {
         headerContainer.addSubview(selectLine)
         
         // Do any additional setup after loading the view.
+    }
+    
+    func makeProfileImage(){
+        
+        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+        
+        let imagePath = documentPath.URLByAppendingPathComponent("profile.png")
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(imagePath!.path!){
+            profileImageView.image = UIImage(contentsOfFile: imagePath!.path!)
+        } else {
+            // 기본 이미지 삽입
+        }
+        
+        profileImageView.layer.cornerRadius = 35
+        profileImageView.layer.borderWidth = 1
+        profileImageView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        profileImageView.layer.masksToBounds = false
+        profileImageView.clipsToBounds = true // 이거때문에 원이 유지
     }
     
     func setBackgroundWebView(){
