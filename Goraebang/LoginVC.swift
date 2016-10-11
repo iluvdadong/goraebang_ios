@@ -201,7 +201,6 @@ class LoginVC: UIViewController {
                     
                     let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
                     
-                    let dataPath = documentPath.URLByAppendingPathComponent("data")
                     let emailPath = documentPath.URLByAppendingPathComponent("email.txt")
                     let passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
                     let tokenPath = documentPath.URLByAppendingPathComponent("token.txt")
@@ -481,7 +480,7 @@ class LoginVC: UIViewController {
                             if(loginResultJSON["result"].string! == "SUCCESS"){
                                 self.writeMyId(loginResultJSON["id"].int!, myIdPath: self.myIdPath.path!)
                                 self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: self.myListIdPath.path!)
-                                print("token 로그인 결과는 = \(loginResultJSON)")
+//                                print("token 로그인 결과는 = \(loginResultJSON)")
                                 self.performSegueWithIdentifier("goto_main", sender: self)
                             }
                             else {

@@ -13,6 +13,7 @@
 		491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */; };
 		491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */; };
 		49235DC21D843CC60063DE7D /* UserInfoGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49235DC11D843CC60063DE7D /* UserInfoGetter.swift */; };
+		492E7CF01DA9414100FC3DF1 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7CEF1DA9414100FC3DF1 /* Communicator.swift */; };
 		492F62FB1D617F9100F270BA /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492F62FA1D617F9100F270BA /* Song.swift */; };
 		4935B3121D9437AA00CC6D2C /* SearchByLyricsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B3111D9437AA00CC6D2C /* SearchByLyricsTableViewController.swift */; };
 		4935B3141D9437B400CC6D2C /* SearchByLyricsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B3131D9437B400CC6D2C /* SearchByLyricsTableViewCell.swift */; };
@@ -25,6 +26,7 @@
 		494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */; };
 		497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454AE1D4CB8B5000D520B /* LoginVC.swift */; };
 		497454B71D4CE727000D520B /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454B61D4CE727000D520B /* SignupVC.swift */; };
+		497E08B91DA90C4C0096E069 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497E08B81DA90C4C0096E069 /* MyInfoViewController.swift */; };
 		498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */; };
 		498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */; };
 		498E0D811D71598D00CCEFF1 /* GlobalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E0D801D71598D00CCEFF1 /* GlobalSetting.swift */; };
@@ -59,6 +61,7 @@
 		491F3E4D1D42F382005A2C9D /* RecommendTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendTabController.swift; sourceTree = "<group>"; };
 		491F3E581D42F4E0005A2C9D /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		49235DC11D843CC60063DE7D /* UserInfoGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoGetter.swift; sourceTree = "<group>"; };
+		492E7CEF1DA9414100FC3DF1 /* Communicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		492F62FA1D617F9100F270BA /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		4935B3111D9437AA00CC6D2C /* SearchByLyricsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchByLyricsTableViewController.swift; sourceTree = "<group>"; };
 		4935B3131D9437B400CC6D2C /* SearchByLyricsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchByLyricsTableViewCell.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabController.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
 		497454AE1D4CB8B5000D520B /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		497454B61D4CE727000D520B /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
+		497E08B81DA90C4C0096E069 /* MyInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewController.swift; sourceTree = "<group>"; };
 		498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewCell.swift; sourceTree = "<group>"; };
 		498E0D801D71598D00CCEFF1 /* GlobalSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSetting.swift; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				49B862461D85479C00EBBE95 /* SettingViewController.swift */,
+				497E08B81DA90C4C0096E069 /* MyInfoViewController.swift */,
 			);
 			name = SettingController;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 				498E0D801D71598D00CCEFF1 /* GlobalSetting.swift */,
 				49235DC11D843CC60063DE7D /* UserInfoGetter.swift */,
 				493ECDE81D958DD100A40C15 /* MainPageGradient.swift */,
+				492E7CEF1DA9414100FC3DF1 /* Communicator.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 			files = (
 				498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */,
 				499318651D797A1B0047C8B1 /* SearchTableViewController.swift in Sources */,
+				492E7CF01DA9414100FC3DF1 /* Communicator.swift in Sources */,
 				494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */,
 				4935DA081D8A5F1B0027C408 /* SwiftyJSON.swift in Sources */,
 				491F3E4E1D42F382005A2C9D /* RecommendTabController.swift in Sources */,
@@ -305,6 +312,7 @@
 				498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */,
 				499318671D797BEA0047C8B1 /* SearchTableViewCell.swift in Sources */,
 				49C4879D1D940BB500F3D46C /* SearchByArtistTableViewCell.swift in Sources */,
+				497E08B91DA90C4C0096E069 /* MyInfoViewController.swift in Sources */,
 				4935B3141D9437B400CC6D2C /* SearchByLyricsTableViewCell.swift in Sources */,
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				4935B3121D9437AA00CC6D2C /* SearchByLyricsTableViewController.swift in Sources */,

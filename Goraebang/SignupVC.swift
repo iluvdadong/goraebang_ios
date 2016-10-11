@@ -63,7 +63,7 @@ class SignupVC: UIViewController {
         } else {
             // MARK: 회원가입 성공
             print("Sign up Success")
-            let post:NSString = "user[email]=\(username)&user[name]=sohn&user[password]=\(password)&user[password_confirmation]=\(confirm_password)&user[gender]=0"
+            let post:NSString = "user[email]=\(username)&user[password]=\(password)&user[password_confirmation]=\(confirm_password)"
             
 //            NSLog("PostData: %@", post)
             

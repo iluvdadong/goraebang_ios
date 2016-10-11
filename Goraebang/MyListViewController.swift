@@ -11,6 +11,7 @@ import UIKit
 
 class MyListViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var myNameLabel: UILabel!
     @IBOutlet weak var storedSongCountLabel: UILabel!
     
     @IBOutlet weak var backgroundWebView: UIWebView!
@@ -24,7 +25,7 @@ class MyListViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var myListContainer: UIView!
-    var userInfo:UserInfoGetter!
+    var userInfo:UserInfoGetter = UserInfoGetter()
     var selectLine:UILabel!
     
     @IBAction func preferenceAction(sender: AnyObject) {
@@ -50,6 +51,8 @@ class MyListViewController: UIViewController, UIImagePickerControllerDelegate, U
 //        countMyListSong()
         myListContainer.hidden = false
         selectLine.frame = CGRect(x: view.bounds.width*0.3+2.9, y: 147, width: view.bounds.width*0.4+2.5, height: 2)
+        myNameLabel.text = userInfo.getName()
+        
     }
     
     @IBAction func uploadProfileImage(sender: AnyObject) {
