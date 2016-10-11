@@ -26,6 +26,9 @@
 		494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */; };
 		497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454AE1D4CB8B5000D520B /* LoginVC.swift */; };
 		497454B71D4CE727000D520B /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454B61D4CE727000D520B /* SignupVC.swift */; };
+		497469331DACC56700A9E241 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 497469321DACC56700A9E241 /* Launch Screen.storyboard */; };
+		497469351DACCE3300A9E241 /* GoraeAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497469341DACCE3300A9E241 /* GoraeAlertController.swift */; };
+		497469371DACDA6100A9E241 /* GoraeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497469361DACDA6100A9E241 /* GoraeAlert.swift */; };
 		497E08B91DA90C4C0096E069 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497E08B81DA90C4C0096E069 /* MyInfoViewController.swift */; };
 		498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */; };
 		498CDFA11D55E16A00DA0A1D /* MyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */; };
@@ -76,6 +79,9 @@
 		494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabController.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
 		497454AE1D4CB8B5000D520B /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		497454B61D4CE727000D520B /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
+		497469321DACC56700A9E241 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		497469341DACCE3300A9E241 /* GoraeAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoraeAlertController.swift; sourceTree = "<group>"; };
+		497469361DACDA6100A9E241 /* GoraeAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoraeAlert.swift; sourceTree = "<group>"; };
 		497E08B81DA90C4C0096E069 /* MyInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		498CDF981D55E0D300DA0A1D /* MyListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewController.swift; sourceTree = "<group>"; };
 		498CDFA01D55E16A00DA0A1D /* MyListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListTableViewCell.swift; sourceTree = "<group>"; };
@@ -121,6 +127,7 @@
 				4914EF321D5DD751007D150A /* HomeController */,
 				49B834041D56335F004F1AC0 /* UserController */,
 				49729D501D728EB200E0A855 /* SearchController */,
+				497469341DACCE3300A9E241 /* GoraeAlertController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -129,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				494F3A9C1D42ECAA008B5051 /* Main.storyboard */,
+				497469321DACC56700A9E241 /* Launch Screen.storyboard */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -217,6 +225,7 @@
 				49235DC11D843CC60063DE7D /* UserInfoGetter.swift */,
 				493ECDE81D958DD100A40C15 /* MainPageGradient.swift */,
 				492E7CEF1DA9414100FC3DF1 /* Communicator.swift */,
+				497469361DACDA6100A9E241 /* GoraeAlert.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -284,6 +293,7 @@
 			files = (
 				494F3AA31D42ECAA008B5051 /* LaunchScreen.storyboard in Resources */,
 				494F3AA01D42ECAA008B5051 /* Assets.xcassets in Resources */,
+				497469331DACC56700A9E241 /* Launch Screen.storyboard in Resources */,
 				494F3A9E1D42ECAA008B5051 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +318,7 @@
 				49B862491D857B0200EBBE95 /* MyListViewController.swift in Sources */,
 				49D228741D8E93AF0036746A /* SearchContainerViewController.swift in Sources */,
 				493ECDE91D958DD100A40C15 /* MainPageGradient.swift in Sources */,
+				497469351DACCE3300A9E241 /* GoraeAlertController.swift in Sources */,
 				49235DC21D843CC60063DE7D /* UserInfoGetter.swift in Sources */,
 				498CDF991D55E0D300DA0A1D /* MyListTableViewController.swift in Sources */,
 				499318671D797BEA0047C8B1 /* SearchTableViewCell.swift in Sources */,
@@ -323,6 +334,7 @@
 				492F62FB1D617F9100F270BA /* Song.swift in Sources */,
 				498E0D811D71598D00CCEFF1 /* GlobalSetting.swift in Sources */,
 				4914EF3C1D5DDC05007D150A /* HomeChartDetailTableViewController.swift in Sources */,
+				497469371DACDA6100A9E241 /* GoraeAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

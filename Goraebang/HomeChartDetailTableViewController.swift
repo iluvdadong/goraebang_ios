@@ -58,7 +58,9 @@ class HomeChartDetailTableViewController: UITableViewController {
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
+        
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        print(topChartReadableJSON)
     }
     
     override func didReceiveMemoryWarning() {
@@ -113,13 +115,24 @@ class HomeChartDetailTableViewController: UITableViewController {
         
         cell.songAddButton.userInteractionEnabled = true
         cell.songAddButton.tag = topChartReadableJSON[row]["id"].int! // 여기에 파라미터 넘기자
-        cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
         
+        if topChartReadableJSON[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
+            if let image = UIImage(named: "AddButtonActive"){
+                cell.songAddButton.setImage(image, forState: .Normal)
+            }
+            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        } else { // 안된 경우
+            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        }
+
         return cell
     }
     
     func songAddAction(sender: UIButton!){
-//        print("Button tapped \(sender.tag)")
+        //        print("Button tapped \(sender.tag)")
+        if let image = UIImage(named: "AddButtonActive"){
+            sender.setImage(image, forState: .Normal)
+        }
         
         let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
         
@@ -134,8 +147,9 @@ class HomeChartDetailTableViewController: UITableViewController {
         let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
         
         do {
-            // NSURLSession.DataTaskWithRequest 로 변경해야한다.=
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
             let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
             
             let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
             
@@ -154,7 +168,79 @@ class HomeChartDetailTableViewController: UITableViewController {
             print(error.localizedDescription)
         }
         
+        // Add Action 삭제
+        sender.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        sender.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
     }
+    
+    func songDeleteAction(sender: UIButton!){
+        print("Song Delete Action Start Sender tag is \(sender.tag)")
+        
+        if let image = UIImage(named: "AddButtonDeactive"){
+            sender.setImage(image, forState: .Normal)
+        }
+        
+        let post:NSString = "id=\(userInfo.myId)&song_id=\(sender.tag)"
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            //            let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+        sender.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+    }
+    
+//    func songAddAction(sender: UIButton!){
+////        print("Button tapped \(sender.tag)")
+//        
+//        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
+//        
+//        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
+//        
+//        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+//        
+//        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+//        request.HTTPMethod = "POST"
+//        request.HTTPBody = postData
+//        
+//        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+//        
+//        do {
+//            // NSURLSession.DataTaskWithRequest 로 변경해야한다.=
+//            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+//            
+//            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+//            
+//            print(result)
+//            
+//            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
+//            if(result["message"] == "SUCCESS"){
+//                alertWithWarningMessage("추가되었습니다")
+//                
+//                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
+//                //                self.performSegueWithIdentifier("AddSong", sender: self)
+//                
+//            }
+//            
+//        } catch let error as NSError{
+//            print(error.localizedDescription)
+//        }
+//        
+//    }
     
     func alertWithWarningMessage(message: String){
         let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))

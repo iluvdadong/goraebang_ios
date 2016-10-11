@@ -18,6 +18,11 @@ class MyListTableViewController: UITableViewController {
     
     var userInfo:UserInfoGetter!
     
+    // 페이지 나갈 때 스크롤 맨 위로
+    override func viewDidDisappear(animated: Bool) {
+        self.tableView.contentOffset.y = 0
+    }
+    
     override func viewDidAppear(animated: Bool) {
         getMyList()
         let songCount = ["count": myListSongs["song"].count]
@@ -187,7 +192,8 @@ class MyListTableViewController: UITableViewController {
             // MARK ****: JSON 파일에 mySong_id가 필요하다. 삭제하려면 *************
             
             let row = indexPath.row
-            let post:NSString = "id=\(userInfo.myId)&mySong_id=\(myListSongs["mylistSongId"][row])"
+            // id로 변경됬다.
+            let post:NSString = "id=\(userInfo.myId)&song_id=\(myListSongs["song"][row]["id"])"
             let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
             
             let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
@@ -206,8 +212,6 @@ class MyListTableViewController: UITableViewController {
                 print(mySongDeleteResult)
                 let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
                 print(mySongDeleteResultJSON)
-                
-                
             } catch let error as NSError{
                 print(error.localizedDescription)
             }

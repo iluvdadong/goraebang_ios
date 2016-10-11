@@ -84,7 +84,7 @@ class SettingViewController: UIViewController {
             
             // 통신 완료될 때 까지 기다려야 한다.
             while(isEnd == 0){
-                print("진행 중")
+//                print("진행 중")
             }
 
             myInfoViewController.email = accountResult["email"].string!

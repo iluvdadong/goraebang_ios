@@ -106,14 +106,31 @@ class MyInfoViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBAction func saveInfo(sender: AnyObject) {
         // 폰에 name 저장
+        
         userInfo.setName(nameTextField.text!)
+        // UTF8로 세면 한글 3, 영어 1
+                // 인코딩 하면 한글 9, 영어 1
+        let name_UTF8 = nameTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
         
-        let post:NSString = "mytoken=\(userInfo.token)&user[name]=\(nameTextField.text!)&user[gender]=\(gender)"
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/user_modify")!
+        let original_number = nameTextField.text?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+        let converted_number = name_UTF8?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+        let hangul_count = (converted_number! - original_number!)/6
+        let alphabet_count = original_number! - hangul_count*3
+        // 영어 숫자(conver - ori) / 6 = 1
+        let total_count = hangul_count*2 + alphabet_count
         
-        communicator.communicateWithRequest(post, url: url, method: "POST")
-        
-        self.navigationController?.popViewControllerAnimated(true)
+        if(total_count < 17){
+            let post:NSString = "mytoken=\(userInfo.token)&user[name]=\(name_UTF8!)&user[gender]=\(gender)"
+            let url:NSURL = NSURL(string: "\(goraebang_url)/json/user_modify")!
+            
+            communicator.communicateWithRequest(post, url: url, method: "POST")
+            
+            self.navigationController?.popViewControllerAnimated(true)
+        } else{
+            let alert = GoraeAlert(message: "이름 최대 16")
+            self.presentViewController(alert.alertController, animated: true, completion: nil)
+            alert.dissapear()
+        }
     }
     
     // 성별 선택
@@ -150,6 +167,18 @@ class MyInfoViewController: UIViewController, UIImagePickerControllerDelegate, U
             noneButton.backgroundColor = UIColor.redColor()
         }
     }
+    
+    // 바깥쪽 터치 시 키보드 사라짐
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        nameTextField.endEditing(true)
+    }
+    
+    // 이름 입력 후 return Did End on exit
+    @IBAction func nameReturn(sender: AnyObject) {
+        sender.resignFirstResponder()
+        
+    }
+
     
     
     // 성별 선택 끝

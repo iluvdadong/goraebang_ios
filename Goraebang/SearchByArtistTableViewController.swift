@@ -59,7 +59,8 @@ class SearchByArtistTableViewController: UITableViewController{
         if(searchText != ""){
             let search_text_UTF8 = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             
-            let urlStr = "\(goraebang_url)/json/search_by_artist?query=\(search_text_UTF8!)"
+//            let urlStr = "\(goraebang_url)/json/search_by_artist?query=\(search_text_UTF8!)"
+            let urlStr = "\(goraebang_url)/json/search_by?search_by=artist&mytoken=\(userInfo.token)&query=\(search_text_UTF8!)"
             let url = NSURL(string: urlStr)
             
             
@@ -69,12 +70,12 @@ class SearchByArtistTableViewController: UITableViewController{
             
             if let jsonData = NSData(contentsOfURL: url!) as NSData!{
                 searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-            }
-            else{
+                print(searchResult)
+            } else{
                 searchResult = nil
                 //MARK: 검색 결과가 없다는 Alert View 생성
             }
-            print(searchResult)
+            
             self.tableView.reloadData()
         }
     }
@@ -108,12 +109,24 @@ class SearchByArtistTableViewController: UITableViewController{
         
         cell.songAddButton.userInteractionEnabled = true
         cell.songAddButton.tag = searchResult[row]["id"].int! // 여기에 파라미터 넘기자
-        cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        
+        if searchResult[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
+            if let image = UIImage(named: "AddButtonActive"){
+                cell.songAddButton.setImage(image, forState: .Normal)
+            }
+            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        } else { // 안된 경우
+            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        }
+
         return cell
     }
     
     func songAddAction(sender: UIButton!){
         //        print("Button tapped \(sender.tag)")
+        if let image = UIImage(named: "AddButtonActive"){
+            sender.setImage(image, forState: .Normal)
+        }
         
         let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
         
@@ -131,24 +144,52 @@ class SearchByArtistTableViewController: UITableViewController{
             // NSURLSession.DataTaskWithRequest 로 변경해야한다.
             let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
             
-            
             let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-            
-            print(result)
             
             // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
             if(result["message"] == "SUCCESS"){
                 alertWithWarningMessage("추가되었습니다")
-                
-                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
-                //                self.performSegueWithIdentifier("AddSong", sender: self)
-                
             }
             
         } catch let error as NSError{
             print(error.localizedDescription)
         }
         
+        // Add Action 삭제
+        sender.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        sender.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+
+    }
+    
+    func songDeleteAction(sender: UIButton!){
+        print("Song Delete Action Start Sender tag is \(sender.tag)")
+        
+        if let image = UIImage(named: "AddButtonDeactive"){
+            sender.setImage(image, forState: .Normal)
+        }
+        
+        let post:NSString = "id=\(userInfo.myId)&song_id=\(sender.tag)"
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            //            let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+        sender.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
     }
     
     func alertWithWarningMessage(message: String){

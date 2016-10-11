@@ -127,6 +127,11 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    // 페이지 나갈 때 스크롤 맨 위로
+//    override func viewDidDisappear(animated: Bool) {
+//        bottomContainerScrollView.contentOffset.y = 0
+//    }
+    
     
     override func viewDidAppear(animated: Bool) {
         if(overlay != nil){

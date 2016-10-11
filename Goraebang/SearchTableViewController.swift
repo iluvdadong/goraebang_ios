@@ -108,7 +108,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         if(searchText != ""){
             let search_text_UTF8 = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             
-            let urlStr = "\(goraebang_url)/json/search_by_title?query=\(search_text_UTF8!)"
+            let urlStr = "\(goraebang_url)/json/search_by?search_by=title&mytoken=\(userInfo.token)&query=\(search_text_UTF8!)"
             let url = NSURL(string: urlStr)
             
             let request: NSMutableURLRequest = NSMutableURLRequest()
@@ -117,6 +117,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             
             if let jsonData = NSData(contentsOfURL: url!) as NSData!{
                 searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                print(searchResult)
             }
             else{
                 searchResult = nil
@@ -166,9 +167,19 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         
         cell.songAddButton.userInteractionEnabled = true
         cell.songAddButton.tag = searchResult[row]["id"].int! // 여기에 파라미터 넘기자
-        cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
         
         
+        if searchResult[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
+            if let image = UIImage(named: "AddButtonActive"){
+                cell.songAddButton.setImage(image, forState: .Normal)
+            }
+            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        } else { // 안된 경우
+            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        }
+        
+        // addAction delete Action 은 실행 후 서로 바꿔줘야 한다.
+        // ADd Action 은 빨간색으로 delete 는 흰색으로 변경
         //        segmentedController.selectedSegmentIndex == searchType
         
         // Configure the cell...
@@ -177,6 +188,9 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     
     func songAddAction(sender: UIButton!){
         //        print("Button tapped \(sender.tag)")
+        if let image = UIImage(named: "AddButtonActive"){
+            sender.setImage(image, forState: .Normal)
+        }
         
         let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
         
@@ -212,6 +226,40 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             print(error.localizedDescription)
         }
         
+        // Add Action 삭제
+        sender.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        sender.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+    }
+    
+    func songDeleteAction(sender: UIButton!){
+        print("Song Delete Action Start Sender tag is \(sender.tag)")
+        
+        if let image = UIImage(named: "AddButtonDeactive"){
+            sender.setImage(image, forState: .Normal)
+        }
+        
+        let post:NSString = "id=\(userInfo.myId)&song_id=\(sender.tag)"
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+//            let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+        sender.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
     }
     
     func alertWithWarningMessage(message: String){
