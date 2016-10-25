@@ -348,7 +348,7 @@
                                             <constraint firstAttribute="width" secondItem="Wm9-Eg-Yg6" secondAttribute="height" multiplier="1:1" id="08Y-Ia-TPp"/>
                                             <constraint firstAttribute="width" constant="30" id="VWm-wv-rjX"/>
                                         </constraints>
-                                        <state key="normal" image="AddButtonActive"/>
+                                        <state key="normal" image="AddButtonDeactive"/>
                                         <connections>
                                             <action selector="songAddAction:" destination="2Gb-oa-1Mb" eventType="touchUpInside" id="R51-Ql-mEj"/>
                                         </connections>
@@ -446,6 +446,7 @@
                         <outlet property="likeCountLabel" destination="bE6-TO-Epa" id="Xed-7I-yEb"/>
                         <outlet property="lyricsTextView" destination="eY3-Yk-gA3" id="YBx-sK-Wed"/>
                         <outlet property="releaseDateLabel" destination="V3Y-BW-jyT" id="STX-KU-d8A"/>
+                        <outlet property="songAddButton" destination="Wm9-Eg-Yg6" id="H8D-uI-9Ga"/>
                         <outlet property="songTitleLabel" destination="Ra2-Fw-3O0" id="uiL-d5-iOW"/>
                     </connections>
                 </viewController>
@@ -3719,7 +3720,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddButtonActive" width="80" height="80"/>
         <image name="AddButtonDeactive" width="80" height="80"/>
         <image name="HomeIcon" width="25" height="25"/>
         <image name="MylistIcon" width="25" height="25"/>

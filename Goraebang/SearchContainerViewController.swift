@@ -60,12 +60,12 @@ class SearchContainerViewController: UIViewController, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "onSearch"){
             let OnSearchView = (segue.destinationViewController as! OnSearchContainerViewController)
-            print("지금 넘기려는 검색어는 \(searchText.text!)")
             
-            OnSearchView.searchTextFromPreviousPage = searchText.text!
+            let paramText = searchText.text!
+            OnSearchView.searchTextFromPreviousPage = paramText
             // 검색어를 넘기고 검색어를 없앤다. 위의 작업이 완료될 때가지 기다려야 하는데
             // 넣기전에 삭제 했을 때 오류 발생
-//            self.searchText.text = ""
+            self.searchText.text = ""
             self.searchText.resignFirstResponder()
         }
     }

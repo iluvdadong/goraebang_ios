@@ -14,8 +14,10 @@ class HomeChartDetailTableViewController: UITableViewController {
     let goraebang_url = GlobalSetting.getGoraebangURL()
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
-    var userInfo: UserInfoGetter!
+    var userInfo = UserInfoGetter()
     var currentTabIndex:Int!
+    
+    var curStatus:[Int]!
     
     // 푸시된 창에서 다른 탭으로 넘어갈 경우 사라지는 코드
     override func viewDidDisappear(animated: Bool) {
@@ -43,7 +45,6 @@ class HomeChartDetailTableViewController: UITableViewController {
             tableView.rowHeight = 120.0
         }
         
-        
         getTopChart()
         
         // Uncomment the following line to preserve selection between presentations
@@ -55,11 +56,13 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     func getTopChart(){
         // Top 100 read
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100?mytoken=\(userInfo.token)")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        
+        
         print(topChartReadableJSON)
     }
     
@@ -83,7 +86,10 @@ class HomeChartDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TopChartTableCell", forIndexPath: indexPath) as! HomeChartDetailTableViewCell
         
+//        let cell = tableView.cellForRowAtIndexPath(indexPath) as! HomeChartDetailTableViewCell
+        
         let row = indexPath.row
+        
         cell.rankLabel.text = String(row+1)
         //        cell.songNumberLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         //        cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
@@ -102,6 +108,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         
         // MARK: jacket_middle 맞는지 확인
         if (topChartReadableJSON[row]["jacket_small"] != nil ){
+            
             cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row]["jacket_small"].string!)!))
         }
         else {
@@ -114,27 +121,34 @@ class HomeChartDetailTableViewController: UITableViewController {
         cell.albumWebView.userInteractionEnabled = false
         
         cell.songAddButton.userInteractionEnabled = true
-        cell.songAddButton.tag = topChartReadableJSON[row]["id"].int! // 여기에 파라미터 넘기자
+//        cell.songAddButton.tag = topChartReadableJSON[row]["id"].int! // 여기에 파라미터 넘기자
+        cell.songAddButton.tag = row // 여기에 파라미터 넘기자
         
         if topChartReadableJSON[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
             if let image = UIImage(named: "AddButtonActive"){
                 cell.songAddButton.setImage(image, forState: .Normal)
             }
+            
             cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
         } else { // 안된 경우
+            if let image = UIImage(named: "AddButtonDeactive"){
+                cell.songAddButton.setImage(image, forState: .Normal)
+            }
             cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+            
         }
 
         return cell
     }
     
     func songAddAction(sender: UIButton!){
-        //        print("Button tapped \(sender.tag)")
         if let image = UIImage(named: "AddButtonActive"){
             sender.setImage(image, forState: .Normal)
         }
         
-        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
+        let row = sender.tag
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(topChartReadableJSON[sender.tag]["id"].int!)"
+        topChartReadableJSON[row]["is_my_favorite"] == true
         
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
         
@@ -174,13 +188,15 @@ class HomeChartDetailTableViewController: UITableViewController {
     }
     
     func songDeleteAction(sender: UIButton!){
-        print("Song Delete Action Start Sender tag is \(sender.tag)")
-        
+        print("delete action 실행")
         if let image = UIImage(named: "AddButtonDeactive"){
             sender.setImage(image, forState: .Normal)
         }
         
-        let post:NSString = "id=\(userInfo.myId)&song_id=\(sender.tag)"
+        let row = sender.tag
+        
+        topChartReadableJSON[row]["is_my_favorite"] == false
+        let post:NSString = "id=\(userInfo.myId)&song_id=\(topChartReadableJSON[sender.tag]["id"].int!)"
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
         
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
@@ -204,43 +220,6 @@ class HomeChartDetailTableViewController: UITableViewController {
         sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
     }
     
-//    func songAddAction(sender: UIButton!){
-////        print("Button tapped \(sender.tag)")
-//        
-//        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
-//        
-//        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
-//        
-//        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
-//        
-//        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
-//        request.HTTPMethod = "POST"
-//        request.HTTPBody = postData
-//        
-//        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
-//        
-//        do {
-//            // NSURLSession.DataTaskWithRequest 로 변경해야한다.=
-//            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
-//            
-//            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-//            
-//            print(result)
-//            
-//            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
-//            if(result["message"] == "SUCCESS"){
-//                alertWithWarningMessage("추가되었습니다")
-//                
-//                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
-//                //                self.performSegueWithIdentifier("AddSong", sender: self)
-//                
-//            }
-//            
-//        } catch let error as NSError{
-//            print(error.localizedDescription)
-//        }
-//        
-//    }
     
     func alertWithWarningMessage(message: String){
         let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
@@ -262,6 +241,10 @@ class HomeChartDetailTableViewController: UITableViewController {
             
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
+            
+            // 현재 행이 추가 되어 있는지 안되있는지
+            
+            detailViewController.currentStatus = topChartReadableJSON[row!]["is_my_favorite"].bool
             
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(topChartReadableJSON, row: row!, type: 0)

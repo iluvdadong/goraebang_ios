@@ -65,6 +65,8 @@ class MyListDetailViewController: UIViewController {
     
     @IBOutlet weak var albumJacketWebView: UIWebView!
     
+    var currentStatus: Bool! // 0은 추가안됨, 1은 추가됨
+    @IBOutlet weak var songAddButton: UIButton!
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
@@ -75,10 +77,10 @@ class MyListDetailViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         // 탭 간 이동시에만 사라져야 한다.
-//        if(self.tabBarController?.selectedIndex != 0){
-//            self.navigationController?.popViewControllerAnimated(true)
+        //        if(self.tabBarController?.selectedIndex != 0){
+        //            self.navigationController?.popViewControllerAnimated(true)
         self.navigationController?.popToRootViewControllerAnimated(true)
-//        }
+        //        }
     }
     
     // TextView 스크롤 가장 위에서 시작
@@ -114,40 +116,76 @@ class MyListDetailViewController: UIViewController {
     
     
     @IBAction func songAddAction(sender: AnyObject) {
-        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(songInfo.id)"
-        
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
-        
-        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
-        
-        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.HTTPBody = postData
-        
-        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
-        
-        do {
-            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
-            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
-            
-            
-            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-            
-            print(result)
-            
-            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
-            if(result["message"] == "SUCCESS"){
-                alertWithWarningMessage("추가되었습니다")
-                
-                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
-                //                self.performSegueWithIdentifier("AddSong", sender: self)
-                
+        if currentStatus == true {
+            if let image = UIImage(named: "AddButtonDeactive"){
+                songAddButton.setImage(image, forState: .Normal)
             }
             
-        } catch let error as NSError{
-            print(error.localizedDescription)
+            let post:NSString = "id=\(userInfo.myId)&song_id=\(songInfo.id)"
+            let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
+            
+            let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+            
+            let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+            request.HTTPMethod = "POST"
+            request.HTTPBody = postData
+            
+            let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+            
+            do {
+                // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+                try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+                //            let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                
+            } catch let error as NSError{
+                print(error.localizedDescription)
+            }
+            
+            
+            
+            currentStatus = false
+        } else {
+            if let image = UIImage(named: "AddButtonActive"){
+                songAddButton.setImage(image, forState: .Normal)
+            }
+            
+            
+            let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(songInfo.id)"
+            
+            let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
+            
+            let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+            
+            let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+            request.HTTPMethod = "POST"
+            request.HTTPBody = postData
+            
+            let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+            
+            do {
+                // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+                let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+                
+                let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                
+                print(result)
+                
+                // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
+                if(result["message"] == "SUCCESS"){
+                    alertWithWarningMessage("추가되었습니다")
+                    
+                    //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
+                    //                self.performSegueWithIdentifier("AddSong", sender: self)
+                    
+                }
+                
+            } catch let error as NSError{
+                print(error.localizedDescription)
+            }
+            currentStatus = true
         }
-
+        
+        
     }
     
     func alertWithWarningMessage(message: String){
@@ -176,6 +214,16 @@ class MyListDetailViewController: UIViewController {
         lyricsTextView.attributedText = attrStr
         lyricsTextView.showsVerticalScrollIndicator = false
         
+        if currentStatus != nil{
+            if currentStatus == true{
+                if let image = UIImage(named: "AddButtonActive"){
+                    songAddButton.setImage(image, forState: .Normal)
+                }
+                //            addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+            } else { // 안된 경우
+                //            songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

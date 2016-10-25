@@ -15,6 +15,7 @@ class SearchByArtistTableViewController: UITableViewController{
     // Type 0: Title, Type 1: Artist, Type 2: Lyrics
     var searchType:Int!
     var userInfo: UserInfoGetter!
+    var is_my_favorite:[Int]!
     
     func searchCall(n:NSNotification){
         let searchText:String = String(n.userInfo!["searchText"]!)
@@ -71,6 +72,14 @@ class SearchByArtistTableViewController: UITableViewController{
             if let jsonData = NSData(contentsOfURL: url!) as NSData!{
                 searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
                 print(searchResult)
+                is_my_favorite = [Int]()
+                
+                for var i = 0; i < searchResult.count; i++ {
+                    is_my_favorite.append(searchResult[i]["is_my_favorite"].int!)
+                }
+                for i in is_my_favorite {
+                    print(i)
+                }
             } else{
                 searchResult = nil
                 //MARK: 검색 결과가 없다는 Alert View 생성
@@ -108,16 +117,31 @@ class SearchByArtistTableViewController: UITableViewController{
         // Configure the cell...
         
         cell.songAddButton.userInteractionEnabled = true
-        cell.songAddButton.tag = searchResult[row]["id"].int! // 여기에 파라미터 넘기자
+        cell.songAddButton.tag = row // 여기에 파라미터 넘기자
         
-        if searchResult[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
-            if let image = UIImage(named: "AddButtonActive"){
-                cell.songAddButton.setImage(image, forState: .Normal)
-            }
+        
+        // 버튼 변경, 타겟 변경 해줬다.
+        // songAddAction에서 is_my_favorite 배열의 값 변경만 하면 완료 *****************************************
+        if is_my_favorite[row] == 1{ // 내노래 추가된 경우
+            cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
+            cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
             cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
         } else { // 안된 경우
+            cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+            cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
             cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
         }
+//        if searchResult[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
+//            if let image = UIImage(named: "AddButtonActive"){
+//                cell.songAddButton.setImage(image, forState: .Normal)
+//            }
+//            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+//        } else { // 안된 경우
+//            if let image = UIImage(named: "AddButtonDeactive"){
+//                cell.songAddButton.setImage(image, forState: .Normal)
+//            }
+//            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+//        }
 
         return cell
     }
@@ -128,7 +152,9 @@ class SearchByArtistTableViewController: UITableViewController{
             sender.setImage(image, forState: .Normal)
         }
         
-        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
+//        print(sender.superclass[row])
+        
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(searchResult[sender.tag]["id"])"
         
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
         
@@ -157,6 +183,7 @@ class SearchByArtistTableViewController: UITableViewController{
         
         // Add Action 삭제
         sender.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 1
         sender.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
 
     }
@@ -168,7 +195,7 @@ class SearchByArtistTableViewController: UITableViewController{
             sender.setImage(image, forState: .Normal)
         }
         
-        let post:NSString = "id=\(userInfo.myId)&song_id=\(sender.tag)"
+        let post:NSString = "id=\(userInfo.myId)&song_id=\(searchResult[sender.tag]["id"])"
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
         
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
@@ -189,6 +216,7 @@ class SearchByArtistTableViewController: UITableViewController{
         }
         
         sender.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 0
         sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
     }
     

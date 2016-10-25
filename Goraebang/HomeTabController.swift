@@ -518,8 +518,6 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         // 앨범 x 좌표
         var x:CGFloat = 20
         var y:CGFloat = 0
-        print("Top 100 개수 출력")
-        print(topChartReadableJSON.count)
         for i in 0...17 {
             
             // 이미지의 크기는 아이폰 가로길이에서 양 옆 패딩 각각 10씩 -20, 그리고 앨범 사이 간격 5*2에서 -10으로 총 -30 나누기 3, 높이는 같아진다.
