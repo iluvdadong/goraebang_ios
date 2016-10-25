@@ -16,15 +16,77 @@ class SearchByArtistTableViewController: UITableViewController{
     var searchType:Int!
     var userInfo: UserInfoGetter!
     var is_my_favorite:[Int]!
+    var is_modified:Int = 0
+    var modified_row:Int = 0
+    var modified_color:Int = 0
     
     func searchCall(n:NSNotification){
         let searchText:String = String(n.userInfo!["searchText"]!)
         searchSong(searchText)
     }
     
+    // 디테일 페이지에서 수정된 경우에 색깔 변경
+    override func viewDidAppear(animated: Bool) {
+//        
+//        print("변경여부 = \(is_modified)")
+//        print("변경된 로우 = \(modified_row)")
+//        print("변경된 칼라 = \(modified_color)")
+//        
+//        if is_modified == 1{
+//            let index_path = NSIndexPath(index: modified_row)
+//            tableView.reloadData()
+//            let cell = tableView.cellForRowAtIndexPath(index_path) as! SearchByArtistTableViewCell
+//            
+//            if modified_color == 1{
+//                cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
+//                cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+//                cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+//            } else {
+//                cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+//                cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
+//                cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+//            }
+//        }
+//        is_modified = 0
+//        modified_color = 0
+//        modified_row = 0
+    }
+    
+    func updateIsMyList(n:NSNotification){
+        let row = n.userInfo!["row"] as! Int
+        let isMyList = n.userInfo!["is_my_list"] as! Int
+        print("Succcessssss")
+        print(row)
+        print(n.userInfo!["is_my_list"])
+        is_modified = 1
+        modified_color = isMyList
+        modified_row = row
+        is_my_favorite[row] = isMyList
+        tableView.reloadData()
+//        let index_path = NSIndexPath(index: row)
+        
+//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchByArtistTableCell", forIndexPath: indexPath) as! SearchByArtistTableViewCell
+//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchByArtistTableCell") as! SearchByArtistTableViewCell
+//        let cell = tableView.cellForRowAtIndexPath(index_path) as! SearchByArtistTableViewCell
+        
+//        if isMyList == 1{
+////            let cell = tableView.cellForRowAtIndexPath(row as NSIndexPath) as! SearchByArtistTableViewCell
+//            cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
+//            cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+//            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+////            cell.songAddButton =
+//        } else {
+//            cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+//            cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
+//            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+//        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userInfo = UserInfoGetter()
+        is_my_favorite = [Int]()
+    
         tableView.showsVerticalScrollIndicator = false
         
         if(view.bounds.width == 320){
@@ -35,12 +97,12 @@ class SearchByArtistTableViewController: UITableViewController{
             tableView.rowHeight = 120.0
         }
         
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchByArtistTableViewController.searchCall), name: "com.sohn.searchByArtistKey", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchByArtistTableViewController.searchCall), name: "com.sohn.searchByArtistKey", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchByArtistTableViewController.updateIsMyList), name: "com.sohn.fromSongDetail", object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        
-    }
+    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -72,7 +134,7 @@ class SearchByArtistTableViewController: UITableViewController{
             if let jsonData = NSData(contentsOfURL: url!) as NSData!{
                 searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
                 print(searchResult)
-                is_my_favorite = [Int]()
+                
                 
                 for var i = 0; i < searchResult.count; i++ {
                     is_my_favorite.append(searchResult[i]["is_my_favorite"].int!)
@@ -118,7 +180,6 @@ class SearchByArtistTableViewController: UITableViewController{
         
         cell.songAddButton.userInteractionEnabled = true
         cell.songAddButton.tag = row // 여기에 파라미터 넘기자
-        
         
         // 버튼 변경, 타겟 변경 해줬다.
         // songAddAction에서 is_my_favorite 배열의 값 변경만 하면 완료 *****************************************
@@ -242,6 +303,13 @@ class SearchByArtistTableViewController: UITableViewController{
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
             
+            if is_my_favorite[row!] == 1{
+                detailViewController.currentStatus = true
+            } else {
+                detailViewController.currentStatus = false
+            }
+            
+            detailViewController.row = row
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(searchResult, row: row!, type: 4)
         }

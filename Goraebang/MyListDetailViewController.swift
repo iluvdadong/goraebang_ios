@@ -61,6 +61,11 @@ class MyListDetailViewController: UIViewController {
     
     var userInfo:UserInfoGetter!
     
+    
+    var row:Int!
+    var is_my_list:Int!
+    
+    
     // 190916 Interface Builder로 변경
     
     @IBOutlet weak var albumJacketWebView: UIWebView!
@@ -140,9 +145,8 @@ class MyListDetailViewController: UIViewController {
             } catch let error as NSError{
                 print(error.localizedDescription)
             }
-            
-            
-            
+            let detailParam = ["is_my_list":0, "row":row!]
+            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromSongDetail", object: self, userInfo: detailParam)
             currentStatus = false
         } else {
             if let image = UIImage(named: "AddButtonActive"){
@@ -183,6 +187,9 @@ class MyListDetailViewController: UIViewController {
                 print(error.localizedDescription)
             }
             currentStatus = true
+            
+            let detailParam = ["is_my_list":1, "row":row!]
+            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromSongDetail", object: self, userInfo: detailParam)
         }
         
         

@@ -123,7 +123,6 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
     }
     
     func searchFromPreviousPage(){
-        
         let searchTextParam = ["searchText":searchText.text!]
         NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
     }
