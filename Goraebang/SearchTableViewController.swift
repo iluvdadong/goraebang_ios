@@ -28,19 +28,28 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     
     // Type 0: Title, Type 1: Artist, Type 2: Lyrics
     var searchType:Int!
+    var is_my_favorite:[Int]!
     
     func searchCall(n:NSNotification){
         let searchText:String = String(n.userInfo!["searchText"]!)
         searchSong(searchText)
     }
     
+    func updateIsMyList(n:NSNotification){
+        let row = n.userInfo!["row"] as! Int
+        let isMyList = n.userInfo!["is_my_list"] as! Int
+        is_my_favorite[row] = isMyList
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userInfo = UserInfoGetter()
+        is_my_favorite = [Int]()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchTableViewController.searchCall), name: "com.sohn.searchByTitleKey", object: nil)
         
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchTableViewController.updateIsMyList), name: "com.sohn.fromTitleSongDetail", object: nil)
         tableView.showsVerticalScrollIndicator = false
         
         // 테이블 뷰 행 높이 설정
@@ -118,6 +127,10 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             if let jsonData = NSData(contentsOfURL: url!) as NSData!{
                 searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
                 print(searchResult)
+                
+                for var i = 0; i < searchResult.count; i++ {
+                    is_my_favorite.append(searchResult[i]["is_my_favorite"].int!)
+                }
             }
             else{
                 searchResult = nil
@@ -166,17 +179,26 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         cell.songImageWebView.userInteractionEnabled = false
         
         cell.songAddButton.userInteractionEnabled = true
-        cell.songAddButton.tag = searchResult[row]["id"].int! // 여기에 파라미터 넘기자
+        cell.songAddButton.tag = row // 여기에 파라미터 넘기자
         
-        
-        if searchResult[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
-            if let image = UIImage(named: "AddButtonActive"){
-                cell.songAddButton.setImage(image, forState: .Normal)
-            }
+        if is_my_favorite[row] == 1{ // 내노래 추가된 경우
+            cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
+            cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
             cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
         } else { // 안된 경우
+            cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+            cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
             cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
         }
+        
+//        if searchResult[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
+//            if let image = UIImage(named: "AddButtonActive"){
+//                cell.songAddButton.setImage(image, forState: .Normal)
+//            }
+//            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+//        } else { // 안된 경우
+//            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+//        }
         
         // addAction delete Action 은 실행 후 서로 바꿔줘야 한다.
         // ADd Action 은 빨간색으로 delete 는 흰색으로 변경
@@ -192,7 +214,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             sender.setImage(image, forState: .Normal)
         }
         
-        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(sender.tag)"
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(searchResult[sender.tag]["id"])"
         
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
         
@@ -228,17 +250,18 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         
         // Add Action 삭제
         sender.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 1
         sender.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
     }
     
     func songDeleteAction(sender: UIButton!){
-        print("Song Delete Action Start Sender tag is \(sender.tag)")
+//        print("Song Delete Action Start Sender tag is \(sender.tag)")
         
         if let image = UIImage(named: "AddButtonDeactive"){
             sender.setImage(image, forState: .Normal)
         }
         
-        let post:NSString = "id=\(userInfo.myId)&song_id=\(sender.tag)"
+        let post:NSString = "id=\(userInfo.myId)&song_id=\(searchResult[sender.tag]["id"])"
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
         
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
@@ -259,6 +282,7 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         }
         
         sender.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 0
         sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
     }
     
@@ -284,6 +308,14 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
             
+            if is_my_favorite[row!] == 1{
+                detailViewController.currentStatus = true
+            } else {
+                detailViewController.currentStatus = false
+            }
+            
+            detailViewController.from_where = 0
+            detailViewController.row = row
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(searchResult, row: row!, type: 2)
         }

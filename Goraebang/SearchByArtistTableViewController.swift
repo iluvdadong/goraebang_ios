@@ -16,70 +16,24 @@ class SearchByArtistTableViewController: UITableViewController{
     var searchType:Int!
     var userInfo: UserInfoGetter!
     var is_my_favorite:[Int]!
-    var is_modified:Int = 0
-    var modified_row:Int = 0
-    var modified_color:Int = 0
+//    var is_modified:Int = 0
+//    var modified_row:Int = 0
+//    var modified_color:Int = 0
     
     func searchCall(n:NSNotification){
         let searchText:String = String(n.userInfo!["searchText"]!)
         searchSong(searchText)
     }
     
-    // 디테일 페이지에서 수정된 경우에 색깔 변경
     override func viewDidAppear(animated: Bool) {
-//        
-//        print("변경여부 = \(is_modified)")
-//        print("변경된 로우 = \(modified_row)")
-//        print("변경된 칼라 = \(modified_color)")
-//        
-//        if is_modified == 1{
-//            let index_path = NSIndexPath(index: modified_row)
-//            tableView.reloadData()
-//            let cell = tableView.cellForRowAtIndexPath(index_path) as! SearchByArtistTableViewCell
-//            
-//            if modified_color == 1{
-//                cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
-//                cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
-//                cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
-//            } else {
-//                cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
-//                cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
-//                cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
-//            }
-//        }
-//        is_modified = 0
-//        modified_color = 0
-//        modified_row = 0
+
     }
     
     func updateIsMyList(n:NSNotification){
         let row = n.userInfo!["row"] as! Int
         let isMyList = n.userInfo!["is_my_list"] as! Int
-        print("Succcessssss")
-        print(row)
-        print(n.userInfo!["is_my_list"])
-        is_modified = 1
-        modified_color = isMyList
-        modified_row = row
         is_my_favorite[row] = isMyList
         tableView.reloadData()
-//        let index_path = NSIndexPath(index: row)
-        
-//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchByArtistTableCell", forIndexPath: indexPath) as! SearchByArtistTableViewCell
-//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchByArtistTableCell") as! SearchByArtistTableViewCell
-//        let cell = tableView.cellForRowAtIndexPath(index_path) as! SearchByArtistTableViewCell
-        
-//        if isMyList == 1{
-////            let cell = tableView.cellForRowAtIndexPath(row as NSIndexPath) as! SearchByArtistTableViewCell
-//            cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
-//            cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
-//            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
-////            cell.songAddButton =
-//        } else {
-//            cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
-//            cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
-//            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
-//        }
     }
     
     override func viewDidLoad() {
@@ -99,10 +53,8 @@ class SearchByArtistTableViewController: UITableViewController{
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchByArtistTableViewController.searchCall), name: "com.sohn.searchByArtistKey", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchByArtistTableViewController.updateIsMyList), name: "com.sohn.fromSongDetail", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchByArtistTableViewController.updateIsMyList), name: "com.sohn.fromArtistSongDetail", object: nil)
     }
-    
-    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -135,13 +87,12 @@ class SearchByArtistTableViewController: UITableViewController{
                 searchResult = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
                 print(searchResult)
                 
-                
                 for var i = 0; i < searchResult.count; i++ {
                     is_my_favorite.append(searchResult[i]["is_my_favorite"].int!)
                 }
-                for i in is_my_favorite {
-                    print(i)
-                }
+//                for i in is_my_favorite {
+//                    print(i)
+//                }
             } else{
                 searchResult = nil
                 //MARK: 검색 결과가 없다는 Alert View 생성
@@ -309,12 +260,12 @@ class SearchByArtistTableViewController: UITableViewController{
                 detailViewController.currentStatus = false
             }
             
+            detailViewController.from_where = 1
             detailViewController.row = row
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(searchResult, row: row!, type: 4)
         }
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

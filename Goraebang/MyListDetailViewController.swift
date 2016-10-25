@@ -65,6 +65,10 @@ class MyListDetailViewController: UIViewController {
     var row:Int!
     var is_my_list:Int!
     
+    // 0 : search by title
+    // 1 : search by artist
+    // 2 : search by lyrics
+    var from_where:Int!
     
     // 190916 Interface Builder로 변경
     
@@ -100,22 +104,6 @@ class MyListDetailViewController: UIViewController {
         
         fillContents()
         
-        //        self.automaticallyAdjustsScrollViewInsets = false;
-        
-        //        phoneSize = view.bounds.width
-        //
-        //        fixedTopPadding = 65.0
-        //
-        //        setMyAlbum(phoneSize)
-        //        setMyFirstContainer(phoneSize)
-        //        setMySecondContainer(phoneSize)
-        //        setMyThirdContainer(phoneSize)
-        //
-        //        makeMyAlbumWebView()
-        //        makeMyFirstContainer()
-        //        makeMySecondContainer()
-        //        makeMyThirdContainer()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -146,7 +134,17 @@ class MyListDetailViewController: UIViewController {
                 print(error.localizedDescription)
             }
             let detailParam = ["is_my_list":0, "row":row!]
-            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromSongDetail", object: self, userInfo: detailParam)
+            
+            if from_where == 0{ // 제목검색 으로
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromTitleSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 1 { // 가수검색 으로
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromArtistSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 2 { // 가사검색 으로
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromLyricsSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 3 { // top100에서 온 경우
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromTopChartSongDetail", object: self, userInfo: detailParam)
+            }
+            
             currentStatus = false
         } else {
             if let image = UIImage(named: "AddButtonActive"){
@@ -189,7 +187,17 @@ class MyListDetailViewController: UIViewController {
             currentStatus = true
             
             let detailParam = ["is_my_list":1, "row":row!]
-            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromSongDetail", object: self, userInfo: detailParam)
+            
+            if from_where == 0{
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromTitleSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 1 {
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromArtistSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 2{
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromLyricsSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 3{
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromTopChartSongDetail", object: self, userInfo: detailParam)
+            }
+            
         }
         
         

@@ -19,6 +19,15 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     var curStatus:[Int]!
     
+    var is_my_favorite:[Int]!
+    
+    func updateIsMyList(n:NSNotification){
+        let row = n.userInfo!["row"] as! Int
+        let isMyList = n.userInfo!["is_my_list"] as! Int
+        is_my_favorite[row] = isMyList
+        tableView.reloadData()
+    }
+    
     // 푸시된 창에서 다른 탭으로 넘어갈 경우 사라지는 코드
     override func viewDidDisappear(animated: Bool) {
         // 탭 간 이동시에만 사라져야 한다.
@@ -36,6 +45,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         super.viewDidLoad()
         userInfo = UserInfoGetter()
         currentTabIndex = self.tabBarController?.selectedIndex
+        is_my_favorite = [Int]()
         
         if(self.view.bounds.width == 320){
             tableView.rowHeight = 100.0
@@ -44,7 +54,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         } else {
             tableView.rowHeight = 120.0
         }
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeChartDetailTableViewController.updateIsMyList), name: "com.sohn.fromTopChartSongDetail", object: nil)
         getTopChart()
         
         // Uncomment the following line to preserve selection between presentations
@@ -62,6 +72,10 @@ class HomeChartDetailTableViewController: UITableViewController {
         
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         
+        for var i = 0; i < topChartReadableJSON.count; i++ {
+            is_my_favorite.append(topChartReadableJSON[i]["is_my_favorite"].int!)
+        }
+
         
         print(topChartReadableJSON)
     }
@@ -124,19 +138,28 @@ class HomeChartDetailTableViewController: UITableViewController {
 //        cell.songAddButton.tag = topChartReadableJSON[row]["id"].int! // 여기에 파라미터 넘기자
         cell.songAddButton.tag = row // 여기에 파라미터 넘기자
         
-        if topChartReadableJSON[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
-            if let image = UIImage(named: "AddButtonActive"){
-                cell.songAddButton.setImage(image, forState: .Normal)
-            }
-            
+        if is_my_favorite[row] == 1{ // 내노래 추가된 경우
+            cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
+            cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
             cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
         } else { // 안된 경우
-            if let image = UIImage(named: "AddButtonDeactive"){
-                cell.songAddButton.setImage(image, forState: .Normal)
-            }
+            cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+            cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
             cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
-            
         }
+//        if topChartReadableJSON[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
+//            if let image = UIImage(named: "AddButtonActive"){
+//                cell.songAddButton.setImage(image, forState: .Normal)
+//            }
+//            
+//            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+//        } else { // 안된 경우
+//            if let image = UIImage(named: "AddButtonDeactive"){
+//                cell.songAddButton.setImage(image, forState: .Normal)
+//            }
+//            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+//            
+//        }
 
         return cell
     }
@@ -184,6 +207,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         
         // Add Action 삭제
         sender.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 1
         sender.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
     }
     
@@ -217,6 +241,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         }
         
         sender.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 0
         sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
     }
     
@@ -244,8 +269,15 @@ class HomeChartDetailTableViewController: UITableViewController {
             
             // 현재 행이 추가 되어 있는지 안되있는지
             
-            detailViewController.currentStatus = topChartReadableJSON[row!]["is_my_favorite"].bool
+            if is_my_favorite[row!] == 1{
+                detailViewController.currentStatus = true
+            } else {
+                detailViewController.currentStatus = false
+            }
+//            detailViewController.currentStatus = topChartReadableJSON[row!]["is_my_favorite"].bool
             
+            detailViewController.from_where = 3
+            detailViewController.row = row
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(topChartReadableJSON, row: row!, type: 0)
         }
