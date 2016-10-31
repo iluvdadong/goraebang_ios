@@ -8,9 +8,7 @@
 
 import UIKit
 
-
 class HomeChartDetailTableViewController: UITableViewController {
-    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
