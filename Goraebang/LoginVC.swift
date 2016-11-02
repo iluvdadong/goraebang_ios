@@ -134,19 +134,19 @@ class LoginVC: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         txtPassword.text = ""
-        let filemgr = NSFileManager.defaultManager()
-        
+         let filemgr = NSFileManager.defaultManager()
         let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         
-        let dataPath = documentPath.URLByAppendingPathComponent("data")
         let emailPath = documentPath.URLByAppendingPathComponent("email.txt")
-        //        let passwordPath = dataPath.URLByAppendingPathComponent("password.txt")
+        
+        
         let tokenPath = documentPath.URLByAppendingPathComponent("token.txt")
         
         // MARK: tokenPath 파일이 있는 경우는 바로 로그인한다.
-        
-        
-        tokenLogin(tokenPath!.path!, emailPath: emailPath!.path!)
+        // MARK: 현재 token로그인 함수에서 중복으로 검사중이다(수정필요)*********************
+        if filemgr.fileExistsAtPath(tokenPath!.path!){
+            tokenLogin(tokenPath!.path!, emailPath: emailPath!.path!)
+        }
         
     }
     
@@ -265,12 +265,9 @@ class LoginVC: UIViewController {
                     isLogin = false
                     isEnd = true
                 }
-                
             } else {
                 print("error = \(error.debugDescription)")
             }
-            
-            
         }
         
         loginResult.resume()
@@ -289,8 +286,6 @@ class LoginVC: UIViewController {
             self.performSegueWithIdentifier("goto_main", sender: self)
         }
         
-
-        
         // 여기서 토큰이 생성된 경우 토큰으로 다시 로그인한다.
 //        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         
@@ -300,16 +295,11 @@ class LoginVC: UIViewController {
         //        tokenLogin(tokenPath.path!, emailPath: emailPath.path!)
         //        self.performSegueWithIdentifier("goto_main", sender: self)
         
-        
         //*************************************************
         // 로그인 시에 토큰 받아오는 코드 추가 2016.09.07
         // 만약 기존에 저장된 아이디와 다르다면 이메일과 패스워드 정보까지 업데이트
         
-        
         //************************************************
-        
-        
-        
     }
     
     func writeEmail(email: String, emailPath: String){
@@ -421,7 +411,6 @@ class LoginVC: UIViewController {
     }
     
     func writeMyId(id: Int, myIdPath: String){
-        print("My id 생성")
         if(filemgr.fileExistsAtPath(myIdPath)){
             do{
                 try filemgr.removeItemAtPath(myIdPath)

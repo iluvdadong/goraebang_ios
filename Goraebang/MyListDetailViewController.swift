@@ -72,6 +72,8 @@ class MyListDetailViewController: UIViewController {
     
     // 190916 Interface Builder로 변경
     
+    
+    
     @IBOutlet weak var albumJacketWebView: UIWebView!
     
     var currentStatus: Bool! // 0은 추가안됨, 1은 추가됨
@@ -107,10 +109,12 @@ class MyListDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // Activity 추가
+    
     
     @IBAction func songAddAction(sender: AnyObject) {
         if currentStatus == true {
-            if let image = UIImage(named: "AddButtonDeactive"){
+            if let image = UIImage(named: "AddiButtonDeactive"){
                 songAddButton.setImage(image, forState: .Normal)
             }
             

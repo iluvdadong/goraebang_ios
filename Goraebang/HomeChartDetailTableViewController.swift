@@ -19,11 +19,22 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     var is_my_favorite:[Int]!
     
+    var indicator = UIActivityIndicatorView()
+    var viewForIndicator = UIView()
+    
+    @IBOutlet weak var indicator_board: UIActivityIndicatorView!
+    @IBOutlet weak var indicator_view: UIView!
+    
+    
     func updateIsMyList(n:NSNotification){
         let row = n.userInfo!["row"] as! Int
         let isMyList = n.userInfo!["is_my_list"] as! Int
         is_my_favorite[row] = isMyList
         tableView.reloadData()
+    }
+    
+    func activateIndicator() {
+        indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: tableView.bounds.height)
     }
     
     // 푸시된 창에서 다른 탭으로 넘어갈 경우 사라지는 코드
@@ -32,15 +43,18 @@ class HomeChartDetailTableViewController: UITableViewController {
         if(currentTabIndex != self.tabBarController?.selectedIndex){
             self.navigationController?.popViewControllerAnimated(true)
         }
-        
         self.tabBarController?.selectedIndex
     }
     override func viewDidAppear(animated: Bool) {
         currentTabIndex = self.tabBarController?.selectedIndex
+//        indicator.startAnimating()
+        indicator_board.startAnimating()
+        getTopChart()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activateIndicator()
         userInfo = UserInfoGetter()
         currentTabIndex = self.tabBarController?.selectedIndex
         is_my_favorite = [Int]()
@@ -53,7 +67,7 @@ class HomeChartDetailTableViewController: UITableViewController {
             tableView.rowHeight = 120.0
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeChartDetailTableViewController.updateIsMyList), name: "com.sohn.fromTopChartSongDetail", object: nil)
-        getTopChart()
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -64,6 +78,8 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     func getTopChart(){
         // Top 100 read
+        print("진행 중")
+        
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100?mytoken=\(userInfo.token)")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
@@ -74,8 +90,10 @@ class HomeChartDetailTableViewController: UITableViewController {
             is_my_favorite.append(topChartReadableJSON[i]["is_my_favorite"].int!)
         }
 
+        indicator_board.stopAnimating()
+        tableView.reloadData()
+        print("완료")
         
-        print(topChartReadableJSON)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,7 +110,11 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return topChartReadableJSON.count
+        if topChartReadableJSON != nil {
+            return topChartReadableJSON.count
+        } else {
+            return 0
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

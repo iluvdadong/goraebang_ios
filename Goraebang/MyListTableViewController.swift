@@ -25,7 +25,8 @@ class MyListTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         getMyList()
-        let songCount = ["count": myListSongs["song"].count]
+        let songCount = ["count": tableView.numberOfRowsInSection(0)]
+//        let songCount = ["count": myListSongs["song"].count]
         NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.myListSongCountKey", object: self, userInfo: songCount)
         
         self.tableView.reloadData()
@@ -34,11 +35,9 @@ class MyListTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        
         userInfo = UserInfoGetter()
         
-        getMyList()
+//        getMyList()
 //        getMyListSong(userInfo.myListId)
         
         // 테이블 뷰 행 높이 설정
@@ -106,8 +105,6 @@ class MyListTableViewController: UITableViewController {
         do {
             // NSURLSession.DataTaskWithRequest 로 변경해야한다.
             let myListsJsonData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
-            
-            print(response)
             myListSongs = JSON(data: myListsJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         } catch let error as NSError{
             print(error.localizedDescription)
@@ -129,10 +126,14 @@ class MyListTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         // 행의 개수는 JSON을 count한 것과 같다.
 //        print(myListSongs)
-        return myListSongs["song"].count
+        if myListSongs != nil {
+            return myListSongs["song"].count
+        } else {
+            return 0
+        }
+        
         //        return myListSongs[0].count
     }
-    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyListTableCell", forIndexPath: indexPath) as! MyListTableViewCell
@@ -219,7 +220,9 @@ class MyListTableViewController: UITableViewController {
             getMyListSong(userInfo.myListId)
             
             self.tableView.reloadData()
-            
+            let songCount = ["count": tableView.numberOfRowsInSection(0)]
+            //        let songCount = ["count": myListSongs["song"].count]
+            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.myListSongCountKey", object: self, userInfo: songCount)
         }
     }
     

@@ -40,7 +40,7 @@ class Song{
     // MARK: prepare detail view
     // type 0: Top100 Chart, type 1: MyList, type 2: Search, Type 3: Main Page
     func set(json: JSON, row: Int, type: Int){
-        if(type == 2){ // SearchResult by title인 경우
+        if(type == 2){ // SearchResult by title인 경우, Recommend 에서도 사용
             self.id = json[row]["id"].int
             self.title = json[row]["title"].string
             self.artist = json[row]["artist_name"].string
@@ -102,6 +102,7 @@ class Song{
             self.runtime = json[row]["runtime"].string
 //            self.albumWebViewString = json[row]["jacket_middle"].string!
 //            self.song_tjnum = json[row]["song_tjnum"].string
+            
             self.song_tjnum = String(json[row]["song_tjnum"].int!)
             if(json[row]["jacket_small"] != nil){
                 self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket_small"].string!)!))
