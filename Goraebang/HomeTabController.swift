@@ -86,46 +86,27 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
 
-//    override func viewWillAppear(animated: Bool) {
-//        // Alert View
-//        
-//        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .Alert)
-//        
-//        alert.view.tintColor = UIColor.blackColor()
-//        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
-//        loadingIndicator.hidesWhenStopped = true
-//        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-//        loadingIndicator.startAnimating();
-//        
-//        alert.view.addSubview(loadingIndicator)
-//        presentViewController(alert, animated: true, completion: nil)
-//                dismissViewControllerAnimated(false, completion: nil)
+
+    // 스크롤 말려 올라가는 코드
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        if(scrollView == self.bottomContainerScrollView){
+//            
+//            // 
+//
+//            let nextY:CGFloat = 64+topBackgroundHeight - scrollView.contentOffset.y*0.5
+//            // 기존의 높이는 전 체 높이 - 내비바64 - 상단 이미지120 - 탭바30
+//            let originHeight:CGFloat = view.bounds.height - 214
+//            let nextHeight:CGFloat = originHeight + scrollView.contentOffset.y*0.5
+//            if(nextY >= 64){
+//                scrollView.frame = CGRect(x: scrollView.frame.minX, y: nextY, width: scrollView.bounds.width, height: nextHeight)
+//                scrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
+//                homeTopBackgroundImageView.alpha = nextY/184
+//            }
+//            else if(nextY > 5){
+//                scrollView.frame = CGRect(x: scrollView.frame.minX, y: 64, width: scrollView.bounds.width, height: nextHeight)
+//            }
+//        }
 //    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if(scrollView == self.bottomContainerScrollView){
-            
-            // 
-//            let currentY:CGFloat = 120
-            let nextY:CGFloat = 64+topBackgroundHeight - scrollView.contentOffset.y*0.5
-            // 기존의 높이는 전 체 높이 - 내비바64 - 상단 이미지120 - 탭바30
-            let originHeight:CGFloat = view.bounds.height - 214
-            let nextHeight:CGFloat = originHeight + scrollView.contentOffset.y*0.5
-//            print("현재 위치는 \(scrollView.contentOffset.y)")
-//            print("bottomTopChartContainer 위치 \(bottomTopChartContainer.frame.minY) \(bottomTopChartContainer.bounds.height)")
-//            bottomTopChartContainer
-//            let bottomTopChartContainer
-//            let maxReduce = homeTopBackgroundImageView.frame.height // 최대로 올라갈 수 있는 사이즈
-            if(nextY >= 64){
-                scrollView.frame = CGRect(x: scrollView.frame.minX, y: nextY, width: scrollView.bounds.width, height: nextHeight)
-                scrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
-                homeTopBackgroundImageView.alpha = nextY/184
-            }
-            else if(nextY > 5){
-                scrollView.frame = CGRect(x: scrollView.frame.minX, y: 64, width: scrollView.bounds.width, height: nextHeight)
-            }
-        }
-    }
     
     // 페이지 나갈 때 스크롤 맨 위로
 //    override func viewDidDisappear(animated: Bool) {
@@ -146,8 +127,9 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         setSize(view.bounds.width) // 초기설정
         
         getTopChart()
-        makeHomeTopBackground()
+        
         makeBottomContainer()
+        makeHomeTopBackground()
         
         makeAlbumScrollView()
         addAlbumContents()
@@ -162,14 +144,17 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     func setSize(phoneSize:CGFloat){
         contentNum = 6
         
+        // 아래 스크롤 뷰의 Y 시작점을 구하는 bottomContainerStartingYPoint의 -10은 CGFloat의 오차 때문
+        bottomContainerStartingYPoint = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.sharedApplication().statusBarFrame.size.height - 10
         if(phoneSize == 320){ // 4inch
             phoneSizeString = "4inch"
             albumSizeForVariousPhoneWidth = 88
             albumSmallInterval = 8
             albumBigInterval = 40
-            topBackgroundStartingYPoint = 64
+            topBackgroundStartingYPoint = 0
             topBackgroundHeight = 170
-            bottomContainerStartingYPoint = topBackgroundStartingYPoint + topBackgroundHeight
+            
+            
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
             themeLabelStartingYPoint = 285
@@ -179,9 +164,10 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             albumSizeForVariousPhoneWidth = 109
             albumSmallInterval = 4
             albumBigInterval = 40
-            topBackgroundStartingYPoint = 64
+            topBackgroundStartingYPoint = 9
             topBackgroundHeight = 180
-            bottomContainerStartingYPoint = topBackgroundStartingYPoint + topBackgroundHeight
+//            bottomContainerStartingYPoint = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.sharedApplication().statusBarFrame.size.height - 10
+            print(self.navigationController?.navigationBar.bounds.height)
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
             themeLabelStartingYPoint = 305
@@ -190,17 +176,21 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             albumSizeForVariousPhoneWidth = (phoneSize-27)/3
             albumSmallInterval = 3.5
             albumBigInterval = 40
-            topBackgroundStartingYPoint = 64
+            topBackgroundStartingYPoint = 0
             topBackgroundHeight = 190
-            bottomContainerStartingYPoint = topBackgroundStartingYPoint + topBackgroundHeight
+            
+            // bottom Cantiner가 아래 스크롤 뷰로 들어간다.
+//            bottomContainerStartingYPoint = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.sharedApplication().statusBarFrame.size.height - 10
+            
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
             themeLabelStartingYPoint = 365
         }
         
+        bottomTopChartContainerY = topBackgroundHeight+10
         bottomTopChartHeight = albumSizeForVariousPhoneWidth*2 + 100
         
-        bottomNewSongContainerY = bottomTopChartHeight
+        bottomNewSongContainerY = bottomTopChartHeight + bottomTopChartContainerY
         bottomNewSongHeight = albumSizeForVariousPhoneWidth + 60
         
         bottomMyListContainerY = bottomNewSongContainerY + bottomNewSongHeight
@@ -228,14 +218,6 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
     }
     
-    // MARK: 화면 상단의 백그라운드 이미지 생성
-    func makeHomeTopBackground(){
-        homeTopBackgroundImageView = UIImageView(image: UIImage(named: "HomeTopBackground"))
-        homeTopBackgroundImageView.frame = CGRectMake(0, topBackgroundStartingYPoint, view.bounds.width, topBackgroundHeight)
-        
-        view.addSubview(homeTopBackgroundImageView)
-        // 4, 4.7, 5.5 inch 크기 별로 설정 view.bounds.width(height)의 배율로 하는게 좋을 것 같다.
-    }
     
     // MARK: 화면 하단에 Chart를 표시하는 앨범과, 테마를 담을 Container
     func makeBottomContainer(){
@@ -251,14 +233,24 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         makeNewSongContainer()
         makeMyListContainer()
         
-        homeTopBackgroundImageView.layer.zPosition = 1
+        
         bottomContainerScrollView.layer.zPosition = 2
         view.addSubview(bottomContainerScrollView)
 //        view.bringSubviewToFront(bottomContainerScrollView)
     }
     
+    // MARK: 화면 상단의 백그라운드 이미지 생성
+    func makeHomeTopBackground(){
+        homeTopBackgroundImageView = UIImageView(image: UIImage(named: "HomeTopBackground"))
+        homeTopBackgroundImageView.frame = CGRectMake(0, topBackgroundStartingYPoint, view.bounds.width, topBackgroundHeight)
+        homeTopBackgroundImageView.layer.zPosition = 1
+        bottomContainerScrollView.addSubview(homeTopBackgroundImageView)
+        // 4, 4.7, 5.5 inch 크기 별로 설정 view.bounds.width(height)의 배율로 하는게 좋을 것 같다.
+    }
+
+    
     func makeTopChartContainer(){
-        bottomTopChartContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: bottomTopChartHeight))
+        bottomTopChartContainer = UIView(frame: CGRect(x: 0, y: bottomTopChartContainerY, width: view.bounds.width, height: bottomTopChartHeight))
 //                bottomTopChartContainer.backgroundColor = UIColor.darkGrayColor()
 //        bottomTopChartContainer.autoresizesSubviews = true
         

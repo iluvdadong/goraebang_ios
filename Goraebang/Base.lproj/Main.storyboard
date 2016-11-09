@@ -2648,7 +2648,7 @@
                 <navigationController storyboardIdentifier="HomeTab" automaticallyAdjustsScrollViewInsets="NO" id="T8K-8X-hJe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="HOME" image="HomeIcon" id="sdO-Vt-y4a"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="t24-1j-tDE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t24-1j-tDE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2682,7 +2682,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="afV-q1-4Fi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="afV-q1-4Fi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="0.039215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4095,7 +4095,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qGF-63-3gv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="MY LIST" image="MylistIcon" id="yYH-QL-gUm"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="IjU-jT-FiB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IjU-jT-FiB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4119,7 +4119,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QqV-Yl-zw1" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Setting" image="SettingIcon" id="qCV-dc-qXv"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yqY-xS-MsR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yqY-xS-MsR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4143,7 +4143,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Mg-nP-SbC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="SEARCH" image="SearchIcon" id="4Wv-4i-ERd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a9o-q1-UFk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a9o-q1-UFk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
