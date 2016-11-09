@@ -92,7 +92,7 @@ class MyListTableViewController: UITableViewController {
     func getMyListSong(id: Int){
         let post:NSString = "id=\(userInfo.myId)&myList_id=\(id)"
         
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_read")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_read_1")!
 
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         
@@ -127,7 +127,8 @@ class MyListTableViewController: UITableViewController {
         // 행의 개수는 JSON을 count한 것과 같다.
 //        print(myListSongs)
         if myListSongs != nil {
-            return myListSongs["song"].count
+//            return myListSongs["song"].count
+            return myListSongs.count
         } else {
             return 0
         }
@@ -141,16 +142,20 @@ class MyListTableViewController: UITableViewController {
         let row = indexPath.row
         //        cell.songNumberLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
-        cell.songNumberLabel.text = String(myListSongs["song"][row]["song_tjnum"])
+//        cell.songNumberLabel.text = String(myListSongs["song"][row]["song_tjnum"])
+        cell.songNumberLabel.text = String(myListSongs[row]["song_tjnum"])
         //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
-        cell.songTitleLabel.text = myListSongs["song"][row]["title"].string
+//        cell.songTitleLabel.text = myListSongs["song"][row]["title"].string
+        cell.songTitleLabel.text = myListSongs[row]["title"].string
         //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
-        cell.artistLabel.text = myListSongs["artistName"][row].string
+//        cell.artistLabel.text = myListSongs["artistName"][row].string
+        cell.artistLabel.text = myListSongs[row]["artist_name"].string
         
         
-        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListSongs["song"][row]["jacket_small"].string!)!))
+//        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListSongs["song"][row]["jacket_small"].string!)!))
+        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListSongs[row]["jacket_small"].string!)!))
         cell.albumWebView.scalesPageToFit = true
         cell.albumWebView.userInteractionEnabled = false
         
@@ -194,7 +199,7 @@ class MyListTableViewController: UITableViewController {
             
             let row = indexPath.row
             // id로 변경됬다.
-            let post:NSString = "id=\(userInfo.myId)&song_id=\(myListSongs["song"][row]["id"])"
+            let post:NSString = "id=\(userInfo.myId)&song_id=\(myListSongs[row]["id"])"
             let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
             
             let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!

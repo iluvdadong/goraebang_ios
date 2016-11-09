@@ -21,11 +21,9 @@ class RecommendTableViewController: UITableViewController {
     override func viewDidDisappear(animated: Bool) {
         // 탭 간 이동시에만 사라져야 한다.
         if(currentTabIndex != self.tabBarController?.selectedIndex){
-            self.navigationController?.popViewControllerAnimated(true)
-//            recommender.recommendedSong = nil
-//            self.tableView.reloadData()
-//            self.removeFromParentViewController()
-            
+//            self.navigationController?.popViewControllerAnimated(true)
+            self.tableView = nil
+//            self.tableView.hidden = true
         }
         self.tabBarController?.selectedIndex
     }
@@ -37,9 +35,11 @@ class RecommendTableViewController: UITableViewController {
         currentTabIndex = self.tabBarController?.selectedIndex
         activateIndicator()
         
+        
         if(view.bounds.width == 320){
             tableView.rowHeight = 90.0
         } else if(view.bounds.width == 375) {
+            
             tableView.rowHeight = 100.0
         } else {
             tableView.rowHeight = 110.0
@@ -58,22 +58,38 @@ class RecommendTableViewController: UITableViewController {
     
     func activateIndicator() {
         indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: tableView.bounds.height)
+        
+        indicator_board.hidden = false
+        indicator_view.hidden = false
+    }
+    
+    func deactivateIndicator(){
+        indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 0)
+        indicator_board.hidden = true
+        indicator_view.hidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
+        
         if(needChange == true){
             getRecomSong()
         }
+        
         needChange = false
     }
     
-    func getRecomSong(){
+    func getRecomSong() -> Bool{
         indicator_board.startAnimating()
         recommender.getSongRecommendation()
         print(recommender.recommendedSong)
         indicator_board.stopAnimating()
+        deactivateIndicator()
+        self.edgesForExtendedLayout = UIRectEdge.None
+        self.extendedLayoutIncludesOpaqueBars = false
         tableView.reloadData()
         
+        
+        return true
     }
 
     // MARK: - Table view data source
