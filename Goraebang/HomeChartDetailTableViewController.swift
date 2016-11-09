@@ -22,6 +22,8 @@ class HomeChartDetailTableViewController: UITableViewController {
     var indicator = UIActivityIndicatorView()
     var viewForIndicator = UIView()
     
+    var needChange:Bool = true
+    
     @IBOutlet weak var indicator_board: UIActivityIndicatorView!
     @IBOutlet weak var indicator_view: UIView!
     
@@ -49,7 +51,10 @@ class HomeChartDetailTableViewController: UITableViewController {
         currentTabIndex = self.tabBarController?.selectedIndex
 //        indicator.startAnimating()
         indicator_board.startAnimating()
-        getTopChart()
+        if needChange == true{
+            getTopChart()
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -91,6 +96,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         }
 
         indicator_board.stopAnimating()
+        needChange = false
         tableView.reloadData()
         print("완료")
         

@@ -183,6 +183,7 @@ class MyListTableViewController: UITableViewController {
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(myListSongs, row: row!, type: 1)
             detailViewController.isMylist = true
+//            detailViewController.songAddButton.hidden = true
         }
     }
     

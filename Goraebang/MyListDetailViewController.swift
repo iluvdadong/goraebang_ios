@@ -103,7 +103,6 @@ class MyListDetailViewController: UIViewController {
         super.viewDidLoad()
         
         userInfo = UserInfoGetter()
-        
         fillContents()
         
         // Do any additional setup after loading the view.
@@ -242,6 +241,11 @@ class MyListDetailViewController: UIViewController {
             } else { // 안된 경우
                 //            songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
             }
+        }
+        
+        // 마이 리스트의 경우 추가 삭제 버튼이 필요하지 않다.
+        if isMylist == true {
+            songAddButton.hidden = true
         }
     }
     
