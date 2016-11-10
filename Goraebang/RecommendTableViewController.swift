@@ -14,6 +14,10 @@ class RecommendTableViewController: UITableViewController {
     var currentTabIndex:Int!
     var needChange:Bool!
     
+    var userInfo = UserInfoGetter()
+    let goraebang_url = GlobalSetting.getGoraebangURL()
+    var is_my_favorite:[Int] = [Int]()
+    
     @IBOutlet weak var indicator_view: UIView!
     @IBOutlet weak var indicator_board: UIActivityIndicatorView!
     
@@ -23,9 +27,18 @@ class RecommendTableViewController: UITableViewController {
         if(currentTabIndex != self.tabBarController?.selectedIndex){
 //            self.navigationController?.popViewControllerAnimated(true)
             self.tableView = nil
+            is_my_favorite.removeAll()
+            
 //            self.tableView.hidden = true
         }
         self.tabBarController?.selectedIndex
+    }
+    
+    func updateIsMyList(n:NSNotification){
+        let row = n.userInfo!["row"] as! Int
+        let isMyList = n.userInfo!["is_my_list"] as! Int
+        is_my_favorite[row] = isMyList
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -35,6 +48,7 @@ class RecommendTableViewController: UITableViewController {
         currentTabIndex = self.tabBarController?.selectedIndex
         activateIndicator()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecommendTableViewController.updateIsMyList), name: "com.sohn.fromRecommendSongDetail", object: nil)
         
         if(view.bounds.width == 320){
             tableView.rowHeight = 90.0
@@ -81,16 +95,28 @@ class RecommendTableViewController: UITableViewController {
     func getRecomSong() -> Bool{
         indicator_board.startAnimating()
         recommender.getSongRecommendation()
-        print(recommender.recommendedSong)
+        
         indicator_board.stopAnimating()
         deactivateIndicator()
+        
+        print("추천곡")
+        print(recommender.recommendedSong)
+        // 아래 여백 삭제 코드
         self.edgesForExtendedLayout = UIRectEdge.None
         self.extendedLayoutIncludesOpaqueBars = false
+        
+        // 추천 페이지는 처음에 전부 0 일 수 밖에 없다.
+        for var i = 0; i < recommender.recommendedSong.count; i++ {
+            is_my_favorite.append(0)
+        }
+        
         tableView.reloadData()
         
         
         return true
     }
+    
+    
 
     // MARK: - Table view data source
 
@@ -132,12 +158,100 @@ class RecommendTableViewController: UITableViewController {
         cell.albumWebView.userInteractionEnabled = false
         
         cell.songIndexLabel.text = String(row+1)
+        
+        cell.songAddButton.tag = row // 여기에 파라미터 넘기자
+        
+        if is_my_favorite[row] == 1{ // 내노래 추가된 경우
+            cell.songAddButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
+            cell.songAddButton.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        } else { // 안된 경우
+            cell.songAddButton.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+            cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
+            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        }
+
         // cell gesture recognizer
         
         // Configure the cell...
         
         return cell
     }
+    
+    func songAddAction(sender: UIButton!){
+        if let image = UIImage(named: "AddButtonActive"){
+            sender.setImage(image, forState: .Normal)
+        }
+        
+        let row = sender.tag
+        let post:NSString = "id=\(userInfo.myId)&myList_id=\(userInfo.myListId)&song_id=\(recommender.recommendedSong[sender.tag]["id"].int!)"
+        
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_create")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            let addSongResultData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            
+            
+            let result = JSON(data: addSongResultData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+            print(result)
+            
+            // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
+            if(result["message"] == "SUCCESS"){
+                alertWithWarningMessage("추가되었습니다")
+            }
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+        // Add Action 삭제
+        sender.removeTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 1
+        sender.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+    }
+    
+    func songDeleteAction(sender: UIButton!){
+        print("Song Delete Action Start Sender tag is \(sender.tag)")
+        
+        if let image = UIImage(named: "AddButtonDeactive"){
+            sender.setImage(image, forState: .Normal)
+        }
+        
+        let post:NSString = "id=\(userInfo.myId)&song_id=\(recommender.recommendedSong[sender.tag]["id"])"
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_delete")!
+        
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        
+        do {
+            // NSURLSession.DataTaskWithRequest 로 변경해야한다.
+            try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            //            let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+        sender.removeTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        is_my_favorite[sender.tag] = 0
+        sender.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+    }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SongDetailFromRecommend" {
@@ -146,12 +260,34 @@ class RecommendTableViewController: UITableViewController {
             let myIndexPath = self.tableView.indexPathForSelectedRow
             let row = myIndexPath?.row
             
+            if is_my_favorite[row!] == 1{
+                detailViewController.currentStatus = true
+            } else {
+                detailViewController.currentStatus = false
+            }
+            
+            detailViewController.row = row
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(recommender.recommendedSong, row: row!, type: 2)
             detailViewController.isMylist = false
+            detailViewController.from_where = 4
         }
     }
 
+    func alertWithWarningMessage(message: String){
+        let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
+        
+        alertView.message = message
+        alertView.delegate = self
+        alertView.show()
+        
+        let delay = 0.5 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue(), {
+            alertView.dismissWithClickedButtonIndex(-1, animated: true)
+        })
+    }
+    
     
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

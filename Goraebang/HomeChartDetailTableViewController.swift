@@ -47,6 +47,7 @@ class HomeChartDetailTableViewController: UITableViewController {
         }
         self.tabBarController?.selectedIndex
     }
+    
     override func viewDidAppear(animated: Bool) {
         currentTabIndex = self.tabBarController?.selectedIndex
 //        indicator.startAnimating()
@@ -221,10 +222,6 @@ class HomeChartDetailTableViewController: UITableViewController {
             // UIActivityIndicator View 사용하면 확인 버튼 없이 몇 초 후에 사라질 수 있다.
             if(result["message"] == "SUCCESS"){
                 alertWithWarningMessage("추가되었습니다")
-                
-                //                let tmpController = self.revealViewController().frontViewController as! MyTabBarController
-                //                self.performSegueWithIdentifier("AddSong", sender: self)
-                
             }
             
         } catch let error as NSError{

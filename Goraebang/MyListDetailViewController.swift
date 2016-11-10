@@ -113,7 +113,7 @@ class MyListDetailViewController: UIViewController {
     
     @IBAction func songAddAction(sender: AnyObject) {
         if currentStatus == true {
-            if let image = UIImage(named: "AddiButtonDeactive"){
+            if let image = UIImage(named: "AddButtonDeactive"){
                 songAddButton.setImage(image, forState: .Normal)
             }
             
@@ -146,6 +146,8 @@ class MyListDetailViewController: UIViewController {
                 NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromLyricsSongDetail", object: self, userInfo: detailParam)
             } else if from_where == 3 { // top100에서 온 경우
                 NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromTopChartSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 4 {
+                NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromRecommendSongDetail", object: self, userInfo: detailParam)
             }
             
             currentStatus = false
@@ -199,6 +201,8 @@ class MyListDetailViewController: UIViewController {
                 NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromLyricsSongDetail", object: self, userInfo: detailParam)
             } else if from_where == 3{
                 NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromTopChartSongDetail", object: self, userInfo: detailParam)
+            } else if from_where == 4{ // recommend 로 정보 전송
+                    NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.fromRecommendSongDetail", object: self, userInfo: detailParam)
             }
             
         }
