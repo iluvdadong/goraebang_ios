@@ -2,9 +2,13 @@
 import UIKit
 
 
-class HomeTabController: UIViewController, UIScrollViewDelegate {
+class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     // width, 4inch :320, 4.7inch :375, 5.5inch: 414
-
+    
+    // 앨범 터치
+    let SingleTap = UITapGestureRecognizer()
+    
+    var userInfo = UserInfoGetter()
     var overlay:UIView!
     let goraebang_url = GlobalSetting.getGoraebangURL()
     // MARK: Variables
@@ -85,33 +89,33 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
-
-
+    var newSongReadableJSON: JSON!
+    
     // 스크롤 말려 올라가는 코드
-//    func scrollViewDidScroll(scrollView: UIScrollView) {
-//        if(scrollView == self.bottomContainerScrollView){
-//            
-//            // 
-//
-//            let nextY:CGFloat = 64+topBackgroundHeight - scrollView.contentOffset.y*0.5
-//            // 기존의 높이는 전 체 높이 - 내비바64 - 상단 이미지120 - 탭바30
-//            let originHeight:CGFloat = view.bounds.height - 214
-//            let nextHeight:CGFloat = originHeight + scrollView.contentOffset.y*0.5
-//            if(nextY >= 64){
-//                scrollView.frame = CGRect(x: scrollView.frame.minX, y: nextY, width: scrollView.bounds.width, height: nextHeight)
-//                scrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
-//                homeTopBackgroundImageView.alpha = nextY/184
-//            }
-//            else if(nextY > 5){
-//                scrollView.frame = CGRect(x: scrollView.frame.minX, y: 64, width: scrollView.bounds.width, height: nextHeight)
-//            }
-//        }
-//    }
+    //    func scrollViewDidScroll(scrollView: UIScrollView) {
+    //        if(scrollView == self.bottomContainerScrollView){
+    //
+    //            //
+    //
+    //            let nextY:CGFloat = 64+topBackgroundHeight - scrollView.contentOffset.y*0.5
+    //            // 기존의 높이는 전 체 높이 - 내비바64 - 상단 이미지120 - 탭바30
+    //            let originHeight:CGFloat = view.bounds.height - 214
+    //            let nextHeight:CGFloat = originHeight + scrollView.contentOffset.y*0.5
+    //            if(nextY >= 64){
+    //                scrollView.frame = CGRect(x: scrollView.frame.minX, y: nextY, width: scrollView.bounds.width, height: nextHeight)
+    //                scrollView.contentSize = CGSizeMake(view.bounds.width, bottomContainerContentsHeight)
+    //                homeTopBackgroundImageView.alpha = nextY/184
+    //            }
+    //            else if(nextY > 5){
+    //                scrollView.frame = CGRect(x: scrollView.frame.minX, y: 64, width: scrollView.bounds.width, height: nextHeight)
+    //            }
+    //        }
+    //    }
     
     // 페이지 나갈 때 스크롤 맨 위로
-//    override func viewDidDisappear(animated: Bool) {
-//        bottomContainerScrollView.contentOffset.y = 0
-//    }
+    //    override func viewDidDisappear(animated: Bool) {
+    //        bottomContainerScrollView.contentOffset.y = 0
+    //    }
     
     
     override func viewDidAppear(animated: Bool) {
@@ -122,8 +126,8 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        overlay = UIView(frame: self.view.frame)
-        
+        //        overlay = UIView(frame: self.view.frame)
+        SingleTap.delegate = self
         setSize(view.bounds.width) // 초기설정
         
         getTopChart()
@@ -166,7 +170,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             albumBigInterval = 40
             topBackgroundStartingYPoint = 9
             topBackgroundHeight = 180
-//            bottomContainerStartingYPoint = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.sharedApplication().statusBarFrame.size.height - 10
+            //            bottomContainerStartingYPoint = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.sharedApplication().statusBarFrame.size.height - 10
             print(self.navigationController?.navigationBar.bounds.height)
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
@@ -180,7 +184,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             topBackgroundHeight = 190
             
             // bottom Cantiner가 아래 스크롤 뷰로 들어간다.
-//            bottomContainerStartingYPoint = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.sharedApplication().statusBarFrame.size.height - 10
+            //            bottomContainerStartingYPoint = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.sharedApplication().statusBarFrame.size.height - 10
             
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
             viewForAlbumTitleStartingYPoint = albumSizeForVariousPhoneWidth - 40
@@ -212,10 +216,14 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     // MARK: SwiftyJSON 사용해서 top 100 chart를 불러온다.
     func getTopChart(){
         // 서버 문제있을 때?
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100?mytoken=\(userInfo.token)")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
+        let new_song_url:NSURL = NSURL(string: "\(goraebang_url)/json/month_new?mytoken=\(userInfo.token)")!
+        let newSongJsonData = NSData(contentsOfURL: new_song_url) as NSData!
+        
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        newSongReadableJSON = JSON(data: newSongJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
     }
     
     
@@ -227,7 +235,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         bottomContainerScrollView.delegate = self
         
         bottomContainerScrollView.backgroundColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 1.0)
-//        bottomContainerScrollView.translatesAutoresizingMaskIntoConstraints = false
+        //        bottomContainerScrollView.translatesAutoresizingMaskIntoConstraints = false
         // MARK: 고래방 TOP 100 차트 타이틀 라벨
         makeTopChartContainer()
         makeNewSongContainer()
@@ -236,7 +244,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         bottomContainerScrollView.layer.zPosition = 2
         view.addSubview(bottomContainerScrollView)
-//        view.bringSubviewToFront(bottomContainerScrollView)
+        //        view.bringSubviewToFront(bottomContainerScrollView)
     }
     
     // MARK: 화면 상단의 백그라운드 이미지 생성
@@ -247,18 +255,18 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         bottomContainerScrollView.addSubview(homeTopBackgroundImageView)
         // 4, 4.7, 5.5 inch 크기 별로 설정 view.bounds.width(height)의 배율로 하는게 좋을 것 같다.
     }
-
+    
     
     func makeTopChartContainer(){
         bottomTopChartContainer = UIView(frame: CGRect(x: 0, y: bottomTopChartContainerY, width: view.bounds.width, height: bottomTopChartHeight))
-//                bottomTopChartContainer.backgroundColor = UIColor.darkGrayColor()
-//        bottomTopChartContainer.autoresizesSubviews = true
+        //                bottomTopChartContainer.backgroundColor = UIColor.darkGrayColor()
+        //        bottomTopChartContainer.autoresizesSubviews = true
         
         // 고래방 TOP 라벨 앞에 선을 UILabel로 추가한다.
         let preChartLabel = UILabel()
-//        preChartLabel.clipsToBounds = true
-//        preChartLabel.translatesAutoresizingMaskIntoConstraints = false
-//        preChartLabel.allowsDefaultTighteningForTruncation = false
+        //        preChartLabel.clipsToBounds = true
+        //        preChartLabel.translatesAutoresizingMaskIntoConstraints = false
+        //        preChartLabel.allowsDefaultTighteningForTruncation = false
         preChartLabel.frame = CGRect(x: 20, y: 15, width: 5, height: 20)
         preChartLabel.backgroundColor = UIColor(red: 232/255, green: 56/255, blue: 61/255, alpha: 1.0)
         bottomTopChartContainer.addSubview(preChartLabel)
@@ -280,11 +288,11 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         // MARK: 고래방 Top 100 Detail View 버튼
         
         let showTop100DetailButton = UIButton(frame: CGRectMake(showTop100DetailButtonStartingXPoint, 0, showTop100DetailButtonWidth, showTop100DetailButtonHeight))
-//        showTop100DetailButton.backgroundColor = UIColor.blueColor()
+        //        showTop100DetailButton.backgroundColor = UIColor.blueColor()
         
         let titleForTop100DetailButton = UILabel(frame: CGRect(x: 0, y: 0, width:showTop100DetailButtonWidth, height: 50))
         titleForTop100DetailButton.text = "더 보기 >"
-//        titleForTop100DetailButton.tintColor = UIColor.redColor()
+        //        titleForTop100DetailButton.tintColor = UIColor.redColor()
         titleForTop100DetailButton.textColor = UIColor.whiteColor()
         titleForTop100DetailButton.font = titleForTop100DetailButton.font.fontWithSize(13)
         
@@ -298,11 +306,11 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         makeAlbumPageControl()
         
-//        // 인기차트와 신곡 사이 구분선
-//        let bottomTopChartContainerDivisionLine = UILabel()
-//        bottomTopChartContainerDivisionLine.frame = CGRect(x: 20, y: bottomTopChartHeight - 3, width: view.bounds.width-40, height: 1)
-//        bottomTopChartContainerDivisionLine.backgroundColor = UIColor.darkGrayColor()
-//        bottomTopChartContainer.addSubview(bottomTopChartContainerDivisionLine)
+        //        // 인기차트와 신곡 사이 구분선
+        //        let bottomTopChartContainerDivisionLine = UILabel()
+        //        bottomTopChartContainerDivisionLine.frame = CGRect(x: 20, y: bottomTopChartHeight - 3, width: view.bounds.width-40, height: 1)
+        //        bottomTopChartContainerDivisionLine.backgroundColor = UIColor.darkGrayColor()
+        //        bottomTopChartContainer.addSubview(bottomTopChartContainerDivisionLine)
         
         bottomContainerScrollView.addSubview(bottomTopChartContainer)
     }
@@ -371,7 +379,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         
         showNewSongDetailButton.titleLabel?.textColor = UIColor.whiteColor()
-        showNewSongDetailButton.addTarget(self, action: #selector(showTopDetailButtonAction), forControlEvents: .TouchUpInside)
+        showNewSongDetailButton.addTarget(self, action: #selector(showNewSongButtonAction), forControlEvents: .TouchUpInside)
         bottomNewSongContainer.addSubview(showNewSongDetailButton)
         
         makeNewSongPageControl()
@@ -397,7 +405,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         
         newSongScrollView.showsHorizontalScrollIndicator = false
         newSongScrollView.pagingEnabled = true
-    
+        
         newSongScrollView.contentSize = CGSizeMake(topChartContainerContentsSizeWidth, topChartContainerContentsSizeHeight/2-10)
         newSongPageControl.addSubview(newSongScrollView)
         
@@ -409,12 +417,12 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     
     func makeMyListContainer(){
         myListShareContainer = UIView(frame: CGRect(x: 0, y: bottomMyListContainerY, width: view.bounds.width, height: bottomMyListContainerHeight))
-//        myListShareContainer.backgroundColor = UIColor.blueColor()
+        //        myListShareContainer.backgroundColor = UIColor.blueColor()
         
         let firstMyList = UIView(frame: CGRect(x: 20, y: 40, width: view.bounds.width-40, height: 70))
         firstMyList.backgroundColor = UIColor.redColor()
         firstMyList.alpha = 0.6
-//        firstMyList.layer.borderWidth = 3
+        //        firstMyList.layer.borderWidth = 3
         firstMyList.layer.cornerRadius = 10
         myListShareContainer.addSubview(firstMyList)
         
@@ -470,20 +478,20 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
     }
     
     func showTopDetailButtonAction(sender: UIButton!){
-//        print("button tapped")
-//        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .Alert)
-//        
-//        alert.view.tintColor = UIColor.blackColor()
-//        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
-//        loadingIndicator.hidesWhenStopped = true
-//        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-//        loadingIndicator.startAnimating();
-//        
-//        alert.view.addSubview(loadingIndicator)
-//        presentViewController(alert, animated: true, completion: nil)
+        //        print("button tapped")
+        //        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .Alert)
+        //
+        //        alert.view.tintColor = UIColor.blackColor()
+        //        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
+        //        loadingIndicator.hidesWhenStopped = true
+        //        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        //        loadingIndicator.startAnimating();
+        //
+        //        alert.view.addSubview(loadingIndicator)
+        //        presentViewController(alert, animated: true, completion: nil)
         //                dismissViewControllerAnimated(false, completion: nil)
-
-//        overlay:UIView!
+        
+        //        overlay:UIView!
         
         // overlay 추가 로딩 애니메이션 추가
         overlay = UIView(frame: self.view.frame)
@@ -491,6 +499,15 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
         overlay!.alpha = 0.4
         self.view.addSubview(overlay!)
         self.performSegueWithIdentifier("ShowChartDetail", sender: self)
+    }
+    
+    func showNewSongButtonAction(sender: UIButton!){
+        // overlay 추가 로딩 애니메이션 추가
+        overlay = UIView(frame: self.view.frame)
+        overlay!.backgroundColor = UIColor.blackColor()
+        overlay!.alpha = 0.4
+        self.view.addSubview(overlay!)
+        self.performSegueWithIdentifier("ShowNewSong", sender: self)
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView){
@@ -520,7 +537,9 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             let albumWebView = albumSong.albumWebView
             albumWebView.frame = CGRect(x: x, y: y, width: albumSizeForVariousPhoneWidth, height: albumSizeForVariousPhoneWidth)
             //            let albumWebView = UIWebView(frame: CGRect(x: x, y: 0, width: albumSizeForVariousPhoneWidth, height: albumSizeForVariousPhoneWidth))
-            albumWebView.userInteractionEnabled = false
+            //            albumWebView.userInteractionEnabled = true
+            
+            //            albumWebView.enable
             scrollView.addSubview(albumWebView)
             
             // MARK**********: Image View Web View 로 변경
@@ -534,6 +553,8 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             
             albumWebView.addSubview(imageViewForSongTag)
             //            imageViewArray[i].addSubview(imageViewForSongTag)
+            albumWebView.userInteractionEnabled = false
+            //            SingleTap.delegate = self
             
             labelForImageViewArray = UILabel(frame: CGRect(x: 3, y:0, width:50, height:25))
             labelForImageViewArray.text = String(topChartReadableJSON[i]["song_tjnum"].int!)
@@ -558,7 +579,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             gradientLayer.locations = [0.0, 0.1, 0.2, 0.35, 0.5, 1.0]
             
             viewForAlbumTitle.layer.addSublayer(gradientLayer)
-//            viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 0.85)
+            //            viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 0.85)
             
             albumWebView.addSubview(viewForAlbumTitle)
             
@@ -604,7 +625,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             // 이미지의 크기는 아이폰 가로길이에서 양 옆 패딩 각각 10씩 -20, 그리고 앨범 사이 간격 5*2에서 -10으로 총 -30 나누기 3, 높이는 같아진다.
             //            imageViewArray[i].frame = CGRect(x: x, y: 5, width: (CGFloat(view.bounds.width)-40)/3, height: (CGFloat(view.bounds.width)-40)/3)
             let albumSong:Song = Song()
-            albumSong.set(topChartReadableJSON, row: i, type: 3)
+            albumSong.set(newSongReadableJSON, row: i, type: 3)
             
             let albumWebView = albumSong.albumWebView
             albumWebView.frame = CGRect(x: x, y: y, width: albumSizeForVariousPhoneWidth, height: albumSizeForVariousPhoneWidth)
@@ -619,7 +640,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             //            imageViewArray[i].addSubview(imageViewForSongTag)
             
             labelForImageViewArray = UILabel(frame: CGRect(x: 3, y:0, width:50, height:25))
-            labelForImageViewArray.text = String(topChartReadableJSON[i]["song_tjnum"].int!)
+            labelForImageViewArray.text = String(newSongReadableJSON[i]["song_tjnum"].int!)
             labelForImageViewArray.font = UIFont.boldSystemFontOfSize(12)
             labelForImageViewArray.textColor = UIColor.whiteColor()
             
@@ -632,15 +653,15 @@ class HomeTabController: UIViewController, UIScrollViewDelegate {
             
             // MARK : 노래제목 라벨 추가(textView를 이용하면 Inset 넣을 수 있는지 확인)
             songLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 5, width: albumSizeForVariousPhoneWidth - 10, height: 15))
-            songLabelForAlbum.text = topChartReadableJSON[i]["title"].string
+            songLabelForAlbum.text = newSongReadableJSON[i]["title"].string
             songLabelForAlbum.font = UIFont.boldSystemFontOfSize(12)
             songLabelForAlbum.textAlignment = NSTextAlignment.Left
             songLabelForAlbum.textColor = UIColor.whiteColor()
             
             // MARK: artist UILabel
             artistLabelForAlbum = UILabel(frame: CGRect(x: 5, y: 20, width:albumSizeForVariousPhoneWidth - 10, height: 15))
-            artistLabelForAlbum.text = topChartReadableJSON[i]["artist_name"].string
-            //            artistLabelForAlbum.text = topChartReadableJSON[i]["artist"].string
+            artistLabelForAlbum.text = newSongReadableJSON[i]["artist_name"].string
+            //            artistLabelForAlbum.text = newSongReadableJSON[i]["artist"].string
             artistLabelForAlbum.textAlignment = NSTextAlignment.Left
             artistLabelForAlbum.textColor = UIColor.lightGrayColor()
             artistLabelForAlbum.font = artistLabelForAlbum.font.fontWithSize(11)

@@ -16,6 +16,9 @@ class SearchByLyricsTableViewCell: UITableViewCell {
 //    @IBOutlet weak var songTitleLabel: UILabel!
 //    @IBOutlet weak var songArtistLabel: UILabel!
     
+    @IBOutlet weak var releaseDate: UILabel!
+    @IBOutlet weak var songCount: UILabel!
+    
     @IBOutlet weak var songAddButton: UIButton!
     @IBOutlet weak var songNumberLabel: UILabel!
     @IBOutlet weak var songImageWebView: UIWebView!

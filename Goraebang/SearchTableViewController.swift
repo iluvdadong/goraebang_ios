@@ -21,6 +21,9 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
      View delegate Call
      */
     
+    @IBOutlet weak var indicator_board: UIActivityIndicatorView!
+    @IBOutlet weak var indicator_view: UIView!
+    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     
     var searchResult:JSON!
@@ -30,9 +33,23 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
     var searchType:Int!
     var is_my_favorite:[Int]!
     
+    func activateIndicator() {
+        indicator_view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        indicator_board.hidden = false
+        indicator_view.hidden = false
+    }
+    
+    func deactivateIndicator(){
+        indicator_view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 0)
+        indicator_board.hidden = true
+        indicator_view.hidden = true
+    }
+
+    
     func searchCall(n:NSNotification){
         let searchText:String = String(n.userInfo!["searchText"]!)
-        searchSong(searchText)
+        let needChange:String = String(n.userInfo!["neecChange"])
+        searchSong(searchText, needChange: needChange)
     }
     
     func updateIsMyList(n:NSNotification){
@@ -41,6 +58,8 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         is_my_favorite[row] = isMyList
         tableView.reloadData()
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,8 +132,14 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    func searchSong(searchText: String){
+    func searchSong(searchText: String, needChange: String){
         if(searchText != ""){
+            if(needChange == "true"){
+                self.tableView = nil
+            }
+
+            activateIndicator()
+            indicator_board.startAnimating()
             let search_text_UTF8 = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             
             let urlStr = "\(goraebang_url)/json/search_by?search_by=title&mytoken=\(userInfo.token)&query=\(search_text_UTF8!)"
@@ -136,6 +161,8 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
                 searchResult = nil
                 //MARK: 검색 결과가 없다는 Alert View 생성
             }
+            indicator_board.stopAnimating()
+            deactivateIndicator()
             self.tableView.reloadData()
         }
     }
@@ -161,6 +188,8 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
         
         let row = indexPath.row
         
+        cell.songCount.text = String(searchResult[row]["mylist_count"])
+        cell.releaseDate.text = searchResult[row]["release"].string!
         
         cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
         cell.songNumberLabel.text = String(searchResult[row]["song_tjnum"])
@@ -318,6 +347,8 @@ class SearchTableViewController: UITableViewController, UITextFieldDelegate {
             detailViewController.row = row
             detailViewController.songInfo = Song()
             detailViewController.songInfo.set(searchResult, row: row!, type: 2)
+//            detailViewController.songCount
+            
         }
     }
     

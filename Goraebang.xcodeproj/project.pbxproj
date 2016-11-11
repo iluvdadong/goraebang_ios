@@ -21,8 +21,9 @@
 		494F3A991D42ECAA008B5051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F3A981D42ECAA008B5051 /* AppDelegate.swift */; };
 		494F3A9E1D42ECAA008B5051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494F3A9C1D42ECAA008B5051 /* Main.storyboard */; };
 		494F3AA01D42ECAA008B5051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494F3A9F1D42ECAA008B5051 /* Assets.xcassets */; };
-		494F3AA31D42ECAA008B5051 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494F3AA11D42ECAA008B5051 /* LaunchScreen.storyboard */; };
 		494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */; };
+		49676E9B1DD5B60100962A26 /* HomeNewSongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49676E9A1DD5B60100962A26 /* HomeNewSongTableViewController.swift */; };
+		49676E9D1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49676E9C1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift */; };
 		497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454AE1D4CB8B5000D520B /* LoginVC.swift */; };
 		497454B71D4CE727000D520B /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454B61D4CE727000D520B /* SignupVC.swift */; };
 		497469331DACC56700A9E241 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 497469321DACC56700A9E241 /* Launch Screen.storyboard */; };
@@ -76,9 +77,10 @@
 		494F3A981D42ECAA008B5051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		494F3A9D1D42ECAA008B5051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		494F3A9F1D42ECAA008B5051 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		494F3AA21D42ECAA008B5051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		494F3AA41D42ECAA008B5051 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabController.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
+		49676E9A1DD5B60100962A26 /* HomeNewSongTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNewSongTableViewController.swift; sourceTree = "<group>"; };
+		49676E9C1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNewSongTableViewCell.swift; sourceTree = "<group>"; };
 		497454AE1D4CB8B5000D520B /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		497454B61D4CE727000D520B /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		497469321DACC56700A9E241 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -119,6 +121,8 @@
 				494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */,
 				4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */,
 				4914EF3D1D5DE032007D150A /* HomeChartDetailTableViewCell.swift */,
+				49676E9A1DD5B60100962A26 /* HomeNewSongTableViewController.swift */,
+				49676E9C1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift */,
 			);
 			name = HomeController;
 			sourceTree = "<group>";
@@ -172,7 +176,6 @@
 				491F3E571D42F43B005A2C9D /* ViewControllers */,
 				494F3A9F1D42ECAA008B5051 /* Assets.xcassets */,
 				494F3A981D42ECAA008B5051 /* AppDelegate.swift */,
-				494F3AA11D42ECAA008B5051 /* LaunchScreen.storyboard */,
 				494F3AA41D42ECAA008B5051 /* Info.plist */,
 				490E5F5C1D91524D009BA6A2 /* Goraebang-Bridging-Header.h */,
 			);
@@ -308,7 +311,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				494F3AA31D42ECAA008B5051 /* LaunchScreen.storyboard in Resources */,
 				494F3AA01D42ECAA008B5051 /* Assets.xcassets in Resources */,
 				497469331DACC56700A9E241 /* Launch Screen.storyboard in Resources */,
 				494F3A9E1D42ECAA008B5051 /* Main.storyboard in Resources */,
@@ -342,6 +344,8 @@
 				49C4879D1D940BB500F3D46C /* SearchByArtistTableViewCell.swift in Sources */,
 				497E08B91DA90C4C0096E069 /* MyInfoViewController.swift in Sources */,
 				4935B3141D9437B400CC6D2C /* SearchByLyricsTableViewCell.swift in Sources */,
+				49676E9B1DD5B60100962A26 /* HomeNewSongTableViewController.swift in Sources */,
+				49676E9D1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift in Sources */,
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				4935B3121D9437AA00CC6D2C /* SearchByLyricsTableViewController.swift in Sources */,
 				491F3E591D42F4E0005A2C9D /* MyTabBarController.swift in Sources */,
@@ -367,14 +371,6 @@
 				494F3A9D1D42ECAA008B5051 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		494F3AA11D42ECAA008B5051 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				494F3AA21D42ECAA008B5051 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

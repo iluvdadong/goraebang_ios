@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeChartDetailTableViewController: UITableViewController {
+class HomeNewSongTableViewController: UITableViewController {
     let goraebang_url = GlobalSetting.getGoraebangURL()
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
@@ -19,14 +19,14 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     var is_my_favorite:[Int]!
     
-//    var indicator = UIActivityIndicatorView()
-//    var viewForIndicator = UIView()
+    var indicator = UIActivityIndicatorView()
+    var viewForIndicator = UIView()
     
     var needChange:Bool = true
     
+    
     @IBOutlet weak var indicator_board: UIActivityIndicatorView!
     @IBOutlet weak var indicator_view: UIView!
-    
     
     func updateIsMyList(n:NSNotification){
         let row = n.userInfo!["row"] as! Int
@@ -37,14 +37,6 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     func activateIndicator() {
         indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: tableView.bounds.height)
-        indicator_board.hidden = false
-        indicator_view.hidden = false
-    }
-    
-    func deactivateIndicator(){
-        indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 0)
-        indicator_board.hidden = true
-        indicator_view.hidden = true
     }
     
     // 푸시된 창에서 다른 탭으로 넘어갈 경우 사라지는 코드
@@ -58,7 +50,7 @@ class HomeChartDetailTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         currentTabIndex = self.tabBarController?.selectedIndex
-//        indicator.startAnimating()
+        //        indicator.startAnimating()
         indicator_board.startAnimating()
         if needChange == true{
             getTopChart()
@@ -94,8 +86,8 @@ class HomeChartDetailTableViewController: UITableViewController {
         // Top 100 read
         print("진행 중")
         
-        let url:NSURL = NSURL(string: "\(goraebang_url)/json/top100?mytoken=\(userInfo.token)")!
-//        let url:NSURL = NSURL(string: "\(goraebang_url)/json/month_new?mytoken=\(userInfo.token)")!
+        let url:NSURL = NSURL(string: "\(goraebang_url)/json/month_new?mytoken=\(userInfo.token)")!
+        //        let url:NSURL = NSURL(string: "\(goraebang_url)/json/month_new?mytoken=\(userInfo.token)")!
         let jsonData = NSData(contentsOfURL: url) as NSData!
         
         
@@ -104,9 +96,8 @@ class HomeChartDetailTableViewController: UITableViewController {
         for var i = 0; i < topChartReadableJSON.count; i++ {
             is_my_favorite.append(topChartReadableJSON[i]["is_my_favorite"].int!)
         }
-
+        
         indicator_board.stopAnimating()
-        deactivateIndicator()
         needChange = false
         tableView.reloadData()
         print("완료")
@@ -135,9 +126,8 @@ class HomeChartDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TopChartTableCell", forIndexPath: indexPath) as! HomeChartDetailTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("NewSongTableCell", forIndexPath: indexPath) as! HomeNewSongTableViewCell
         
-//        let cell = tableView.cellForRowAtIndexPath(indexPath) as! HomeChartDetailTableViewCell
         
         let row = indexPath.row
         
@@ -156,8 +146,6 @@ class HomeChartDetailTableViewController: UITableViewController {
             cell.artistLabel.text = topChartReadableJSON[row]["artist_name"].string!// artist명 추가
         }
         
-        cell.songCount.text = String(topChartReadableJSON[row]["mylist_count"])
-        cell.releaseDate.text = topChartReadableJSON[row]["release"].string!
         
         // MARK: jacket_middle 맞는지 확인
         if (topChartReadableJSON[row]["jacket_small"] != nil ){
@@ -166,15 +154,15 @@ class HomeChartDetailTableViewController: UITableViewController {
         }
         else {
             cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[0]["jacket_small"].string!)!))
-//            cell.albumWebView.loadRequest(NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: topChartReadableJSON[0]["jacket_small"].string!)!))
-//            cell.albumWebView.loadRequest(NSURLRequest()
+            //            cell.albumWebView.loadRequest(NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: topChartReadableJSON[0]["jacket_small"].string!)!))
+            //            cell.albumWebView.loadRequest(NSURLRequest()
         }
-
+        
         cell.albumWebView.scalesPageToFit = true
         cell.albumWebView.userInteractionEnabled = false
         
         cell.songAddButton.userInteractionEnabled = true
-//        cell.songAddButton.tag = topChartReadableJSON[row]["id"].int! // 여기에 파라미터 넘기자
+        //        cell.songAddButton.tag = topChartReadableJSON[row]["id"].int! // 여기에 파라미터 넘기자
         cell.songAddButton.tag = row // 여기에 파라미터 넘기자
         
         if is_my_favorite[row] == 1{ // 내노래 추가된 경우
@@ -186,20 +174,20 @@ class HomeChartDetailTableViewController: UITableViewController {
             cell.songAddButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
             cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
         }
-//        if topChartReadableJSON[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
-//            if let image = UIImage(named: "AddButtonActive"){
-//                cell.songAddButton.setImage(image, forState: .Normal)
-//            }
-//            
-//            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
-//        } else { // 안된 경우
-//            if let image = UIImage(named: "AddButtonDeactive"){
-//                cell.songAddButton.setImage(image, forState: .Normal)
-//            }
-//            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
-//            
-//        }
-
+        //        if topChartReadableJSON[row]["is_my_favorite"] == true{ // 내노래 추가된 경우
+        //            if let image = UIImage(named: "AddButtonActive"){
+        //                cell.songAddButton.setImage(image, forState: .Normal)
+        //            }
+        //
+        //            cell.songAddButton.addTarget(self, action: #selector(songDeleteAction), forControlEvents: .TouchUpInside)
+        //        } else { // 안된 경우
+        //            if let image = UIImage(named: "AddButtonDeactive"){
+        //                cell.songAddButton.setImage(image, forState: .Normal)
+        //            }
+        //            cell.songAddButton.addTarget(self, action: #selector(songAddAction), forControlEvents: .TouchUpInside)
+        //
+        //        }
+        
         return cell
     }
     
@@ -296,7 +284,7 @@ class HomeChartDetailTableViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowSongDetailFromChart" {
+        if segue.identifier == "ShowSongDetailFromNewSong" {
             let detailViewController =  segue.destinationViewController as! MyListDetailViewController
             
             let myIndexPath = self.tableView.indexPathForSelectedRow
@@ -309,7 +297,7 @@ class HomeChartDetailTableViewController: UITableViewController {
             } else {
                 detailViewController.currentStatus = false
             }
-//            detailViewController.currentStatus = topChartReadableJSON[row!]["is_my_favorite"].bool
+            //            detailViewController.currentStatus = topChartReadableJSON[row!]["is_my_favorite"].bool
             
             detailViewController.from_where = 3
             detailViewController.row = row

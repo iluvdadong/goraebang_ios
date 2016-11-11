@@ -35,6 +35,16 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
     var overlayView:UIView!
     var currentPage:Int!
     
+    var needChange:Bool = true
+    
+    override func viewDidAppear(animated: Bool) {
+        if needChange == true{
+            searchFromPreviousPage()
+            needChange = false
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         currentPage = 0
@@ -47,16 +57,20 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
         
         searchText.text = searchTextFromPreviousPage
         currentSearchText = searchTextFromPreviousPage
-        searchFromPreviousPage()
+//        searchFromPreviousPage()
     }
     
     // 리턴 키로 검색했을 때
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         currentSearchText = searchText.text!
         searchText.resignFirstResponder()
-        showByTitle()
-        let searchTextParam = ["searchText":searchText.text!]
-        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
+        let isCompleted = showByTitle()
+        
+        if isCompleted == true{
+            let searchTextParam = ["searchText":searchText.text!]
+            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
+        }
+        
         
         return true
     }
@@ -85,24 +99,24 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
         overlayView.removeFromSuperview()
     }
     
-    
-    
-    
     @IBAction func songByTitleAction(sender: AnyObject) {
         showByTitle()
     }
     
     @IBAction func songByArtistAction(sender: AnyObject) {
+        showByArtist()
         if currentSearchText != currentArtistSearchText{
             let realSearchText = ["searchText":currentSearchText]
             NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByArtistKey", object: self, userInfo: realSearchText)
         }
         currentArtistSearchText = currentSearchText
-        showByArtist()
+        
     }
     
     
     @IBAction func songByLyricsAction(sender: AnyObject) {
+        print("아티스트 검색 시작한다ㅅㅂ")
+        showByLyrics()
         if currentSearchText != currentLyricsSearchText {
             let realSearchText = ["searchText":currentSearchText]
             NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByLyricsKey", object: self, userInfo: realSearchText)
@@ -110,7 +124,7 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
             
         }
         currentLyricsSearchText = currentSearchText
-        showByLyrics()
+        
     }
     
     func call(){
@@ -123,8 +137,8 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
     }
     
     func searchFromPreviousPage(){
-        let searchTextParam = ["searchText":searchText.text!]
-        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
+        let searchTextParam = ["searchText":searchText.text!, "needChange":false]
+        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam as [NSObject : AnyObject])
     }
     
     // 검색할 시 무조건 제목 검색으로 넘어와야 한다.
@@ -133,9 +147,15 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
         // 현재 검색어를 저장
         currentSearchText = searchText.text!
         searchText.resignFirstResponder()
-        showByTitle()
-        let searchTextParam = ["searchText":searchText.text!]
-        NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam)
+        let isCompleted = showByTitle()
+        
+        sleep(3)
+        if isCompleted == true{
+            print("OnSearch에 Search Action showByTitle 하고 넘어왔다")
+            let searchTextParam = ["searchText":searchText.text!, "needChange":true]
+            NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.searchByTitleKey", object: self, userInfo: searchTextParam as [NSObject : AnyObject])
+        }
+        
         
         //        print(searchDelegate?.searchBarHeight)
         //        searchDelegate?.call()
@@ -145,7 +165,7 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    func showByTitle(){
+    func showByTitle() -> Bool{
         titleSearchContainer.hidden = false
         artistSearchContainer.hidden = true
         lyricsSearchContainer.hidden = true
@@ -154,9 +174,10 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
         let frm: CGRect = currentLocationLine.frame
         let changedLoc: CGRect = titleButton.frame
         currentLocationLine.frame = CGRect(x: changedLoc.minX, y: frm.minY, width: frm.size.width, height: frm.size.height)
+        return true
     }
     
-    func showByArtist(){
+    func showByArtist() -> Bool{
         titleSearchContainer.hidden = true
         artistSearchContainer.hidden = false
         lyricsSearchContainer.hidden = true
@@ -165,6 +186,7 @@ class OnSearchContainerViewController: UIViewController, UITextFieldDelegate {
         let frm: CGRect = currentLocationLine.frame
         let changedLoc: CGRect = artistButton.frame
         currentLocationLine.frame = CGRect(x: changedLoc.minX, y: frm.minY, width: frm.size.width, height: frm.size.height)
+        return true
     }
     
     func showByLyrics(){

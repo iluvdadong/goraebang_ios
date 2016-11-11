@@ -86,6 +86,10 @@ class MyListDetailViewController: UIViewController {
     
     @IBOutlet weak var lyricsTextView: UITextView!
     
+    @IBOutlet weak var releaseDate: UILabel!
+    
+    @IBOutlet weak var songCount: UILabel!
+    
     override func viewDidDisappear(animated: Bool) {
         // 탭 간 이동시에만 사라져야 한다.
         //        if(self.tabBarController?.selectedIndex != 0){
@@ -229,6 +233,8 @@ class MyListDetailViewController: UIViewController {
         songTitleLabel.text = songInfo.title
         artistLabel.text = songInfo.artist
         TJNumberLabel.text = songInfo.song_tjnum!
+        songCount.text = songInfo.songCount
+        releaseDate.text = songInfo.releaseDate
         
         let  attrStr: NSMutableAttributedString = try! NSMutableAttributedString(data: songInfo.lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
         

@@ -15,7 +15,7 @@ class MyListTableViewController: UITableViewController {
     var myListReadableJSON: JSON!
     var myListSongs: JSON!
     var myLists: JSON!
-    
+    var needChange:Bool = true
     var userInfo:UserInfoGetter!
     
     // 페이지 나갈 때 스크롤 맨 위로
@@ -24,7 +24,12 @@ class MyListTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        getMyList()
+        
+        if needChange == true{
+            getMyList()
+        }
+        
+        needChange = true
         let songCount = ["count": tableView.numberOfRowsInSection(0)]
 //        let songCount = ["count": myListSongs["song"].count]
         NSNotificationCenter.defaultCenter().postNotificationName("com.sohn.myListSongCountKey", object: self, userInfo: songCount)
@@ -142,16 +147,22 @@ class MyListTableViewController: UITableViewController {
         let row = indexPath.row
         //        cell.songNumberLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         cell.songNumberLabel.font = cell.songNumberLabel.font.fontWithSize(12)
-//        cell.songNumberLabel.text = String(myListSongs["song"][row]["song_tjnum"])
+    String(myListSongs["song"][row]["song_tjnum"])
         cell.songNumberLabel.text = String(myListSongs[row]["song_tjnum"])
-        //        cell.songTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        
         cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
-//        cell.songTitleLabel.text = myListSongs["song"][row]["title"].string
+
         cell.songTitleLabel.text = myListSongs[row]["title"].string
-        //        cell.songArtistLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        
+        
         cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
-//        cell.artistLabel.text = myListSongs["artistName"][row].string
+
         cell.artistLabel.text = myListSongs[row]["artist_name"].string
+        
+        cell.songCount.text = String(myListSongs[row]["mylist_count"])
+        if let data = myListSongs[row]["release"].string {
+            cell.releaseDate.text = data
+        }
         
         
 //        cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: myListSongs["song"][row]["jacket_small"].string!)!))
@@ -184,6 +195,8 @@ class MyListTableViewController: UITableViewController {
             detailViewController.songInfo.set(myListSongs, row: row!, type: 1)
             detailViewController.isMylist = true
 //            detailViewController.songAddButton.hidden = true
+            
+            needChange = false
         }
     }
     
@@ -216,9 +229,9 @@ class MyListTableViewController: UITableViewController {
                 let mySongDeleteResult = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
                 
                 print(response)
-                print(mySongDeleteResult)
+//                print(mySongDeleteResult)
                 let mySongDeleteResultJSON = JSON(data: mySongDeleteResult, options: NSJSONReadingOptions.MutableContainers, error: nil)
-                print(mySongDeleteResultJSON)
+//                print(mySongDeleteResultJSON)
             } catch let error as NSError{
                 print(error.localizedDescription)
             }

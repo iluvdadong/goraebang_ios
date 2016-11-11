@@ -151,7 +151,10 @@ class RecommendTableViewController: UITableViewController {
         cell.songTitleLabel.text = recommender.recommendedSong[row]["title"].string
         
         cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
-        cell.artistLabel.text = recommender.recommendedSong[row].string
+        cell.artistLabel.text = recommender.recommendedSong[row]["artist_name"].string!
+        
+        cell.songCount.text = String(recommender.recommendedSong[row]["mylist_count"])
+        cell.releaseDate.text = recommender.recommendedSong[row]["release"].string!
         
         cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: recommender.recommendedSong[row]["jacket_small"].string!)!))
         cell.albumWebView.scalesPageToFit = true

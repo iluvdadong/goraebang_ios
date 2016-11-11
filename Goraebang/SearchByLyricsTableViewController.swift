@@ -11,6 +11,10 @@ import UIKit
 
 class SearchByLyricsTableViewController: UITableViewController{
     
+    @IBOutlet weak var indicator_board: UIActivityIndicatorView!
+    @IBOutlet weak var indicator_view: UIView!
+    
+    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     var searchResult:JSON!
     // Type 0: Title, Type 1: Artist, Type 2: Lyrics
@@ -28,6 +32,18 @@ class SearchByLyricsTableViewController: UITableViewController{
         let isMyList = n.userInfo!["is_my_list"] as! Int
         is_my_favorite[row] = isMyList
         tableView.reloadData()
+    }
+    
+    func activateIndicator() {
+        indicator_view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        indicator_board.hidden = false
+        indicator_view.hidden = false
+    }
+    
+    func deactivateIndicator(){
+        indicator_view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 0)
+        indicator_board.hidden = true
+        indicator_view.hidden = true
     }
     
     override func viewDidLoad() {
@@ -68,6 +84,8 @@ class SearchByLyricsTableViewController: UITableViewController{
     
     func searchSong(searchText: String){
         if(searchText != ""){
+            activateIndicator()
+            indicator_board.startAnimating()
             let search_text_UTF8 = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             
 //            let urlStr = "\(goraebang_url)/json/search_by_lyrics?query=\(search_text_UTF8!)"
@@ -92,15 +110,9 @@ class SearchByLyricsTableViewController: UITableViewController{
                 searchResult = nil
                 //MARK: 검색 결과가 없다는 Alert View 생성
             }
-            
-//            while(true){
-//                if (searchResult != nil){
-//                    break;
-//                }
-//            }
-            
-            
-//            print(searchResult)
+
+            indicator_board.stopAnimating()
+            deactivateIndicator()
             self.tableView.reloadData()
         }
     }
@@ -120,6 +132,9 @@ class SearchByLyricsTableViewController: UITableViewController{
         cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
         //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
         cell.songArtistLabel.text = searchResult[row]["artist_name"].string
+        
+        cell.songCount.text = String(searchResult[row]["mylist_count"])
+        cell.releaseDate.text = searchResult[row]["release"].string!
         
         if(searchResult[row]["jacket_small"].string != nil){
             cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult[row]["jacket_small"].string!)!))

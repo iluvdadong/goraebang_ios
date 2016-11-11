@@ -9,7 +9,10 @@
 import UIKit
 
 class SearchTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var releaseDate: UILabel!
+    
+    @IBOutlet weak var songCount: UILabel!
     @IBOutlet weak var songAddButton: UIButton!
     @IBOutlet weak var songNumberLabel: UILabel!
     @IBOutlet weak var songImageWebView: UIWebView!

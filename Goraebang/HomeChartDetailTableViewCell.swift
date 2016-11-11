@@ -12,6 +12,9 @@ class HomeChartDetailTableViewCell: UITableViewCell {
 
     @IBOutlet weak var rankLabel: UILabel!
     
+    @IBOutlet weak var songCount: UILabel!
+    
+    @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var songNumberLabel: UILabel!
     @IBOutlet weak var albumWebView: UIWebView!
     

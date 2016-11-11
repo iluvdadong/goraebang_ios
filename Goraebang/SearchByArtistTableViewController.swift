@@ -10,6 +10,9 @@ import UIKit
 
 class SearchByArtistTableViewController: UITableViewController{
     
+    @IBOutlet weak var indicator_board: UIActivityIndicatorView!
+    @IBOutlet weak var indicator_view: UIView!
+    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     var searchResult:JSON!
     // Type 0: Title, Type 1: Artist, Type 2: Lyrics
@@ -23,6 +26,18 @@ class SearchByArtistTableViewController: UITableViewController{
     func searchCall(n:NSNotification){
         let searchText:String = String(n.userInfo!["searchText"]!)
         searchSong(searchText)
+    }
+    
+    func activateIndicator() {
+        indicator_view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        indicator_board.hidden = false
+        indicator_view.hidden = false
+    }
+    
+    func deactivateIndicator(){
+        indicator_view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 0)
+        indicator_board.hidden = true
+        indicator_view.hidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -72,6 +87,9 @@ class SearchByArtistTableViewController: UITableViewController{
     
     func searchSong(searchText: String){
         if(searchText != ""){
+            activateIndicator()
+            indicator_board.startAnimating()
+            
             let search_text_UTF8 = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             
 //            let urlStr = "\(goraebang_url)/json/search_by_artist?query=\(search_text_UTF8!)"
@@ -98,6 +116,8 @@ class SearchByArtistTableViewController: UITableViewController{
                 //MARK: 검색 결과가 없다는 Alert View 생성
             }
             
+            indicator_board.stopAnimating()
+            deactivateIndicator()
             self.tableView.reloadData()
         }
     }
@@ -117,6 +137,9 @@ class SearchByArtistTableViewController: UITableViewController{
         cell.songArtistLabel.font = cell.songArtistLabel.font.fontWithSize(12)
         //        cell.songArtistLabel.text = myListSongs["artistName"][row].string
         cell.songArtistLabel.text = searchResult[row]["artist_name"].string
+        cell.songCount.text = String(searchResult[row]["mylist_count"])
+        cell.releaseDate.text = searchResult[row]["release"].string!
+        
         
         if(searchResult[row]["jacket_small"].string != nil){
             cell.songImageWebView.loadRequest(NSURLRequest(URL: NSURL(string: searchResult[row]["jacket_small"].string!)!))

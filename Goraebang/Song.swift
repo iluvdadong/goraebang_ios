@@ -23,6 +23,8 @@ class Song{
     var song_tjnum:String!
     var albumWebView:UIWebView!
     var albumWebViewString:String!
+    var songCount:String!
+    var releaseDate:String!
     
     init() {
         self.id = nil
@@ -50,10 +52,16 @@ class Song{
             self.lowKey = json[row]["lowKey"].string
             self.lyrics = json[row]["lyrics"].string
             self.runtime = json[row]["runtime"].string
+            self.songCount = String(json[row]["mylist_count"])
+            if let data = json[row]["release"].string {
+                self.releaseDate = data
+            }
+            
             
             self.song_tjnum = String(json[row]["song_tjnum"].int!)
             self.albumWebViewString = json[row]["jacket_middle"].string!
             self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket"].string!)!))
+            
         }
         else if(type == 4){ // Search By Artist 인 경우
             self.id = json[row]["id"].int
@@ -66,7 +74,8 @@ class Song{
             
             self.lyrics = json[row]["lyrics"].string
             self.runtime = json[row]["runtime"].string
-            
+            self.songCount = String(json[row]["mylist_count"])
+            self.releaseDate = json[row]["release"].string!
             
             self.song_tjnum = String(json[row]["song_tjnum"].int!)
             self.albumWebViewString = json[row]["jacket_middle"].string!
@@ -83,6 +92,8 @@ class Song{
             
             self.lyrics = json[row]["lyrics"].string
             self.runtime = json[row]["runtime"].string
+            self.songCount = String(json[row]["mylist_count"])
+            self.releaseDate = json[row]["release"].string!
             
             
             self.song_tjnum = String(json[row]["song_tjnum"].int!)
@@ -133,6 +144,8 @@ class Song{
             self.lowKey = json[row]["lowKey"].string
             self.lyrics = json[row]["lyrics"].string
             self.runtime = json[row]["runtime"].string
+            self.songCount = String(json[row]["mylist_count"])
+            self.releaseDate = json[row]["release"].string!
 //            self.song_tjnum = json["song"][row]["song_tjnum"].string
             self.song_tjnum = String(json[row]["song_tjnum"].int!)
             self.albumWebViewString = json[row]["jacket_middle"].string!
