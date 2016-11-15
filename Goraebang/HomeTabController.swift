@@ -45,6 +45,8 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     var artistLabelForAlbum: UILabel!
     
     var homeTopBackgroundImageView: UIImageView!
+    var homeTopBackgroundWebView: UIWebView!
+    var topBackgroundScrollView: UIScrollView!
     
     var homeAlbumPageControl: UIPageControl!
     var newSongPageControl: UIPageControl!
@@ -90,6 +92,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     // MARK : JSON 읽을 JSON 변수
     var topChartReadableJSON: JSON!
     var newSongReadableJSON: JSON!
+    var topBannerJSON: JSON!
     
     // 스크롤 말려 올라가는 코드
     //    func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -156,7 +159,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
             albumSmallInterval = 8
             albumBigInterval = 40
             topBackgroundStartingYPoint = 0
-            topBackgroundHeight = 170
+            topBackgroundHeight = 190
             
             
             bottomContainerHeight = self.view.bounds.height - bottomContainerStartingYPoint
@@ -205,7 +208,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         // print(albumSizeForVariousPhoneWidth)
         
         // 아래 tab 사이즈 만큼 +70 해줬다.
-        bottomContainerContentsHeight = bottomTopChartHeight + bottomNewSongHeight + bottomMyListContainerHeight + 70
+        bottomContainerContentsHeight = topBackgroundHeight + bottomTopChartHeight + bottomNewSongHeight + 100
         // ShowTop100DetailView 설정
         showTop100DetailButtonStartingXPoint = phoneSize - 100
         showTop100DetailButtonStartingYPoint = 20
@@ -222,8 +225,12 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         let new_song_url:NSURL = NSURL(string: "\(goraebang_url)/json/month_new?mytoken=\(userInfo.token)")!
         let newSongJsonData = NSData(contentsOfURL: new_song_url) as NSData!
         
+        let banner_url:NSURL = NSURL(string: "\(goraebang_url)/json/main_banner")!
+        let bannerJsonData = NSData(contentsOfURL: banner_url) as NSData!
+        
         topChartReadableJSON = JSON(data: jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
         newSongReadableJSON = JSON(data: newSongJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        topBannerJSON = JSON(data: bannerJsonData, options: NSJSONReadingOptions.MutableContainers, error: nil)
     }
     
     
@@ -239,7 +246,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         // MARK: 고래방 TOP 100 차트 타이틀 라벨
         makeTopChartContainer()
         makeNewSongContainer()
-        makeMyListContainer()
+//        makeMyListContainer()
         
         
         bottomContainerScrollView.layer.zPosition = 2
@@ -249,10 +256,54 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     
     // MARK: 화면 상단의 백그라운드 이미지 생성
     func makeHomeTopBackground(){
-        homeTopBackgroundImageView = UIImageView(image: UIImage(named: "HomeTopBackground"))
-        homeTopBackgroundImageView.frame = CGRectMake(0, topBackgroundStartingYPoint, view.bounds.width, topBackgroundHeight)
-        homeTopBackgroundImageView.layer.zPosition = 1
-        bottomContainerScrollView.addSubview(homeTopBackgroundImageView)
+//        homeTopBackgroundWebView.frame = CGRectMake(0, topBackgroundStartingYPoint, view.bounds.width, topBackgroundHeight)
+        
+        let topBackgroundPageControl = UIPageControl(frame: CGRect(x: 0, y: topBackgroundStartingYPoint, width: view.bounds.width, height: topBackgroundHeight))
+        topBackgroundPageControl.numberOfPages = 3
+        topBackgroundPageControl.currentPage = 0
+        topBackgroundPageControl.backgroundColor = UIColor.blueColor()
+//        topBackgroundPageControl.appearne
+        
+//        topBackgroundPageControl.layer.position.y = self.view.frame.height - 200
+//        topBackgroundPageControl.
+//        topBackgroundPageControl.
+//        topBackgroundPageControl.backgroundColor = UIColor(red: 49/255, green: 50/255, blue: 52/255, alpha: 1.0)
+        bottomContainerScrollView.addSubview(topBackgroundPageControl)
+        
+        
+        let topBackgroundScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: topBackgroundHeight))
+        
+        
+        topBackgroundScrollView.showsHorizontalScrollIndicator = false
+        topBackgroundScrollView.pagingEnabled = true
+        topBackgroundScrollView.contentSize = CGSizeMake(view.bounds.width*3, topBackgroundHeight)
+        
+        var x:CGFloat = 0
+        
+        for i in 0...2 {
+            homeTopBackgroundWebView = UIWebView(frame: CGRect(x: x, y: 0, width: view.bounds.width, height: topBackgroundHeight))
+            homeTopBackgroundWebView.scalesPageToFit = true
+            homeTopBackgroundWebView.scrollView.scrollEnabled = false
+            homeTopBackgroundWebView.loadRequest(NSURLRequest(URL: NSURL(string: topBannerJSON[i]["image"].string!)!))
+            homeTopBackgroundWebView.layer.zPosition = 3
+            
+            topBackgroundScrollView.addSubview(homeTopBackgroundWebView)
+            x = x + view.bounds.width
+        }
+//        homeTopBackgroundWebView = UIWebView(frame: CGRect(x: 0, y: topBackgroundStartingYPoint, width: view.bounds.width, height: topBackgroundHeight))
+//        homeTopBackgroundWebView.scalesPageToFit = true
+//        homeTopBackgroundWebView.scrollView.scrollEnabled = false
+//        homeTopBackgroundWebView.loadRequest(NSURLRequest(URL: NSURL(string: topBannerJSON[0]["image"].string!)!))
+//        homeTopBackgroundWebView.layer.zPosition = 1
+        
+        topBackgroundPageControl.addSubview(topBackgroundScrollView)
+        bottomContainerScrollView.addSubview(topBackgroundPageControl)
+        
+        
+//        homeTopBackgroundImageView = UIImageView(image: UIImage(named: "HomeTopBackground"))
+//        homeTopBackgroundImageView.frame = CGRectMake(0, topBackgroundStartingYPoint, view.bounds.width, topBackgroundHeight)
+//        homeTopBackgroundImageView.layer.zPosition = 1
+//        bottomContainerScrollView.addSubview(homeTopBackgroundImageView)
         // 4, 4.7, 5.5 inch 크기 별로 설정 view.bounds.width(height)의 배율로 하는게 좋을 것 같다.
     }
     
@@ -262,6 +313,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         //                bottomTopChartContainer.backgroundColor = UIColor.darkGrayColor()
         //        bottomTopChartContainer.autoresizesSubviews = true
         
+//        bottomTopChartContainer.layer.zPosition = 5
         // 고래방 TOP 라벨 앞에 선을 UILabel로 추가한다.
         let preChartLabel = UILabel()
         //        preChartLabel.clipsToBounds = true
@@ -322,6 +374,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         homeAlbumPageControl.currentPage = 0
         homeAlbumPageControl.pageIndicatorTintColor = UIColor.darkGrayColor()
         homeAlbumPageControl.currentPageIndicatorTintColor = UIColor.redColor()
+        
         
         bottomTopChartContainer.addSubview(homeAlbumPageControl)
     }
@@ -648,7 +701,19 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
             
             // MARK: 노래 제목과, 아티스트명을 담을 UIView
             viewForAlbumTitle = UIView(frame: CGRect(x: 0, y: viewForAlbumTitleStartingYPoint, width:albumSizeForVariousPhoneWidth, height: 40))
-            viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 0.85)
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: viewForAlbumTitle.bounds.width, height: viewForAlbumTitle.bounds.height)
+            let color1 = UIColor(white: 0.2, alpha: 0.0).CGColor as CGColorRef
+            let color2 = UIColor(white: 0.2, alpha: 0.2).CGColor as CGColorRef
+            let color3 = UIColor(white: 0.2, alpha: 0.4).CGColor as CGColorRef
+            let color4 = UIColor(white: 0.2, alpha: 0.6).CGColor as CGColorRef
+            let color5 = UIColor(white: 0.2, alpha: 0.75).CGColor as CGColorRef
+            let color6 = UIColor(white: 0.2, alpha: 1.0).CGColor as CGColorRef
+            gradientLayer.colors = [color1, color2, color3, color4, color5, color6]
+            gradientLayer.locations = [0.0, 0.1, 0.2, 0.35, 0.5, 1.0]
+            
+            viewForAlbumTitle.layer.addSublayer(gradientLayer)
+//            viewForAlbumTitle.backgroundColor = UIColor.init(red: 34/255, green: 34/255, blue:34/255, alpha: 0.85)
             albumWebView.addSubview(viewForAlbumTitle)
             
             // MARK : 노래제목 라벨 추가(textView를 이용하면 Inset 넣을 수 있는지 확인)

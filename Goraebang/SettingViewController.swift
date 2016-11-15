@@ -71,6 +71,7 @@ class SettingViewController: UIViewController {
                     print(accountResult["result"].string!)
                     if(accountResult["result"].string! == "SUCCESS"){
                         print(accountResult)
+//                        print("ccccC") 
                         isEnd = 1
                     } else{
                         print("My account 실패")

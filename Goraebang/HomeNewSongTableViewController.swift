@@ -37,7 +37,16 @@ class HomeNewSongTableViewController: UITableViewController {
     
     func activateIndicator() {
         indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: tableView.bounds.height)
+        indicator_board.hidden = false
+        indicator_view.hidden = false
     }
+    
+    func deactivateIndicator(){
+        indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 0)
+        indicator_board.hidden = true
+        indicator_view.hidden = true
+    }
+
     
     // 푸시된 창에서 다른 탭으로 넘어갈 경우 사라지는 코드
     override func viewDidDisappear(animated: Bool) {
@@ -98,6 +107,7 @@ class HomeNewSongTableViewController: UITableViewController {
         }
         
         indicator_board.stopAnimating()
+        deactivateIndicator()
         needChange = false
         tableView.reloadData()
         print("완료")
@@ -128,7 +138,6 @@ class HomeNewSongTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewSongTableCell", forIndexPath: indexPath) as! HomeNewSongTableViewCell
         
-        
         let row = indexPath.row
         
         cell.rankLabel.text = String(row+1)
@@ -146,10 +155,11 @@ class HomeNewSongTableViewController: UITableViewController {
             cell.artistLabel.text = topChartReadableJSON[row]["artist_name"].string!// artist명 추가
         }
         
+        cell.songCount.text = String(topChartReadableJSON[row]["mylist_count"])
+        cell.releaseDate.text = topChartReadableJSON[row]["release"].string!
         
         // MARK: jacket_middle 맞는지 확인
         if (topChartReadableJSON[row]["jacket_small"] != nil ){
-            
             cell.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: topChartReadableJSON[row]["jacket_small"].string!)!))
         }
         else {

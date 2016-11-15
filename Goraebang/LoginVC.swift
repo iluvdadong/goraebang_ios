@@ -23,9 +23,18 @@ class LoginVC: UIViewController {
     var myIdPath:NSURL!
     var myListIdPath:NSURL!
     
+    var splash_screen:UIView!
+    
     let goraebang_url = GlobalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        splash_screen = UIImageView(image: UIImage(named: "LaunchImage"))
+        splash_screen.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+//        splash_screen.backgroundColor = UIColor.blueColor()
+        splash_screen.layer.zPosition = 5
+//        splash_screen.
+        view.addSubview(splash_screen)
         
         filemgr = NSFileManager.defaultManager()
         
@@ -146,6 +155,8 @@ class LoginVC: UIViewController {
         // MARK: 현재 token로그인 함수에서 중복으로 검사중이다(수정필요)*********************
         if filemgr.fileExistsAtPath(tokenPath!.path!){
             tokenLogin(tokenPath!.path!, emailPath: emailPath!.path!)
+        } else {
+            splash_screen.hidden = true
         }
         
     }
@@ -166,16 +177,23 @@ class LoginVC: UIViewController {
         // 로그인 버튼 눌렀을 때와 동일하게 로그인 검사
         sender.resignFirstResponder()
         
-        let username:NSString = txtUserEmail.text! as NSString
-        let password:NSString = txtPassword.text! as NSString
+//        let username:NSString = txtUserEmail.text! as NSString
+//        let password:NSString = txtPassword.text! as NSString
         
-        self.dismissViewControllerAnimated(true, completion: nil)
-        self.performSegueWithIdentifier("goto_main", sender: self)
+//        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        
+//        로그인 검사 하고 넘어가자
+        
+//        self.performSegueWithIdentifier("goto_main", sender: self)
     }
     
     @IBAction func loginAction(sender: AnyObject) {
         // 로그인 검사
         //        self.performSegueWithIdentifier("goto_main", sender: self)
+        
+        let semaphore = dispatch_semaphore_create(0);
+        
         let username:NSString = txtUserEmail.text! as NSString
         let password:NSString = txtPassword.text! as NSString
         
@@ -188,14 +206,13 @@ class LoginVC: UIViewController {
         request.HTTPBody = postData
         
         var loginResultJSON:JSON!
-        var isLogin = false
-        var isEnd = false
+        var isLogin = -1
+        var isEnd = -1
         
         let loginResult = NSURLSession.sharedSession().dataTaskWithRequest(request){
             data, response, error in
             if let data = data where error == nil{
                 loginResultJSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
-                print(loginResultJSON)
                 if(loginResultJSON["result"].string! == "SUCCESS"){
                     let filemgr = NSFileManager.defaultManager()
                     
@@ -234,17 +251,16 @@ class LoginVC: UIViewController {
                                     
                                     // 토큰 파일 존재하는 경우 삭제하고 다시 생성
                                     self.writeToken(loginResultJSON["mytoken"].string!, tokenPath: tokenPath!.path!)
-                                    isLogin = true
-                                    isEnd = true
+                                    isLogin = 1 ; isEnd = 1
                                     
                                     
                                 } else {
                                     print("로그인 하는 유저가 기존과 같습니다. 토큰 업데이트 필요")
                                     self.writeToken(loginResultJSON["mytoken"].string!, tokenPath: tokenPath!.path!)
-                                    isLogin = true
-                                    isEnd = true
+                                    isLogin = 1 ; isEnd = 1
                                 }
                                 file?.closeFile()
+                                dispatch_semaphore_signal(semaphore);
                             }
                         }
                     } else { // emailPath 가 없으면 그냥 생성하면된다.
@@ -253,38 +269,78 @@ class LoginVC: UIViewController {
                         self.writeEmail(self.txtUserEmail.text!, emailPath: emailPath!.path!)
                         self.writePassword(self.txtUserEmail.text!, passwordPath: passwordPath!.path!)
                         self.writeToken(loginResultJSON["mytoken"].string!, tokenPath: tokenPath!.path!)
-                        
-                        self.txtUserEmail.text = ""
-                        self.txtPassword.text = ""
-                        isLogin = true
-                        isEnd = true
+                        isLogin = 1 ; isEnd = 1
+                        dispatch_semaphore_signal(semaphore);
                     }
                     
                 } else {
                     // 실패한 경우 적절한 AlertView
-                    isLogin = false
-                    isEnd = true
+                    isLogin = 0
+                    isEnd = 1
+                    dispatch_semaphore_signal(semaphore);
                 }
             } else {
                 print("error = \(error.debugDescription)")
+                dispatch_semaphore_signal(semaphore);
             }
+            print("완료 후의 작업")
+            print(isEnd)
+            print(isLogin)
+
         }
-        
         loginResult.resume()
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         
-        while(true){
-            if(isEnd == true) {
-                break
-            }
+        if(isLogin == 1){
+            self.writeMyId(loginResultJSON["id"].int!, myIdPath: myIdPath.path!)
+            self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: myListIdPath.path!)
+//            self.txtUserEmail.text = ""
+            self.txtPassword.text = ""
+            self.performSegueWithIdentifier("goto_main", sender: self)
+//            break
+        } else {
+            self.alertWithWarningMessage("아이디 혹은 비밀번호가 맞지 않습니다. \(isEnd) \(isLogin)")
+            print("로그인 결과")
+            print(isEnd)
+            print(isLogin)
+//            break
         }
+        
+        
+        
+        
+        
+//        while(true){
+//            if(isEnd == 1 && (isLogin == 1 || isLogin == 0)) {
+//                if(isLogin == 1){
+//                    self.writeMyId(loginResultJSON["id"].int!, myIdPath: myIdPath.path!)
+//                    self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: myListIdPath.path!)
+//                    self.txtUserEmail.text = ""
+//                    self.txtPassword.text = ""
+//                    self.performSegueWithIdentifier("goto_main", sender: self)
+//                    break
+//                } else {
+//                    self.alertWithWarningMessage("아이디 혹은 비밀번호가 맞지 않습니다. \(isEnd) \(isLogin)")
+//                    print("로그인 결과")
+//                    print(isEnd)
+//                    print(isLogin)
+//                    break
+//                }
+//
+//                break
+//            }
+//        }
+        
+        
+        
+//        print("로그인 결과")
+//        print(isEnd)
+//        print(isLogin)
+        
         
         // 여기서 어떻게 로그인 할지...
         // 로그인 됬는지 어떻게 확인
-        if(isLogin == true){
-            self.writeMyId(loginResultJSON["id"].int!, myIdPath: myIdPath.path!)
-            self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: myListIdPath.path!)
-            self.performSegueWithIdentifier("goto_main", sender: self)
-        }
+        
         
         // 여기서 토큰이 생성된 경우 토큰으로 다시 로그인한다.
 //        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
@@ -302,7 +358,7 @@ class LoginVC: UIViewController {
         //************************************************
     }
     
-    func writeEmail(email: String, emailPath: String){
+    func writeEmail(email: String, emailPath: String) -> Bool{
         print("Email 생성 시작")
         let filemgr = NSFileManager.defaultManager()
         
@@ -328,9 +384,10 @@ class LoginVC: UIViewController {
                 file?.closeFile()
             }
         }
+        return true
     }
     
-    func writePassword(password: String, passwordPath: String){
+    func writePassword(password: String, passwordPath: String) -> Bool{
         print("Password 생성 시작")
         // 패스워드 파일 존재하는 경우 삭제하고 다시 생성
         let filemgr = NSFileManager.defaultManager()
@@ -356,6 +413,7 @@ class LoginVC: UIViewController {
                 file?.closeFile()
             }
         }
+        return true
     }
     
     func writeToken(token: String, tokenPath: String){
@@ -385,7 +443,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    func writeMyListId(myListId: Int, listPath: String){
+    func writeMyListId(myListId: Int, listPath: String) -> Bool{
         print("My list id 생성")
         if(filemgr.fileExistsAtPath(listPath)){
             do{
@@ -408,9 +466,10 @@ class LoginVC: UIViewController {
                 file?.closeFile()
             }
         }
+        return true
     }
     
-    func writeMyId(id: Int, myIdPath: String){
+    func writeMyId(id: Int, myIdPath: String) -> Bool{
         if(filemgr.fileExistsAtPath(myIdPath)){
             do{
                 try filemgr.removeItemAtPath(myIdPath)
@@ -432,6 +491,7 @@ class LoginVC: UIViewController {
                 file?.closeFile()
             }
         }
+        return true
     }
     
     func tokenLogin(tokenPath: String, emailPath: String){
@@ -483,6 +543,7 @@ class LoginVC: UIViewController {
                         }
                     }
                     loginResult.resume()
+                    
                 }
                 
             }
@@ -511,6 +572,20 @@ class LoginVC: UIViewController {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         txtUserEmail.endEditing(true)
         txtPassword.endEditing(true)
+    }
+    
+    func alertWithWarningMessage(message: String){
+        let alertView:UIAlertView = UIAlertView(frame: CGRect(x: 0, y: 1, width: 80, height: 40))
+        
+        alertView.message = message
+        alertView.delegate = self
+        alertView.show()
+        
+        let delay = 0.5 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue(), {
+            alertView.dismissWithClickedButtonIndex(-1, animated: true)
+        })
     }
     
     override func didReceiveMemoryWarning() {

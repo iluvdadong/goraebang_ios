@@ -111,8 +111,9 @@ class Song{
             self.lowKey = json[row]["lowKey"].string
             self.lyrics = json[row]["lyrics"].string
             self.runtime = json[row]["runtime"].string
-//            self.albumWebViewString = json[row]["jacket_middle"].string!
-//            self.song_tjnum = json[row]["song_tjnum"].string
+            
+//            self.songCount = String(json[row]["mylist_count"])
+//            self.releaseDate = json[row]["release"].string!
             
             self.song_tjnum = String(json[row]["song_tjnum"].int!)
             if(json[row]["jacket_small"] != nil){
@@ -130,7 +131,11 @@ class Song{
             self.lyrics = json[row]["lyrics"].string
             self.runtime = json[row]["runtime"].string
             self.song_tjnum = String(json[row]["song_tjnum"].int!)
-//            self.albumWebView.loadRequest(NSURLRequest(URL: NSURL(string: json[row]["jacket_middle"].string!)!))
+            
+            self.songCount = String(json[row]["mylist_count"])
+            self.releaseDate = json[row]["release"].string!
+
+
             self.albumWebViewString = json[row]["jacket_middle"].string!
         }
         else { // type 1 from mylist
