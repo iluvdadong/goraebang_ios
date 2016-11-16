@@ -294,7 +294,7 @@ class LoginVC: UIViewController {
         if(isLogin == 1){
             self.writeMyId(loginResultJSON["id"].int!, myIdPath: myIdPath.path!)
             self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: myListIdPath.path!)
-//            self.txtUserEmail.text = ""
+            self.txtUserEmail.text = ""
             self.txtPassword.text = ""
             self.performSegueWithIdentifier("goto_main", sender: self)
 //            break
