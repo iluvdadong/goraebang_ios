@@ -21,13 +21,28 @@ class RecommendTableViewController: UITableViewController {
     @IBOutlet weak var indicator_view: UIView!
     @IBOutlet weak var indicator_board: UIActivityIndicatorView!
     
+    @IBAction func recommendAction(sender: AnyObject) {
+        print("Recommend Button was clicked")
+//        let semaphore = dispatch_semaphore_create(0);
+        is_my_favorite.removeAll()
+//        self.tableView = nil
+        let isComplete = activateIndicator()
+        
+        if isComplete == true {
+            getRecomSong()
+        }
+//        dispatch_semaphore_signal(semaphore);
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        getRecomSong()
+    }
+    
     
     override func viewDidDisappear(animated: Bool) {
         // 탭 간 이동시에만 사라져야 한다.
         if(currentTabIndex != self.tabBarController?.selectedIndex){
 //            self.navigationController?.popViewControllerAnimated(true)
-            self.tableView = nil
-            is_my_favorite.removeAll()
+//            self.tableView = nil
+//            is_my_favorite.removeAll()
             
 //            self.tableView.hidden = true
         }
@@ -46,7 +61,7 @@ class RecommendTableViewController: UITableViewController {
         
         needChange = true
         currentTabIndex = self.tabBarController?.selectedIndex
-        activateIndicator()
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecommendTableViewController.updateIsMyList), name: "com.sohn.fromRecommendSongDetail", object: nil)
         
@@ -70,11 +85,12 @@ class RecommendTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    func activateIndicator() {
+    func activateIndicator() -> Bool{
         indicator_view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: tableView.bounds.height)
         
         indicator_board.hidden = false
         indicator_view.hidden = false
+        return true
     }
     
     func deactivateIndicator(){
@@ -85,11 +101,11 @@ class RecommendTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         
-        if(needChange == true){
-            getRecomSong()
-        }
-        
-        needChange = false
+//        if(needChange == true){
+//            getRecomSong()
+//        }
+//        
+//        needChange = false
     }
     
     func getRecomSong() -> Bool{

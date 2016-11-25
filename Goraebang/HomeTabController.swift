@@ -50,6 +50,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     
     var homeAlbumPageControl: UIPageControl!
     var newSongPageControl: UIPageControl!
+    var topBackgroundPageControl: UIPageControl!
     
     var homeNavBar: UINavigationBar!
     
@@ -143,6 +144,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         
         scrollView.delegate = self
         newSongScrollView.delegate = self
+        topBackgroundScrollView.delegate = self
         
         //        print("iPhone width : \(view.bounds.width)")
     }
@@ -257,22 +259,32 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     // MARK: 화면 상단의 백그라운드 이미지 생성
     func makeHomeTopBackground(){
 //        homeTopBackgroundWebView.frame = CGRectMake(0, topBackgroundStartingYPoint, view.bounds.width, topBackgroundHeight)
+        let homeTopBackgroundContainer = UIView(frame: CGRect(x: 0, y: topBackgroundStartingYPoint, width: view.bounds.width, height: topBackgroundHeight))
+//        homeTopBackgroundContainer.backgroundColor = UIColor(red: 232/255, green: 56/255, blue: 61/255, alpha: 1.0)
+        bottomContainerScrollView.addSubview(homeTopBackgroundContainer)
         
-        let topBackgroundPageControl = UIPageControl(frame: CGRect(x: 0, y: topBackgroundStartingYPoint, width: view.bounds.width, height: topBackgroundHeight))
+        
+        topBackgroundPageControl = UIPageControl(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: topBackgroundHeight*2-30))
+//        let topBackgroundPageControl = UIPageControl(frame: CGRect(x: 0, y: topBackgroundStartingYPoint, width: view.bounds.width, height: topBackgroundHeight))
         topBackgroundPageControl.numberOfPages = 3
         topBackgroundPageControl.currentPage = 0
-        topBackgroundPageControl.backgroundColor = UIColor.blueColor()
+        topBackgroundPageControl.pageIndicatorTintColor = UIColor.darkGrayColor()
+        topBackgroundPageControl.currentPageIndicatorTintColor = UIColor.redColor()
+        
+        homeTopBackgroundContainer.addSubview(topBackgroundPageControl)
+//        bottomContainerScrollView.addSubview(topBackgroundPageControl)
+//        topBackgroundPageControl.backgroundColor = UIColor.blueColor()
 //        topBackgroundPageControl.appearne
         
 //        topBackgroundPageControl.layer.position.y = self.view.frame.height - 200
 //        topBackgroundPageControl.
 //        topBackgroundPageControl.
 //        topBackgroundPageControl.backgroundColor = UIColor(red: 49/255, green: 50/255, blue: 52/255, alpha: 1.0)
-        bottomContainerScrollView.addSubview(topBackgroundPageControl)
         
         
-        let topBackgroundScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: topBackgroundHeight))
         
+        topBackgroundScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: topBackgroundHeight))
+        topBackgroundScrollView.tag = 2
         
         topBackgroundScrollView.showsHorizontalScrollIndicator = false
         topBackgroundScrollView.pagingEnabled = true
@@ -297,7 +309,7 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
 //        homeTopBackgroundWebView.layer.zPosition = 1
         
         topBackgroundPageControl.addSubview(topBackgroundScrollView)
-        bottomContainerScrollView.addSubview(topBackgroundPageControl)
+//        bottomContainerScrollView.addSubview(topBackgroundPageControl)
         
         
 //        homeTopBackgroundImageView = UIImageView(image: UIImage(named: "HomeTopBackground"))
@@ -569,8 +581,10 @@ class HomeTabController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         if (scrollView.tag == 0){
             homeAlbumPageControl.currentPage = Int(pageNumber)
         }
-        else{
+        else if scrollView.tag == 1{
             newSongPageControl.currentPage = Int(pageNumber)
+        } else if scrollView.tag == 2{
+            topBackgroundPageControl.currentPage = Int(pageNumber)
         }
         
     }
