@@ -68,14 +68,16 @@ class SettingViewController: UIViewController {
                 if let data = data where error == nil{
                     accountResult = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error: nil)
                     
-                    print(accountResult["result"].string!)
                     if(accountResult["result"].string! == "SUCCESS"){
-                        print(accountResult)
-//                        print("ccccC") 
-                        isEnd = 1
+//                        print(accountResult)
+                        myInfoViewController.email = accountResult["email"].string!
+                        if accountResult["name"].string! != "" {
+                            myInfoViewController.name = accountResult["name"].string!
+                        }
+                        myInfoViewController.gender = accountResult["gender"].int!
                     } else{
-                        print("My account 실패")
-                        isEnd = 1
+                        print("My account fail")
+                        
                     }
                 } else {
                     print("error=\(error.debugDescription)")
@@ -83,14 +85,16 @@ class SettingViewController: UIViewController {
             }
             result.resume()
             
-            // 통신 완료될 때 까지 기다려야 한다.
-            while(isEnd == 0){
-//                print("진행 중")
-            }
-
-            myInfoViewController.email = accountResult["email"].string!
-            myInfoViewController.name = accountResult["name"].string!
-            myInfoViewController.gender = accountResult["gender"].int!
+            /* accountResult 의 JSON 데이터
+             gender : 0 (아무것도 없을 때)
+             result : "SUCCESS"
+             mylist_id : 207
+             profile_img_origin : url
+             profile_img_400 : url
+             email : "me@82.beta"
+             name : "betaUser_82"
+ 
+             */
         }
     }
     override func viewDidLoad() {

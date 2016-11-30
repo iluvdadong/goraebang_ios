@@ -41,21 +41,42 @@ class MyInfoViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     override func viewDidAppear(animated: Bool) {
         currentTabIndex = self.tabBarController?.selectedIndex
+        
+        // 이거 settingpage prepare에서 미리 하면 더 좋을것같다..
+        setInfo()
+        makeProfileImage()
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        makeProfileImageFrame()
         
-        setInfo()
-        makeProfileImage()
+        // setInfo 를 ViewDidAppear에 넣으면 오류가 없어질것 같다 쉬바...
+        
+        
         // Do any additional setup after loading the view.
     }
     
     func setInfo(){
-        emailTextField.text = email
-        nameTextField.text = name
+        if let email = email {
+            emailTextField.text = email
+        }
+        
+        if let name = name {
+            nameTextField.text = name
+        }
+        
         setGender(gender)
+    }
+    
+    func makeProfileImageFrame(){
+        profileImage.layer.cornerRadius = 35
+        profileImage.layer.borderWidth = 1
+        profileImage.layer.borderColor = UIColor.darkGrayColor().CGColor
+        profileImage.layer.masksToBounds = false
+        profileImage.clipsToBounds = true // 이거때문에 원이 유지
     }
     
     func makeProfileImage(){
@@ -69,11 +90,7 @@ class MyInfoViewController: UIViewController, UIImagePickerControllerDelegate, U
             // 기본 이미지 삽입
         }
         
-        profileImage.layer.cornerRadius = 35
-        profileImage.layer.borderWidth = 1
-        profileImage.layer.borderColor = UIColor.darkGrayColor().CGColor
-        profileImage.layer.masksToBounds = false
-        profileImage.clipsToBounds = true // 이거때문에 원이 유지
+        
     }
     
     @IBAction func uploadProfileImage(sender: AnyObject) {

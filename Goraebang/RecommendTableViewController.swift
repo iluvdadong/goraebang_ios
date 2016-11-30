@@ -14,6 +14,7 @@ class RecommendTableViewController: UITableViewController {
     var currentTabIndex:Int!
     var needChange:Bool!
     
+    
     var userInfo = UserInfoGetter()
     let goraebang_url = GlobalSetting.getGoraebangURL()
     var is_my_favorite:[Int] = [Int]()
@@ -41,12 +42,24 @@ class RecommendTableViewController: UITableViewController {
         // 탭 간 이동시에만 사라져야 한다.
         if(currentTabIndex != self.tabBarController?.selectedIndex){
 //            self.navigationController?.popViewControllerAnimated(true)
-            self.tableView = nil
+//            self.tableView = nil
             is_my_favorite.removeAll()
             
+            needChange = true
 //            self.tableView.hidden = true
         }
         self.tabBarController?.selectedIndex
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        activateIndicator()
+        indicator_board.startAnimating()
+        
+        if(needChange == true){
+            getRecomSong()
+        }
+        
+        needChange = false
     }
     
     func updateIsMyList(n:NSNotification){
@@ -99,24 +112,11 @@ class RecommendTableViewController: UITableViewController {
         indicator_view.hidden = true
     }
     
-    override func viewDidAppear(animated: Bool) {
-        activateIndicator()
-        indicator_board.startAnimating()
-        
-        if(needChange == true){
-            getRecomSong()
-        }
-        
-        needChange = false
-    }
+
     
-    func getRecomSong() -> Bool{
-        
+    func getRecomSong(){
         
         recommender.getSongRecommendation()
-        
-        indicator_board.stopAnimating()
-        deactivateIndicator()
         
         print("추천곡")
         print(recommender.recommendedSong)
@@ -125,14 +125,14 @@ class RecommendTableViewController: UITableViewController {
         self.extendedLayoutIncludesOpaqueBars = false
         
         // 추천 페이지는 처음에 전부 0 일 수 밖에 없다.
+        
         for var i = 0; i < recommender.recommendedSong.count; i++ {
             is_my_favorite.append(0)
         }
-        
+        indicator_board.stopAnimating()
+        deactivateIndicator()
         tableView.reloadData()
         
-        
-        return true
     }
     
     
