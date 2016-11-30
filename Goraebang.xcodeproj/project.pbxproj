@@ -170,9 +170,9 @@
 		494F3A971D42ECAA008B5051 /* Goraebang */ = {
 			isa = PBXGroup;
 			children = (
+				491F3E5A1D42F4E6005A2C9D /* Views */,
 				4935DA071D8A5F1B0027C408 /* SwiftyJSON.swift */,
 				49B90CBA1D448FF00007D76B /* Models */,
-				491F3E5A1D42F4E6005A2C9D /* Views */,
 				491F3E571D42F43B005A2C9D /* ViewControllers */,
 				494F3A9F1D42ECAA008B5051 /* Assets.xcassets */,
 				494F3A981D42ECAA008B5051 /* AppDelegate.swift */,

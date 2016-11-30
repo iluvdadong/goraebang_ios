@@ -4304,6 +4304,9 @@
                                 <state key="normal" title="이용약관">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="YDl-SO-QAq" kind="show" id="SJF-3U-n1b"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWz-AG-5rX">
                                 <rect key="frame" x="133" y="269.5" width="109" height="36"/>
@@ -4311,6 +4314,9 @@
                                 <state key="normal" title="비밀번호 변경">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="MFn-4u-oou" kind="show" id="k5v-Jm-1IG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yi7-Qs-hJF">
                                 <rect key="frame" x="135.5" y="223.5" width="104" height="36"/>
@@ -4328,6 +4334,9 @@
                                 <state key="normal" title="개인정보 취급 방침">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="w8D-hq-oD5" kind="show" id="JpL-RN-59t"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4531,7 +4540,64 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XOe-M1-5C6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3832.8000000000002" y="2184.5577211394307"/>
+            <point key="canvasLocation" x="5409" y="1973"/>
+        </scene>
+        <!--비밀번호 변경-->
+        <scene sceneID="vsQ-vF-SXB">
+            <objects>
+                <viewController id="MFn-4u-oou" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pLD-ey-oJC"/>
+                        <viewControllerLayoutGuide type="bottom" id="Nbs-DV-Thy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="v0c-6o-4i4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="비밀번호 변경" id="hyb-JU-Gqk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ju-Kq-OP9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5409" y="2647"/>
+        </scene>
+        <!--이용약관-->
+        <scene sceneID="cpI-g2-HAB">
+            <objects>
+                <viewController id="YDl-SO-QAq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="quW-OR-XQc"/>
+                        <viewControllerLayoutGuide type="bottom" id="MwQ-wS-QeL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fQg-EY-2TA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="이용약관" id="jNz-3B-e8G"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dbq-Bl-GYQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5409" y="3341"/>
+        </scene>
+        <!--개인정보 취급 방침-->
+        <scene sceneID="oID-lK-oWb">
+            <objects>
+                <viewController id="w8D-hq-oD5" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fqF-JT-BoC"/>
+                        <viewControllerLayoutGuide type="bottom" id="gXB-zP-Glc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KU8-LG-pdi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="개인정보 취급 방침" id="bNd-hh-VN6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1R6-wu-fQh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5398" y="4027"/>
         </scene>
         <!--MY LIST-->
         <scene sceneID="Qu2-EL-XWj">
