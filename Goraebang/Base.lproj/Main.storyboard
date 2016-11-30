@@ -4545,7 +4545,7 @@
         <!--비밀번호 변경-->
         <scene sceneID="vsQ-vF-SXB">
             <objects>
-                <viewController id="MFn-4u-oou" sceneMemberID="viewController">
+                <viewController id="MFn-4u-oou" customClass="ChangePasswordViewController" customModule="Goraebang" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pLD-ey-oJC"/>
                         <viewControllerLayoutGuide type="bottom" id="Nbs-DV-Thy"/>
@@ -4553,13 +4553,124 @@
                     <view key="view" contentMode="scaleToFill" id="v0c-6o-4i4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gMG-Jd-BMJ">
+                                <rect key="frame" x="96" y="114" width="183" height="183"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gMG-Jd-BMJ" secondAttribute="height" multiplier="1:1" id="qAZ-An-XPb"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7bk-KK-HbY">
+                                <rect key="frame" x="55" y="318" width="265" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="lmT-Mg-yLG"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbG-Cx-s4T" userLabel="First Division Line">
+                                <rect key="frame" x="55" y="353" width="264" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="SsH-9c-003"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGx-ee-Eaz">
+                                <rect key="frame" x="55" y="312" width="264" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="hxW-TY-ddu"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xuA-cs-Hne">
+                                <rect key="frame" x="55" y="359" width="265" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="fkB-K1-Xw0"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mvr-la-9J0" userLabel="Third Division Line">
+                                <rect key="frame" x="55" y="394" width="264" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="M0g-cA-fyV"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cJJ-ar-SGW">
+                                <rect key="frame" x="55" y="400" width="265" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Zti-Bw-4w1"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z8R-1f-lbE">
+                                <rect key="frame" x="55" y="435" width="264" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="irW-Lw-NVo"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0LF-0A-mjJ">
+                                <rect key="frame" x="55" y="444" width="264" height="35"/>
+                                <color key="backgroundColor" red="0.89803921568627454" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="SPX-fC-nyF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Change Password">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="savePassword:" destination="MFn-4u-oou" eventType="touchUpInside" id="EJw-Rf-88S"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="DGx-ee-Eaz" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="0w9-cq-5dS"/>
+                            <constraint firstItem="z8R-1f-lbE" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="0yy-PA-Szf"/>
+                            <constraint firstItem="Mvr-la-9J0" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="3qS-em-L8U"/>
+                            <constraint firstItem="z8R-1f-lbE" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="783-Rb-GZf"/>
+                            <constraint firstItem="gMG-Jd-BMJ" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="84O-Ap-plE"/>
+                            <constraint firstItem="DGx-ee-Eaz" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="8Rz-wb-4o7"/>
+                            <constraint firstItem="0LF-0A-mjJ" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="8n7-zs-c2N"/>
+                            <constraint firstItem="7bk-KK-HbY" firstAttribute="top" secondItem="DGx-ee-Eaz" secondAttribute="bottom" constant="5" id="Ip4-Cg-7ON"/>
+                            <constraint firstItem="xuA-cs-Hne" firstAttribute="top" secondItem="kbG-Cx-s4T" secondAttribute="bottom" constant="5" id="JIX-Xc-M2a"/>
+                            <constraint firstItem="xuA-cs-Hne" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="NHi-Zc-GtR"/>
+                            <constraint firstItem="0LF-0A-mjJ" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="Ofe-df-hvN"/>
+                            <constraint firstItem="cJJ-ar-SGW" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="QEr-fp-EU7"/>
+                            <constraint firstItem="cJJ-ar-SGW" firstAttribute="top" secondItem="Mvr-la-9J0" secondAttribute="bottom" constant="5" id="RMj-6r-BT5"/>
+                            <constraint firstItem="kbG-Cx-s4T" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="TJu-hO-73b"/>
+                            <constraint firstItem="0LF-0A-mjJ" firstAttribute="top" secondItem="z8R-1f-lbE" secondAttribute="bottom" constant="8" id="VKf-O0-869"/>
+                            <constraint firstItem="kbG-Cx-s4T" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="XCy-jZ-fwM"/>
+                            <constraint firstItem="kbG-Cx-s4T" firstAttribute="top" secondItem="7bk-KK-HbY" secondAttribute="bottom" constant="5" id="XnV-Ur-03f"/>
+                            <constraint firstItem="xuA-cs-Hne" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="a5C-2R-6tt"/>
+                            <constraint firstItem="cJJ-ar-SGW" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="c2P-ix-MYu"/>
+                            <constraint firstItem="gMG-Jd-BMJ" firstAttribute="top" secondItem="pLD-ey-oJC" secondAttribute="bottom" constant="50" id="iAF-Rp-VSg"/>
+                            <constraint firstItem="7bk-KK-HbY" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="ici-bn-Krs"/>
+                            <constraint firstItem="DGx-ee-Eaz" firstAttribute="top" secondItem="gMG-Jd-BMJ" secondAttribute="bottom" constant="15" id="ig2-pR-qeD"/>
+                            <constraint firstItem="Mvr-la-9J0" firstAttribute="top" secondItem="xuA-cs-Hne" secondAttribute="bottom" constant="5" id="l0Y-rX-Gn6"/>
+                            <constraint firstItem="Mvr-la-9J0" firstAttribute="centerX" secondItem="v0c-6o-4i4" secondAttribute="centerX" id="npo-T0-7OB"/>
+                            <constraint firstItem="z8R-1f-lbE" firstAttribute="top" secondItem="cJJ-ar-SGW" secondAttribute="bottom" constant="5" id="p9K-Wj-8Km"/>
+                            <constraint firstItem="gMG-Jd-BMJ" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="80" id="ptf-ie-Jnx"/>
+                            <constraint firstItem="7bk-KK-HbY" firstAttribute="leading" secondItem="v0c-6o-4i4" secondAttribute="leadingMargin" constant="39" id="toA-5B-s45"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="비밀번호 변경" id="hyb-JU-Gqk"/>
+                    <connections>
+                        <outlet property="confirmTextField" destination="cJJ-ar-SGW" id="yhz-8F-AT0"/>
+                        <outlet property="currentPasswordTextField" destination="7bk-KK-HbY" id="nFu-Ex-M7G"/>
+                        <outlet property="newPasswordTextField" destination="xuA-cs-Hne" id="D2n-e9-XLt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ju-Kq-OP9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5409" y="2647"/>
+            <point key="canvasLocation" x="5408.8000000000002" y="2646.9265367316343"/>
         </scene>
         <!--이용약관-->
         <scene sceneID="cpI-g2-HAB">
@@ -4682,6 +4793,7 @@
         <image name="RecommendIcon" width="25" height="25"/>
         <image name="SearchIcon" width="25" height="25"/>
         <image name="SettingIcon" width="25" height="25"/>
+        <image name="logo" width="1100" height="1100"/>
         <image name="logo2" width="1100" height="1100"/>
     </resources>
     <inferredMetricsTieBreakers>

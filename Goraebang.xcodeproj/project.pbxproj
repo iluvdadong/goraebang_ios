@@ -39,6 +39,7 @@
 		498E0D811D71598D00CCEFF1 /* GlobalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E0D801D71598D00CCEFF1 /* GlobalSetting.swift */; };
 		499318651D797A1B0047C8B1 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499318641D797A1B0047C8B1 /* SearchTableViewController.swift */; };
 		499318671D797BEA0047C8B1 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499318661D797BEA0047C8B1 /* SearchTableViewCell.swift */; };
+		499C76591DEF1CD5004D4A3A /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499C76581DEF1CD5004D4A3A /* ChangePasswordViewController.swift */; };
 		49B8340C1D564EFF004F1AC0 /* MyListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */; };
 		49B862471D85479C00EBBE95 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B862461D85479C00EBBE95 /* SettingViewController.swift */; };
 		49B862491D857B0200EBBE95 /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B862481D857B0200EBBE95 /* MyListViewController.swift */; };
@@ -96,6 +97,7 @@
 		498E0D801D71598D00CCEFF1 /* GlobalSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSetting.swift; sourceTree = "<group>"; };
 		499318641D797A1B0047C8B1 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		499318661D797BEA0047C8B1 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		499C76581DEF1CD5004D4A3A /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		49B8340B1D564EFF004F1AC0 /* MyListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListDetailViewController.swift; sourceTree = "<group>"; };
 		49B862461D85479C00EBBE95 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		49B862481D857B0200EBBE95 /* MyListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			children = (
 				49B862461D85479C00EBBE95 /* SettingViewController.swift */,
 				497E08B81DA90C4C0096E069 /* MyInfoViewController.swift */,
+				499C76581DEF1CD5004D4A3A /* ChangePasswordViewController.swift */,
 			);
 			name = SettingController;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				497E08B91DA90C4C0096E069 /* MyInfoViewController.swift in Sources */,
 				4935B3141D9437B400CC6D2C /* SearchByLyricsTableViewCell.swift in Sources */,
 				49676E9B1DD5B60100962A26 /* HomeNewSongTableViewController.swift in Sources */,
+				499C76591DEF1CD5004D4A3A /* ChangePasswordViewController.swift in Sources */,
 				49676E9D1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift in Sources */,
 				497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */,
 				4935B3121D9437AA00CC6D2C /* SearchByLyricsTableViewController.swift in Sources */,
