@@ -52,14 +52,15 @@ class RecommendTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        activateIndicator()
-        indicator_board.startAnimating()
-        
-        if(needChange == true){
-            getRecomSong()
-        }
-        
-        needChange = false
+        // 추천 잠시 안되게하자
+//        activateIndicator()
+//        indicator_board.startAnimating()
+//        
+//        if(needChange == true){
+//            getRecomSong()
+//        }
+//        
+//        needChange = false
     }
     
     func updateIsMyList(n:NSNotification){

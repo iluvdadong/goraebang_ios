@@ -236,10 +236,12 @@ class MyListDetailViewController: UIViewController {
         songCount.text = songInfo.songCount
         releaseDate.text = songInfo.releaseDate
         
-        let  attrStr: NSMutableAttributedString = try! NSMutableAttributedString(data: songInfo.lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+        if songInfo.lyrics != nil {
+            let  attrStr: NSMutableAttributedString = try! NSMutableAttributedString(data: songInfo.lyrics.dataUsingEncoding(NSUnicodeStringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+            attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, attrStr.length))
+            lyricsTextView.attributedText = attrStr
+        }
         
-        attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, attrStr.length))
-        lyricsTextView.attributedText = attrStr
         lyricsTextView.showsVerticalScrollIndicator = false
         
         if currentStatus != nil{
