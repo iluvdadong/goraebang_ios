@@ -23,13 +23,16 @@ class LoginVC: UIViewController {
     var myIdPath:NSURL!
     var myListIdPath:NSURL!
     
-    var splash_screen:UIView!
+    var splash_screen:UIImageView!
     
     let goraebang_url = GlobalSetting.getGoraebangURL()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         splash_screen = UIImageView(image: UIImage(named: "LaunchImage"))
+        
+        
+        splash_screen.contentMode = UIViewContentMode.ScaleAspectFill
         splash_screen.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
 //        splash_screen.backgroundColor = UIColor.blueColor()
         splash_screen.layer.zPosition = 5
