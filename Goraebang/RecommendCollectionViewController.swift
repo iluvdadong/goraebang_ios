@@ -15,13 +15,20 @@ private let itemsPerRow: CGFloat = 2
 
 class RecommendCollectionViewController: UICollectionViewController {
     
+    var recommender:Recommender!
+    var userInfo = UserInfoGetter()
+    let goraebang_url = GlobalSetting.getGoraebangURL()
+    var is_my_favorite:[Bool] = [Bool]()
     
     
     var sampleImages = [String]()
     
+    override func viewDidAppear(animated: Bool) {
+        getRecomSong()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        recommender = Recommender()
         sampleImages = ["Park",
                         "logo",
                         "logo2",
@@ -45,6 +52,21 @@ class RecommendCollectionViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
+    func getRecomSong(){
+        recommender.getSongRecommendation()
+        print(recommender.recommendedSong)
+        
+        
+        for i in 0 ..< recommender.recommendedSong.count{
+            
+            is_my_favorite.append(recommender.recommendedSong[i]["is_my_favorite"].bool!)
+        }
+        
+        collectionView?.reloadData()
+    }
+        
+       
+        
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -74,7 +96,12 @@ class RecommendCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return sampleImages.count
+        if recommender.recommendedSong != nil {
+            return recommender.recommendedSong.count
+        } else {
+            return 0
+        }
+        
     }
 
 //    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -88,8 +115,6 @@ class RecommendCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RecommendCollectionViewCell
         
-        let image = UIImage(named: sampleImages[indexPath.row])
-        cell.imageView.image = image
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(x: 0, y: 0, width: cell.titleView.bounds.width, height: cell.titleView.bounds.height)
@@ -105,6 +130,13 @@ class RecommendCollectionViewController: UICollectionViewController {
         
         cell.status = 0
         cell.titleView.layer.addSublayer(gradientLayer)
+        
+        cell.tjNumber.text = String(recommender.recommendedSong[indexPath.row]["song_tjnum"])
+        cell.songTitle.text = recommender.recommendedSong[indexPath.row]["title"].string
+        cell.songArtist.text = recommender.recommendedSong[indexPath.row]["artist_name"].string!
+        
+//        cell.songCount 추가해야한다.
+        
         
         // 데이터 입력
 //        cell.titleView.backgroundColor = UIColor.redColor()
