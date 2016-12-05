@@ -26,15 +26,15 @@ class RecommendCollectionViewCell: UICollectionViewCell {
     
     @IBAction func ButtonAction(sender: AnyObject) {
         print("Button tapped")
-        if status == 0 { // 추가 안되있는 경우
-//            addButton.imageView!.image = UIImage(named: "AddButtonActive")
-            addButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
-            status = 1
-        } else {
-//            addButton.imageView!.image = UIImage(named: "AddButtonDeactive")
-            addButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
-            status = 0
-        }
+//        if status == 0 { // 추가 안되있는 경우
+////            addButton.imageView!.image = UIImage(named: "AddButtonActive")
+//            addButton.setImage(UIImage(named: "AddButtonActive"), forState: .Normal)
+//            status = 1
+//        } else {
+////            addButton.imageView!.image = UIImage(named: "AddButtonDeactive")
+//            addButton.setImage(UIImage(named: "AddButtonDeactive"), forState: .Normal)
+//            status = 0
+//        }
     }
     
 }

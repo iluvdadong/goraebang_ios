@@ -76,7 +76,6 @@ class RecommendTableViewController: UITableViewController {
         needChange = true
         currentTabIndex = self.tabBarController?.selectedIndex
         
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecommendTableViewController.updateIsMyList), name: "com.sohn.fromRecommendSongDetail", object: nil)
         
         if(view.bounds.width == 320){

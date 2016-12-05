@@ -105,15 +105,11 @@ class MyListDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         userInfo = UserInfoGetter()
         fillContents()
-        
         // Do any additional setup after loading the view.
     }
-    
     // Activity 추가
-    
     
     @IBAction func songAddAction(sender: AnyObject) {
         if currentStatus == true {
@@ -229,7 +225,10 @@ class MyListDetailViewController: UIViewController {
     }
     
     func fillContents(){
-        albumJacketWebView.loadRequest(NSURLRequest(URL: NSURL(string: songInfo.albumWebViewString)!))
+        if albumJacketWebView != nil {
+            albumJacketWebView.loadRequest(NSURLRequest(URL: NSURL(string: songInfo.albumWebViewString)!))
+        }
+        
         songTitleLabel.text = songInfo.title
         artistLabel.text = songInfo.artist
         TJNumberLabel.text = songInfo.song_tjnum!
