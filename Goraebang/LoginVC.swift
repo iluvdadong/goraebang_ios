@@ -13,6 +13,8 @@ import UIKit
 class LoginVC: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var facebookButton: UIButton!
+    @IBOutlet weak var kakaoButton: UIButton!
     
     var filemgr:NSFileManager!
     var dataPath:NSURL!
@@ -34,16 +36,16 @@ class LoginVC: UIViewController {
         
         splash_screen.contentMode = UIViewContentMode.ScaleAspectFill
         splash_screen.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
-//        splash_screen.backgroundColor = UIColor.blueColor()
+        //        splash_screen.backgroundColor = UIColor.blueColor()
         splash_screen.layer.zPosition = 5
-//        splash_screen.
+        //        splash_screen.
         view.addSubview(splash_screen)
         
         filemgr = NSFileManager.defaultManager()
         
         documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         
-//        dataPath = documentPath.URLByAppendingPathComponent("data")
+        //        dataPath = documentPath.URLByAppendingPathComponent("data")
         emailPath = documentPath.URLByAppendingPathComponent("email.txt")
         passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
         tokenPath = documentPath.URLByAppendingPathComponent("token.txt")
@@ -55,6 +57,7 @@ class LoginVC: UIViewController {
         txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.grayColor()])
         txtPassword.keyboardAppearance = UIKeyboardAppearance.Dark
         
+        kakaoButton.addTarget(self, action: #selector(kakaoButtonTapped), forControlEvents: .TouchUpInside)
         //        let filemgr = NSFileManager.defaultManager()
         //
         //        let documentsPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
@@ -146,7 +149,7 @@ class LoginVC: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         txtPassword.text = ""
-         let filemgr = NSFileManager.defaultManager()
+        let filemgr = NSFileManager.defaultManager()
         let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         
         let emailPath = documentPath.URLByAppendingPathComponent("email.txt")
@@ -180,15 +183,15 @@ class LoginVC: UIViewController {
         // 로그인 버튼 눌렀을 때와 동일하게 로그인 검사
         sender.resignFirstResponder()
         
-//        let username:NSString = txtUserEmail.text! as NSString
-//        let password:NSString = txtPassword.text! as NSString
+        //        let username:NSString = txtUserEmail.text! as NSString
+        //        let password:NSString = txtPassword.text! as NSString
         
-//        self.dismissViewControllerAnimated(true, completion: nil)
+        //        self.dismissViewControllerAnimated(true, completion: nil)
         
         
-//        로그인 검사 하고 넘어가자
+        //        로그인 검사 하고 넘어가자
         
-//        self.performSegueWithIdentifier("goto_main", sender: self)
+        //        self.performSegueWithIdentifier("goto_main", sender: self)
     }
     
     @IBAction func loginAction(sender: AnyObject) {
@@ -289,7 +292,7 @@ class LoginVC: UIViewController {
             print("완료 후의 작업")
             print(isEnd)
             print(isLogin)
-
+            
         }
         loginResult.resume()
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -300,45 +303,45 @@ class LoginVC: UIViewController {
             self.txtUserEmail.text = ""
             self.txtPassword.text = ""
             self.performSegueWithIdentifier("goto_main", sender: self)
-//            break
+            //            break
         } else {
             self.alertWithWarningMessage("아이디 혹은 비밀번호가 맞지 않습니다. \(isEnd) \(isLogin)")
             print("로그인 결과")
             print(isEnd)
             print(isLogin)
-//            break
+            //            break
         }
         
         
         
         
         
-//        while(true){
-//            if(isEnd == 1 && (isLogin == 1 || isLogin == 0)) {
-//                if(isLogin == 1){
-//                    self.writeMyId(loginResultJSON["id"].int!, myIdPath: myIdPath.path!)
-//                    self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: myListIdPath.path!)
-//                    self.txtUserEmail.text = ""
-//                    self.txtPassword.text = ""
-//                    self.performSegueWithIdentifier("goto_main", sender: self)
-//                    break
-//                } else {
-//                    self.alertWithWarningMessage("아이디 혹은 비밀번호가 맞지 않습니다. \(isEnd) \(isLogin)")
-//                    print("로그인 결과")
-//                    print(isEnd)
-//                    print(isLogin)
-//                    break
-//                }
-//
-//                break
-//            }
-//        }
+        //        while(true){
+        //            if(isEnd == 1 && (isLogin == 1 || isLogin == 0)) {
+        //                if(isLogin == 1){
+        //                    self.writeMyId(loginResultJSON["id"].int!, myIdPath: myIdPath.path!)
+        //                    self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: myListIdPath.path!)
+        //                    self.txtUserEmail.text = ""
+        //                    self.txtPassword.text = ""
+        //                    self.performSegueWithIdentifier("goto_main", sender: self)
+        //                    break
+        //                } else {
+        //                    self.alertWithWarningMessage("아이디 혹은 비밀번호가 맞지 않습니다. \(isEnd) \(isLogin)")
+        //                    print("로그인 결과")
+        //                    print(isEnd)
+        //                    print(isLogin)
+        //                    break
+        //                }
+        //
+        //                break
+        //            }
+        //        }
         
         
         
-//        print("로그인 결과")
-//        print(isEnd)
-//        print(isLogin)
+        //        print("로그인 결과")
+        //        print(isEnd)
+        //        print(isLogin)
         
         
         // 여기서 어떻게 로그인 할지...
@@ -346,7 +349,7 @@ class LoginVC: UIViewController {
         
         
         // 여기서 토큰이 생성된 경우 토큰으로 다시 로그인한다.
-//        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+        //        let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         
         //        let emailPath = documentPath.URLByAppendingPathComponent("email.txt")
         //        let passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
@@ -532,7 +535,7 @@ class LoginVC: UIViewController {
                             if(loginResultJSON["result"].string! == "SUCCESS"){
                                 self.writeMyId(loginResultJSON["id"].int!, myIdPath: self.myIdPath.path!)
                                 self.writeMyListId(loginResultJSON["mylist_id"].int!, listPath: self.myListIdPath.path!)
-//                                print("token 로그인 결과는 = \(loginResultJSON)")
+                                //                                print("token 로그인 결과는 = \(loginResultJSON)")
                                 self.performSegueWithIdentifier("goto_main", sender: self)
                             }
                             else {
@@ -594,5 +597,135 @@ class LoginVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+
+// MARK: Action
+extension LoginVC {
+    func kakaoButtonTapped() -> Void {
+        let session = KOSession.sharedSession()
+        if let s = session {
+            if s.isOpen() {
+                s.close()
+            }
+            s.logoutAndCloseWithCompletionHandler(nil)
+            
+            s.openWithCompletionHandler({ (error) in
+                print("open HAndler 실행됫따")
+                if error != nil {
+                    if s.isOpen() {
+                        self.requestMe()
+                    } else {
+                        print("error")
+                    }
+                } else {
+                    print("requestMe 실행")
+                    self.requestMe()
+                }
+            })
+        } else {
+            
+        }
+    }
+}
+
+
+// MARK: KAKAO
+extension LoginVC {
+    func requestMe(_ displayResult: Bool = false) {
+        KOSessionTask.meTaskWithCompletionHandler { (user, error) in
+            if error != nil {
+                print("Error: \(error)")
+            } else {
+                let id = "\((user as! KOUser).ID)"
+                let nickname = "\((user as! KOUser).properties["nickname"])"
+                print(nickname)
+                self.getConnUser(id, password: id)
+            }
+        }
+    }
+}
+
+
+// MARK: Network
+extension LoginVC {
+    func getConnUser(email: String, password: String) -> Void {
+        let post:NSString = "user[email]=\(email)&user[password]=\(password)&user[password_confirmation]=\(password)"
+        let url:NSURL = NSURL(string: "\(goraebang_url)/api/user")!
+        let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+        
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = postData
+        
+        var signUpResultJSON: JSON!
+        
+        let loginResult = NSURLSession.sharedSession().dataTaskWithRequest(request){
+            data, response, error in
+            if let data = data where error == nil{
+                signUpResultJSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
+                print(signUpResultJSON["result"].string!)
+                if(signUpResultJSON["result"].string! == "SUCCESS"){
+                    print(signUpResultJSON["result"].string!)
+//                    let filemgr = NSFileManager.defaultManager()
+//                    
+//                    let documentPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+//                    
+//                    let emailPath = documentPath.URLByAppendingPathComponent("email.txt")
+//                    let passwordPath = documentPath.URLByAppendingPathComponent("password.txt")
+//                    let tokenPath = documentPath.URLByAppendingPathComponent("token.txt")
+//                
+//                    if filemgr.fileExistsAtPath(emailPath!.path!){
+//                        // 존재한다면 지금 로그인 하는 이메일과 같은지 확인한다.
+//                        if let file: NSFileHandle? = NSFileHandle(forUpdatingAtPath: emailPath!.path!){
+//                            if file == nil{ // 이메일 파일이 빈 경우
+//                                print("email.txt file open failed")
+//                            } else {
+//                                print("email.txt read start")
+//                                file?.seekToFileOffset(0)
+//                                let databuffer = file?.readDataToEndOfFile()
+//                                let databufferstr = NSString(data: databuffer!, encoding: NSUTF8StringEncoding)
+//                                print("이메일 파일이 존재합니다. 비교하기 위해서 read")
+//                                print(databufferstr!)
+//                                
+//                                if(databufferstr! != self.txtUserEmail.text!){ // 지금 로그인하는 유저정보와 다른 경우 전체 업데이트 필요
+//                                    print("로그인 하려는 유저의 정보가 다릅니다. 정보 업데이트 필요.")
+//                                    
+//                                    // 이메일 파일 존재하는 경우 삭제하고 다시 생성
+//                                    self.writeEmail(self.txtUserEmail.text!, emailPath: emailPath!.path!)
+//                                    
+//                                    // 패스워드 파일 존재하는 경우 삭제하고 다시 생성
+//                                    self.writePassword(self.txtPassword.text!, passwordPath: passwordPath!.path!)
+//                                    
+//                                    // 토큰 파일 존재하는 경우 삭제하고 다시 생성
+//                                    self.writeToken(signUpResultJSON["mytoken"].string!, tokenPath: tokenPath!.path!)
+//                                } else {
+//                                    print("로그인 하는 유저가 기존과 같습니다. 토큰 업데이트 필요")
+//                                    self.writeToken(signUpResultJSON["mytoken"].string!, tokenPath: tokenPath!.path!)
+//                                }
+//                                file?.closeFile()
+//                            }
+//                        }
+//                    } else { // emailPath 가 없으면 그냥 생성하면된다.
+//                        print("아무 정보도 없는 경우 생성")
+//                        //                        filemgr.createFileAtPath(emailPath.path!, contents: nil, attributes: nil)
+//                        self.writeEmail(self.txtUserEmail.text!, emailPath: emailPath!.path!)
+//                        self.writePassword(self.txtUserEmail.text!, passwordPath: passwordPath!.path!)
+//                        self.writeToken(signUpResultJSON["mytoken"].string!, tokenPath: tokenPath!.path!)
+//                        
+//                        
+//                    }
+                    
+                } else {
+                    // 실패한 경우 적절한 AlertView
+                }
+            } else {
+                print("error = \(error.debugDescription)")
+                
+            }
+            print("완료 후의 작업")
+        }
+        loginResult.resume()
     }
 }

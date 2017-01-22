@@ -1,0 +1,6 @@
+framework module Pods_Goraebang {
+  umbrella header "Pods-Goraebang-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -9,5 +9,6 @@
 #ifndef Goraebang_Bridging_Header_h
 #define Goraebang_Bridging_Header_h
 
+#import <KakaoOpenSDK/kakaoOpenSDK.h>
 
 #endif /* Goraebang_Bridging_Header_h */

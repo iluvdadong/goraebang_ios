@@ -24,6 +24,8 @@
 		494F3A9E1D42ECAA008B5051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494F3A9C1D42ECAA008B5051 /* Main.storyboard */; };
 		494F3AA01D42ECAA008B5051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494F3A9F1D42ECAA008B5051 /* Assets.xcassets */; };
 		494F3AAB1D42EFB7008B5051 /* HomeTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */; };
+		495992841E348D2D001A80E0 /* Pods_Goraebang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE5272AD49C24C70AD2CC8F /* Pods_Goraebang.framework */; };
+		495992861E348D8D001A80E0 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 495992851E348D8D001A80E0 /* KakaoOpenSDK.framework */; };
 		49676E9B1DD5B60100962A26 /* HomeNewSongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49676E9A1DD5B60100962A26 /* HomeNewSongTableViewController.swift */; };
 		49676E9D1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49676E9C1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift */; };
 		497454AF1D4CB8B5000D520B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497454AE1D4CB8B5000D520B /* LoginVC.swift */; };
@@ -50,20 +52,8 @@
 		49D228741D8E93AF0036746A /* SearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D228731D8E93AF0036746A /* SearchContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		4979E2281D4A17D2003852E6 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		47F689AABB2E4E468D5D5C11 /* Pods-Goraebang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Goraebang.release.xcconfig"; path = "Pods/Target Support Files/Pods-Goraebang/Pods-Goraebang.release.xcconfig"; sourceTree = "<group>"; };
 		490E5F5C1D91524D009BA6A2 /* Goraebang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goraebang-Bridging-Header.h"; sourceTree = "<group>"; };
 		490E5F5D1D915E0E009BA6A2 /* OnSearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSearchContainerViewController.swift; sourceTree = "<group>"; };
 		4914EF3B1D5DDC05007D150A /* HomeChartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChartDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +74,7 @@
 		494F3A9F1D42ECAA008B5051 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		494F3AA41D42ECAA008B5051 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494F3AAA1D42EFB7008B5051 /* HomeTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabController.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
+		495992851E348D8D001A80E0 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoOpenSDK.framework; path = Goraebang/Frameworks/KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		49676E9A1DD5B60100962A26 /* HomeNewSongTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNewSongTableViewController.swift; sourceTree = "<group>"; };
 		49676E9C1DD5B6DD00962A26 /* HomeNewSongTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNewSongTableViewCell.swift; sourceTree = "<group>"; };
 		497454AE1D4CB8B5000D520B /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -108,6 +99,8 @@
 		49C4879A1D94028400F3D46C /* SearchByArtistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchByArtistTableViewController.swift; sourceTree = "<group>"; };
 		49C4879C1D940BB500F3D46C /* SearchByArtistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchByArtistTableViewCell.swift; sourceTree = "<group>"; };
 		49D228731D8E93AF0036746A /* SearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchContainerViewController.swift; sourceTree = "<group>"; };
+		4BE5272AD49C24C70AD2CC8F /* Pods_Goraebang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Goraebang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F6E1B9BE9531B88AEEF4BFF /* Pods-Goraebang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Goraebang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Goraebang/Pods-Goraebang.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				495992861E348D8D001A80E0 /* KakaoOpenSDK.framework in Frameworks */,
+				495992841E348D2D001A80E0 /* Pods_Goraebang.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +157,8 @@
 			children = (
 				494F3A971D42ECAA008B5051 /* Goraebang */,
 				494F3A961D42ECAA008B5051 /* Products */,
+				4967EB371E34855E0034A729 /* Frameworks */,
+				E0E6E1F98F0C47C407957B10 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,6 +183,15 @@
 				490E5F5C1D91524D009BA6A2 /* Goraebang-Bridging-Header.h */,
 			);
 			path = Goraebang;
+			sourceTree = "<group>";
+		};
+		4967EB371E34855E0034A729 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				495992851E348D8D001A80E0 /* KakaoOpenSDK.framework */,
+				4BE5272AD49C24C70AD2CC8F /* Pods_Goraebang.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		49729D501D728EB200E0A855 /* SearchController */ = {
@@ -259,6 +265,15 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		E0E6E1F98F0C47C407957B10 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8F6E1B9BE9531B88AEEF4BFF /* Pods-Goraebang.debug.xcconfig */,
+				47F689AABB2E4E468D5D5C11 /* Pods-Goraebang.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -266,10 +281,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 494F3AA71D42ECAA008B5051 /* Build configuration list for PBXNativeTarget "Goraebang" */;
 			buildPhases = (
+				3D472ABD98CA74B6FC2B8EC5 /* [CP] Check Pods Manifest.lock */,
 				494F3A911D42ECAA008B5051 /* Sources */,
 				494F3A921D42ECAA008B5051 /* Frameworks */,
 				494F3A931D42ECAA008B5051 /* Resources */,
-				4979E2281D4A17D2003852E6 /* Embed Frameworks */,
+				0477FA0368D9837E360918FE /* [CP] Embed Pods Frameworks */,
+				DE2C5AABEAAED11CDBE19283 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -327,6 +344,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0477FA0368D9837E360918FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Goraebang/Pods-Goraebang-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D472ABD98CA74B6FC2B8EC5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DE2C5AABEAAED11CDBE19283 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Goraebang/Pods-Goraebang-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		494F3A911D42ECAA008B5051 /* Sources */ = {
@@ -480,15 +545,20 @@
 		};
 		494F3AA81D42ECAA008B5051 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F6E1B9BE9531B88AEEF4BFF /* Pods-Goraebang.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 23EFP3FERN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Goraebang/Frameworks",
+				);
 				INFOPLIST_FILE = Goraebang/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -501,15 +571,20 @@
 		};
 		494F3AA91D42ECAA008B5051 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47F689AABB2E4E468D5D5C11 /* Pods-Goraebang.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 23EFP3FERN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Goraebang/Frameworks",
+				);
 				INFOPLIST_FILE = Goraebang/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sohn.Goraebang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;

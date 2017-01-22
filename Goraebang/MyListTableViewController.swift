@@ -68,7 +68,6 @@ class MyListTableViewController: UITableViewController {
     
     func getMyList(){
         // Mylist read api
-        
         let post:NSString = "id=\(userInfo.myListId)"
         let turl:NSURL = NSURL(string: "\(goraebang_url)/json/myList_read")!
 
@@ -96,9 +95,7 @@ class MyListTableViewController: UITableViewController {
     
     func getMyListSong(id: Int){
         let post:NSString = "id=\(userInfo.myId)&myList_id=\(id)"
-        
         let url:NSURL = NSURL(string: "\(goraebang_url)/json/mySong_read_1")!
-
         let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
         
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
@@ -153,8 +150,6 @@ class MyListTableViewController: UITableViewController {
         cell.songTitleLabel.font = cell.songTitleLabel.font.fontWithSize(12)
 
         cell.songTitleLabel.text = myListSongs[row]["title"].string
-        
-        
         cell.artistLabel.font = cell.artistLabel.font.fontWithSize(12)
 
         cell.artistLabel.text = myListSongs[row]["artist_name"].string
